@@ -16,6 +16,7 @@ if [ $valid = False ] && [ $valid1 = False ]; then
 fi
 #=======================================================|
 
+
 #VERIFICANDO SOFTWARES INSTALADOS=======================|
 if sudo apt-mark showinstall | grep -q inotify-tools; then
 	inotifyTools=1
@@ -34,15 +35,9 @@ else
 		exit
 	fi
 fi
-
-
 #=======================================================|
 
 
-
-
-#####
-#####
 #CRIANDO BACKUP=========================================|
 
 
@@ -59,21 +54,22 @@ if [ ! -d "$backupDir" ]; then
 	mkdir -p "$backupDir/notifyLog.txt"
 fi
 #=======================================================|
-#####
-#####
+
+
 #MONITORANDO ALTERAÃ‡Ã•ES ALTERAÃ‡ÃƒO NOS ARQUIVOS==========|
+
+maisAntigo=$(find "$backupDir" -type f -exec stat -c "%Y %n" {} + | grep -i "backup_" | sort -n | head -n 1 | awk '{print $2}') 2>/dev/null
+echo "Mais antigo: $maisAntigo"
+qntArq=$(find / -name "backup_*" -type f | wc -l)
+if [ $qntArq -gt 4 ]; then
+	rm -rf $maisAntigo
+fi
+data=$(date +"%Y-%m-%d_%H:%M:%S")
+arqBackup="$backupDir/backup_$data.tar.gz"
+tar -czvf "$arqBackup" "$monitorDir"/*
+echo -e "\n$data\nBackup criado em $arqBackup\n" >>
 
 
 while true; do
-	maisAntigo=$(find "$backupDir" -type f -exec stat -c "%Y %n" {} + | grep -i "backup_" | sort -n | head -n 1 | awk '{print $2}') 2>/dev/null
-	echo "Mais antigo: $maisAntigo"
-	qntArq=$(find / -name "backup_*" -type f | wc -l)
-	if [ $qntArq -gt 4 ]; then
-		rm -rf $maisAntigo
-	fi
-	inotifywait -r -e modify,create,delete,move "$monitorDir" >> "$backupDir/notifyLog.txt"
-	data=$(date +"%Y-%m-%d_%H:%M:%S")
-	arqBackup="$backupDir/backup_$data.tar.gz"
-	tar -czvf "$arqBackup" "$monitorDir"/*
-	echo "Backup criado em $arqBackup"
+	echo $data $(inotifywait -r -e modify,create,delete,move "$monitorDir") >> "$backupDir/notifyLog.txt"
 done
