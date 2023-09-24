@@ -22,10 +22,10 @@ if sudo apt-mark showinstall | grep -q inotify-tools; then
 	inotifyTools=1
 else
 	inotifyTools=0
-	echo -e "Inofy-tools nÃ£o instalado!\n para continuar instale:\n~# sudo apt install inotify-tools"
+	echo -e "Inofy-tools não instalado!\n" 
 	sleep 2
 	echo -e "Deseja instalar?\n"
-	read -p "[S]im | [N]Ã£o: " resp
+	read -p "[S]im | [N]ão: " resp
 	if [ $resp = "S" ] || [ $resp = "s" ]; then
 		echo ""
 		apt update -y
@@ -41,13 +41,13 @@ fi
 #CRIANDO BACKUP=========================================|
 
 
-#Seu diretÃ³rio para backup:
+#Seu diretório para backup:
 backupDir="/backup/"
 
 
-#DiretÃ³rio a ser monitorado:
+#Diretório a ser monitorado:
 monitorDir="/home/"
-#read -p "Informe seu diretÃ³rio a ser monitorado: " monitorDir
+#read -p "Informe seu diretório a ser monitorado: " monitorDir
 
 if [ ! -d "$backupDir" ]; then
 	mkdir -p "$backupDir"
@@ -56,7 +56,7 @@ fi
 #=======================================================|
 
 
-#MONITORANDO ALTERAÃ‡Ã•ES ALTERAÃ‡ÃƒO NOS ARQUIVOS==========|
+#MONITORANDO ALTERAÇÕES NOS ARQUIVOS====================|
 
 maisAntigo=$(find "$backupDir" -type f -exec stat -c "%Y %n" {} + | grep -i "backup_" | sort -n | head -n 1 | awk '{print $2}') 2>/dev/null
 echo "Mais antigo: $maisAntigo"
