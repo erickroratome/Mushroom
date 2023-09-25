@@ -17,33 +17,33 @@ if [ $EUID != 0 ]; then
         valid=False
 fi
 if [ $USER != "root" ]; then
-        valid1=False
+	valid1=False
 fi
 
 if [ $valid = False ] && [ $valid1 = False ]; then
-        echo -e "\nPor favor execute como root...\n"
-        exit
+	echo -e "\nPor favor execute como root...\n"
+	exit
 fi
 #=======================================================|
 
 
 #VERIFICANDO SOFTWARES INSTALADOS=======================|
 if sudo apt-mark showinstall | grep -q inotify-tools; then
-        inotifyTools=1
+	inotifyTools=1
 else
-        inotifyTools=0
-        echo -e "inotify-tools n�o instalado!\n"
-        sleep 2
-        echo -e "Deseja instalar?\n"
-        read -p "[S]im | [N]�o: " resp
-        if [ $resp = "S" ] || [ $resp = "s" ]; then
-                echo ""
-                apt update -y
-                apt-get install inotify-tools -y
-        else
-                echo "Para continuar instale o software!"
-                exit
-        fi
+	inotifyTools=0
+	echo -e "inotify-tools não instalado!\n"
+	sleep 2
+	echo -e "Deseja instalar?\n"
+	read -p "[S]im | [N]ão: " resp
+	if [ $resp = "S" ] || [ $resp = "s" ]; then
+		echo ""
+		apt update -y
+		apt-get install inotify-tools -y
+	else
+		echo "Para continuar instale o software!"
+		exit
+	fi
 fi
 #=======================================================|
 
@@ -51,28 +51,28 @@ fi
 #CRIANDO BACKUP=========================================|
 
 
-#Seu diret�rio para backup:
+#Seu diretório para backup:
 backupDir="/backup/"
 
 
-#Diret�rio a ser monitorado:
+#Diretório a ser monitorado:
 monitorDir="/home/"
-#read -p "Informe seu diret�rio a ser monitorado: " monitorDir
+#read -p "Informe seu diretório a ser monitorado: " monitorDir
 
 if [ ! -d "$backupDir" ]; then
-        mkdir -p "$backupDir"
-        mkdir -p "$backupDir/notifyLog.txt"
+	mkdir -p "$backupDir"
+	mkdir -p "$backupDir/notifyLog.txt"
 fi
 #=======================================================|
 
 
-#MONITORANDO ALTERA��ES NOS ARQUIVOS====================|
+#MONITORANDO ALTERAÇÕES NOS ARQUIVOS====================|
 
 maisAntigo=$(find "$backupDir" -type f -exec stat -c "%Y %n" {} + | grep -i "backup_" | sort -n | head -n 1 | awk '{print $2}') 2>/dev/null
 echo "Mais antigo: $maisAntigo"
 qntArq=$(find / -name "backup_*" -type f | wc -l)
 if [ $qntArq -gt 3 ]; then
-        rm -rf $maisAntigo
+	rm -rf $maisAntigo
 fi
 data=$(date +"%Y-%m-%d_%H:%M:%S")
 arqBackup="$backupDir/backup_$data.tar.gz"
@@ -81,6 +81,6 @@ echo -e "\n$data\nBackup criado em $arqBackup:\n" >> $backupDir/notifyLog.txt
 
 
 while true; do
-        data=$(date +"%Y-%m-%d_%H:%M:%S")
-        echo $data $(inotifywait -r -e modify,create,delete,move "$monitorDir") >> "$backupDir/notifyLog.txt"
+	data=$(date +"%Y-%m-%d_%H:%M:%S")
+	echo $data $(inotifywait -r -e modify,create,delete,move "$monitorDir") >> "$backupDir/notifyLog.txt"
 done
