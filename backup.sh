@@ -7,7 +7,6 @@ echo " _  | |/ _ \/ __|/ _ \ '__| |/ __| |/ / "
 echo "| |_| | (_) \__ \  __/ |  | | (__|   <  "
 echo " \___/ \___/|___/\___|_|  |_|\___|_|\_\ "
 echo ""
-sleep 2
 
 
 #DETECTAR ROOT===========================================|
@@ -23,27 +22,6 @@ fi
 if [ $valid = False ] && [ $valid1 = False ]; then
 	echo -e "\nPor favor execute como root...\n"
 	exit
-fi
-#=======================================================|
-
-
-#VERIFICANDO SOFTWARES INSTALADOS=======================|
-if sudo apt-mark showinstall | grep -q inotify-tools; then
-	inotifyTools=1
-else
-	inotifyTools=0
-	echo -e "inotify-tools não instalado!\n"
-	sleep 2
-	echo -e "Deseja instalar?\n"
-	read -p "[S]im | [N]ão: " resp
-	if [ $resp = "S" ] || [ $resp = "s" ]; then
-		echo ""
-		apt update -y
-		apt-get install inotify-tools -y
-	else
-		echo "Para continuar instale o software!"
-		exit
-	fi
 fi
 #=======================================================|
 
@@ -84,3 +62,6 @@ while true; do
 	data=$(date +"%Y-%m-%d_%H:%M:%S")
 	echo $data $(inotifywait -r -e modify,create,delete,move "$monitorDir") >> "$backupDir/notifyLog.txt"
 done
+
+
+
