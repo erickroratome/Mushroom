@@ -99,7 +99,12 @@ for i in ${usuarios[@]}; do
         chmod 777 /home/$i/Desktop/##a 2>/dev/null
         chmod 777 /home/$i/Videos/##a 2>/dev/null
 
+
         sudo auditctl -w /home/$i/##a -p wa -k mush 2>/dev/null
+        sudo auditctl -w /home/$i/Desktop/##a -p wa -k mush 2>/dev/null
+        sudo auditctl -w /home/$i/Videos/##a -p wa -k mush 2>/dev/null
+        sudo auditctl -w /home/$i/Downloads/##a -p wa -k mush 2>/dev/null
+        sudo auditctl -w /home/$i/Documents/##a -p wa -k mush 2>/dev/null
 done
 #=======================================================|
 
