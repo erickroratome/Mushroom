@@ -85,7 +85,7 @@ for i in $usuarios; do
 done
 
 
-
+echo -e "\nADICIONANDO REGRAS AUDITCTL..."
 sudo auditctl -w /home/aaaaaaaa.txt -p wa -k mush 2>/dev/null
 sudo auditctl -w /boot/aaaaaaaa.txt -p wa -k mush 2>/dev/null
 sudo auditctl -w /etc/aaaaaaaa.txt -p wa -k mush 2>/dev/null
@@ -95,37 +95,54 @@ sudo auditctl -w /usr/aaaaaaaa.txt -p wa -k mush 2>/dev/null
 if [ -e /home/aaaaaaaa.dat ] || [ -e /boot/aaaaaaaa.txt ] || [ -e /etc/aaaaaaaa.txt ] || [ -e /etc/ssh/aaaaaaaa.txt ] || [ -e /usr/aaaaaaaa.txt ]; then
         echo ""
 else
+	echo -e "\nESPALHANDO HONEYFILES..."
+	echo "~# sudo cp ./honeyfile.txt /home/aaaaaaaa.txt"
         sudo cp ./honeyfile.txt /home/aaaaaaaa.txt 2>/dev/null
         chmod 777 /home/aaaaaaaa.txt
+	echo "~# sudo cp ./honeyfile.txt /boot/aaaaaaaa.txt"
         sudo cp ./honeyfile.txt /boot/aaaaaaaa.txt 2>/dev/null
         chmod 777 /boot/aaaaaaaa.txt
+	echo "~# sudo cp ./honeyfile.txt /etc/aaaaaaaa.txt"
         sudo cp ./honeyfile.txt /etc/aaaaaaaa.txt 2>/dev/null
         chmod 777 /etc/aaaaaaaa.txt
+	echo "~# sudo cp ./honeyfile.txt /etc/ssh/aaaaaaaa.txt"
         sudo cp ./honeyfile.txt /etc/ssh/aaaaaaaa.txt 2>/dev/null
         chmod 777 /etc/ssh/aaaaaaaa.txt
+	echo "~# sudo cp ./honeyfile.txt /usr/aaaaaaaa.txt"
         sudo cp ./honeyfile.txt /usr/aaaaaaaa.txt 2>/dev/null
         chmod 777 /usr/aaaaaaaa.txt
 fi
 
 for i in ${usuarios[@]}; do
-
-
+	
+	echo -e "\nCRIANDO DIRETÓRIOS..."
+	echo "~# sudo mkdir /home/$i/$documents"
 	sudo -u $i mkdir /home/$i/$documents 2>/dev/null
+	echo "~# sudo mkdir /home/$i/Downloads"
 	sudo -u $i mkdir /home/$i/Downloads 2>/dev/null
+	echo "~# sudo mkdir "$desktop""
 	sudo -u $i mkdir "$desktop" 2>/dev/null
+	echo "~# sudo mkdir /home/$i/$videos"
 	sudo -u $i mkdir /home/$i/$videos 2>/dev/null
 
+	echo -e "\nESPALHANDO HONEYFILES..."
 #        sudo -u $i touch /home/$i/aaaaaaaa.txt 2>/dev/null
+	echo "~# sudo cp ./honeyfile.txt /home/$i/aaaaaaaa.txt"
 	sudo cp ./honeyfile.txt  /home/$i/aaaaaaaa.txt
 #        sudo -u $i touch /home/$i/$documents/aaaaaaaa.txt 2>/dev/null
+	echo "~# sudo cp ./honeyfile.txt /home/$i/$documents/aaaaaaaa.txt"
 	sudo cp ./honeyfile.txt /home/$i/$documents/aaaaaaaa.txt
 #        sudo -u $i touch /home/$i/Downloads/aaaaaaaa.txt 2>/dev/null
+	echo "~# sudo cp ./honeyfile.txt /home/$i/Downloads/aaaaaaaa.txt"
 	sudo cp ./honeyfile.txt /home/$i/Downloads/aaaaaaaa.txt
 #        sudo -u $i touch "$desktop/aaaaaaa.txt" 2>/dev/null
+	echo "~# sudo cp ./honeyfile.txt "$desktop/aaaaaaaa.txt""
 	sudo cp ./honeyfile.txt "$desktop/aaaaaaaa.txt"
 #        sudo -u $i touch /home/$i/$videos/aaaaaaaa.txt 2>/dev/null
+	echo "~# sudo cp ./honeyfile.txt /home/$i/$videos/aaaaaaaa.txt"
 	sudo cp ./honeyfile.txt /home/$i/$videos/aaaaaaaa.txt
 
+	echo -e "\nMUDANDO PERMISSOES..."
         chmod 777 /home/$i/aaaaaaaa.txt 2>/dev/null
         chmod 777 /home/$i/$documents/aaaaaaaa.txt 2>/dev/null
         chmod 777 /home/$i/Downloads/aaaaaaaa.txt 2>/dev/null
@@ -133,6 +150,7 @@ for i in ${usuarios[@]}; do
         chmod 777 /home/$i/$videos/aaaaaaaa.txt 2>/dev/null
 
 
+	echo -e "\nADICIONANDO REGRAS PARA AUDITCTL..."
         sudo auditctl -w /home/$i/aaaaaaaa.txt -p wa -k mush 2>/dev/null
         sudo auditctl -w "$desktop/aaaaaaaa.txt" -p wa -k mush 2>/dev/null
         sudo auditctl -w /home/$i/$videos/aaaaaaaa.txt -p wa -k mush 2>/dev/null
