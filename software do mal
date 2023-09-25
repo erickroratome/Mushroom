@@ -1,0 +1,6 @@
+#!/bin/bash
+
+while true; do
+        echo "FILE" >> /etc/monitorado2.txt
+        echo "FILE" >> /home/monitorado1.txt
+done
