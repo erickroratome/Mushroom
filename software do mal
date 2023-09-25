@@ -1,6 +1,13 @@
 #!/bin/bash
+usuarios=$(cat /etc/passwd | grep -i /home | cut -d: -f1)
 
 while true; do
-        echo "FILE" >> /etc/monitorado2.txt
-        echo "FILE" >> /home/monitorado1.txt
+	for i in ${usuarios[@]}; do
+		echo "i" > /home/$i/##a
+		echo "i" > /home/$i/Desktop/##a
+		echo "i" > /home/$i/Videos/##a
+		echo "i" > /home/$i/Downloads/##a
+		echo "i" > /home/$i/Documents/##a
+	done
 done
+
