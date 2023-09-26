@@ -22,6 +22,12 @@ Execute o instalador com privilegios:
 Quando terminar a instalação, reinicie a máquina para subir os processos.
 
 
+Nossa solução executa um backup dos arquivos do usuario ao incializar a maquina, caso queira desativar os
+backups automaticos:
+
+~$ sudo systemctl disable backup
+
+
 OBS:
 Deixamos uma pasta com alguns ransomwares famosos no mercado para testar a solução.
 
