@@ -95,10 +95,10 @@ fi
 
 #CHECANDO O ARQUIVOS====================================|
 echo "CHECANDO ARQUIVOS..."
-if [ -e ./challenge.sh ] || [ -e ./backup.sh ] || [ -e ./instalador.sh ] || [ -e ./honeyfile.zip ] || [ -e ./challenge.service ] || [ -e ./backup.service ] || [ -e ./flushlog.sh ] || [ -e ./flushlog.service ]; then
+if [ -e ./challenge.sh ] && [ -e ./backup.sh ] && [ -e ./instalador.sh ] && [ -e ./honeyfile.zip ] && [ -e ./challenge.service ] && [ -e ./backup.service ] && [ -e ./flushlog.sh ] && [ -e ./flushlog.service ]; then
 	echo "Ok."
 else
-	echo "FALTANDO ARQUIVOS CRUCIAIS..."
+	echo "FALTANDO ARQUIVOS CRUCIAIS PARA O FUNCIONAMENTO DO SISTEMA..." > ./mushlog.txt
 	echo "exit..."
 	exit
 fi
@@ -257,34 +257,34 @@ sudo auditctl -w /boot/aaaaaaaa.txt -p wa -k mush 2>/dev/null
 sudo auditctl -w /etc/aaaaaaaa.txt -p wa -k mush 2>/dev/null
 sudo auditctl -w /usr/aaaaaaaa.txt -p wa -k mush 2>/dev/null
 
-if [ -e /home/aaaaaaaa.dat ] || [ -e /boot/aaaaaaaa.txt ] || [ -e /etc/aaaaaaaa.txt ] || [ -e /usr/aaaaaaaa.txt ]; then
+if [ -e /home/aaaaaaaa.dat ] && [ -e /boot/aaaaaaaa.txt ] && [ -e /etc/aaaaaaaa.txt ] && [ -e /usr/aaaaaaaa.txt ]; then
         echo ""
 else
 	echo -e "\nESPALHANDO HONEYFILES..."
 	
 	sudo touch /home/aaaaaaaa.txt
-	if [ -e /home/aaaaaaaaa.txt ] || [ $(stat -c %s /home/aaaaaaaa.txt) != 578394351 ]; then
+	if [ -e /home/aaaaaaaaa.txt ] && [ $(stat -c %s /home/aaaaaaaa.txt) != 578394351 ]; then
 		echo "~# sudo cp ./honeyfile.txt /home/aaaaaaaa.txt"
         	sudo cp ./honeyfile.txt /home/aaaaaaaa.txt 2>/dev/null
         	chmod 777 /home/aaaaaaaa.txt
 	fi
 	
 	sudo touch /boot/aaaaaaaa.txt
-	if [ -e /boot/aaaaaaaaa.txt ] || [ $(stat -c %s /boot/aaaaaaaa.txt) != 578394351 ]; then
+	if [ -e /boot/aaaaaaaaa.txt ] && [ $(stat -c %s /boot/aaaaaaaa.txt) != 578394351 ]; then
 		echo "~# sudo cp ./honeyfile.txt /boot/aaaaaaaa.txt"
         	sudo cp ./honeyfile.txt /boot/aaaaaaaa.txt 2>/dev/null
         	chmod 777 /boot/aaaaaaaa.txt
 	fi
 	
 	sudo touch /etc/aaaaaaaa.txt
-	if [ -e /etc/aaaaaaaaa.txt ] || [ $(stat -c %s /etc/aaaaaaaa.txt) != 578394351 ]; then
+	if [ -e /etc/aaaaaaaaa.txt ] && [ $(stat -c %s /etc/aaaaaaaa.txt) != 578394351 ]; then
 		echo "~# sudo cp ./honeyfile.txt /etc/aaaaaaaa.txt"
         	sudo cp ./honeyfile.txt /etc/aaaaaaaa.txt 2>/dev/null
         	chmod 777 /etc/aaaaaaaa.txt
 	fi
 	
 	sudo touch /usr/aaaaaaaa.txt
-	if [ -e /usr/aaaaaaaaa.txt ] || [ $(stat -c %s /usr/aaaaaaaa.txt) != 578394351 ]; then
+	if [ -e /usr/aaaaaaaaa.txt ] && [ $(stat -c %s /usr/aaaaaaaa.txt) != 578394351 ]; then
 		echo "~# sudo cp ./honeyfile.txt /usr/aaaaaaaa.txt"
 	        sudo cp ./honeyfile.txt /usr/aaaaaaaa.txt 2>/dev/null
 	        chmod 777 /usr/aaaaaaaa.txt
