@@ -6,7 +6,7 @@ No seu terminal linux baixe os arquivos necessários com git clone:
 
 ~$ git clone https://github.com/erickroratome/Mushroom.git
 
-Caso o git não estaja instalado:
+Caso o git não esteja instalado:
 
 ~$ sudo apt install git
 
