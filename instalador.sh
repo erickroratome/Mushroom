@@ -40,10 +40,10 @@ if sudo apt-mark showinstall | grep -q inotify-tools; then
 	inotifyTools=1
 else
 	inotifyTools=0
-	echo -e "inotify-tools nÃ£o instalado!\n"
+	echo -e "inotify-tools não instalado!\n"
 	sleep 2
 	echo -e "Deseja instalar?\n"
-	read -p "[S]im | [N]Ã£o: " resp2
+	read -p "[S]im | [N]ão: " resp2
 	if [ $resp2 = "S" ] || [ $resp2 = "s" ]; then
 		echo ""
 		apt update -y
@@ -202,14 +202,14 @@ usuarios=$(cat /etc/passwd | grep -i /home | cut -d: -f1)
 
 for i in $usuarios; do
 
-	if [ -d "/home/$i/Ãrea de Trabalho" ]; then
-		desktop="/home/$i/Ãrea de Trabalho"
+	if [ -d "/home/$i/Área de Trabalho" ]; then
+		desktop="/home/$i/Área de Trabalho"
 	else
 		desktop="/home/$i/Desktop"
 	fi
 
-	if [ -d "/home/$i/VÃ­deos" ]; then
-		videos="VÃ­deos"
+	if [ -d "/home/$i/Vídeos" ]; then
+		videos="Vídeos"
 	else
 		videos="Videos"
 	fi
@@ -264,7 +264,7 @@ fi
 
 for i in ${usuarios[@]}; do
 	
-	echo -e "\nCRIANDO DIRETÃ“RIOS..."
+	echo -e "\nCRIANDO DIRETÓRIOS..."
 	echo "~# sudo mkdir /home/$i/$documents"
 	sudo -u $i mkdir /home/$i/$documents 2>/dev/null
 	echo "~# sudo mkdir /home/$i/Downloads"
@@ -322,3 +322,4 @@ for i in ${usuarios[@]}; do
 done
 
 #=======================================================|
+
