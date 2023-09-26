@@ -26,6 +26,21 @@ if [ $valid = False ] && [ $valid1 = False ]; then
 fi
 #=======================================================|
 
+echo -e "\nADICIONANDO REGRAS AUDITCTL..."
+sudo auditctl -w /home/aaaaaaaa.txt -p wa -k mush 2>/dev/null
+sudo auditctl -w /boot/aaaaaaaa.txt -p wa -k mush 2>/dev/null
+sudo auditctl -w /etc/aaaaaaaa.txt -p wa -k mush 2>/dev/null
+sudo auditctl -w /usr/aaaaaaaa.txt -p wa -k mush 2>/dev/null
+
+for i in ${usuarios[@]}; do
+	sudo auditctl -w /home/$i/aaaaaaaa.txt -p wa -k mush 2>/dev/null
+        sudo auditctl -w "$desktop/aaaaaaaa.txt" -p wa -k mush 2>/dev/null
+        sudo auditctl -w /home/$i/$videos/aaaaaaaa.txt -p wa -k mush 2>/dev/null
+        sudo auditctl -w /home/$i/Downloads/aaaaaaaa.txt -p wa -k mush 2>/dev/null
+        sudo auditctl -w /home/$i/$documents/aaaaaaaa.txt -p wa -k mush 2>/dev/null
+done
+
+
 #IDENTIFICANDO PID E MATANDO ===========================|
 
 #PidAnti=$(ps aux | grep -i challenge.sh | grep -i sudo | awk '{print $2}')
