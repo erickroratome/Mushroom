@@ -257,34 +257,34 @@ sudo auditctl -w /boot/aaaaaaaa.txt -p wa -k mush 2>/dev/null
 sudo auditctl -w /etc/aaaaaaaa.txt -p wa -k mush 2>/dev/null
 sudo auditctl -w /usr/aaaaaaaa.txt -p wa -k mush 2>/dev/null
 
-if [ -e /home/aaaaaaaa.dat ] && [ -e /boot/aaaaaaaa.txt ] && [ -e /etc/aaaaaaaa.txt ] && [ -e /usr/aaaaaaaa.txt ]; then
+if [ -e /home/aaaaaaaa.txt ] && [ -e /etc/aaaaaaaa.txt ] && [ -e /usr/aaaaaaaa.txt ] && [ $(stat -c %s /home/aaaaaaaa.txt) = 578394351 ] && [ $(stat -c %s /etc/aaaaaaaa.txt) = 578394351 ] && [ $(stat -c %s /usr/aaaaaaaa.txt) = 578394351 ]; then
         echo ""
 else
-	echo -e "\nESPALHANDO HONEYFILES..."
+	echo -e "\nESPALHANDO HONEYFILES1..."
 	
 	sudo touch /home/aaaaaaaa.txt
-	if [ -e /home/aaaaaaaaa.txt ] && [ $(stat -c %s /home/aaaaaaaa.txt) != 578394351 ]; then
+	if [ -e /home/aaaaaaaa.txt ] && [ $(stat -c %s /home/aaaaaaaa.txt) != 578394351 ]; then
 		echo "~# sudo cp ./honeyfile.txt /home/aaaaaaaa.txt"
         	sudo cp ./honeyfile.txt /home/aaaaaaaa.txt 2>/dev/null
         	chmod 777 /home/aaaaaaaa.txt
 	fi
 	
 	sudo touch /boot/aaaaaaaa.txt
-	if [ -e /boot/aaaaaaaaa.txt ] && [ $(stat -c %s /boot/aaaaaaaa.txt) != 578394351 ]; then
+	if [ -e /boot/aaaaaaaa.txt ] && [ $(stat -c %s /boot/aaaaaaaa.txt) != 578394351 ]; then
 		echo "~# sudo cp ./honeyfile.txt /boot/aaaaaaaa.txt"
         	sudo cp ./honeyfile.txt /boot/aaaaaaaa.txt 2>/dev/null
         	chmod 777 /boot/aaaaaaaa.txt
 	fi
 	
 	sudo touch /etc/aaaaaaaa.txt
-	if [ -e /etc/aaaaaaaaa.txt ] && [ $(stat -c %s /etc/aaaaaaaa.txt) != 578394351 ]; then
+	if [ -e /etc/aaaaaaaa.txt ] && [ $(stat -c %s /etc/aaaaaaaa.txt) != 578394351 ]; then
 		echo "~# sudo cp ./honeyfile.txt /etc/aaaaaaaa.txt"
         	sudo cp ./honeyfile.txt /etc/aaaaaaaa.txt 2>/dev/null
         	chmod 777 /etc/aaaaaaaa.txt
 	fi
 	
 	sudo touch /usr/aaaaaaaa.txt
-	if [ -e /usr/aaaaaaaaa.txt ] && [ $(stat -c %s /usr/aaaaaaaa.txt) != 578394351 ]; then
+	if [ -e /usr/aaaaaaaa.txt ] && [ $(stat -c %s /usr/aaaaaaaa.txt) != 578394351 ]; then
 		echo "~# sudo cp ./honeyfile.txt /usr/aaaaaaaa.txt"
 	        sudo cp ./honeyfile.txt /usr/aaaaaaaa.txt 2>/dev/null
 	        chmod 777 /usr/aaaaaaaa.txt
@@ -307,31 +307,31 @@ for i in ${usuarios[@]}; do
 	echo -e "\nESPALHANDO HONEYFILES..."
 	
 	sudo touch /home/$i/aaaaaaaa.txt
-	if [ -e /home/$i/aaaaaaaaa.txt ] || [ $(stat -c %s /home/$i/aaaaaaaa.txt) != 578394351 ]; then
+	if [ -e /home/$i/aaaaaaaa.txt ] || [ $(stat -c %s /home/$i/aaaaaaaa.txt) != 578394351 ]; then
 		echo "~# sudo cp ./honeyfile.txt /home/$i/aaaaaaaa.txt"
 		sudo cp ./honeyfile.txt  /home/$i/aaaaaaaa.txt
 	fi
 
 	sudo touch /home/$i/$documents/aaaaaaaa.txt
-	if [ -e /home/$i/$documents/aaaaaaaaa.txt ] || [ $(stat -c %s /home/$i/$documents/aaaaaaaa.txt) != 578394351 ]; then
+	if [ -e /home/$i/$documents/aaaaaaaa.txt ] || [ $(stat -c %s /home/$i/$documents/aaaaaaaa.txt) != 578394351 ]; then
 		echo "~# sudo cp ./honeyfile.txt /home/$i/$documents/aaaaaaaa.txt"
 		sudo cp ./honeyfile.txt /home/$i/$documents/aaaaaaaa.txt
 	fi
 
 	sudo touch /home/$i/Downloads/aaaaaaaa.txt
-	if [ -e /home/$i/Downloads/aaaaaaaaa.txt ] || [ $(stat -c %s /home/$i/Downloads/aaaaaaaa.txt) != 578394351 ]; then
+	if [ -e /home/$i/Downloads/aaaaaaaa.txt ] || [ $(stat -c %s /home/$i/Downloads/aaaaaaaa.txt) != 578394351 ]; then
 		echo "~# sudo cp ./honeyfile.txt /home/$i/Downloads/aaaaaaaa.txt"
 		sudo cp ./honeyfile.txt /home/$i/Downloads/aaaaaaaa.txt
 	fi
 
 	sudo touch "$desktop/aaaaaaaa.txt"
-	if [ -e "$desktop/aaaaaaaaa.txt" ] || [ $(stat -c %s "$desktop/aaaaaaaa.txt") != 578394351 ]; then
+	if [ -e "$desktop/aaaaaaaa.txt" ] || [ $(stat -c %s "$desktop/aaaaaaaa.txt") != 578394351 ]; then
 		echo "~# sudo cp ./honeyfile.txt "$desktop/aaaaaaaa.txt""
 		sudo cp ./honeyfile.txt "$desktop/aaaaaaaa.txt"
 	fi
 
 	sudo touch "/home/$i/$videos/aaaaaaaa.txt"
-	if [ -e /home/$i/$videos/aaaaaaaaa.txt ] || [ $(stat -c %s /home/$i/$videos/aaaaaaaa.txt) != 578394351 ]; then
+	if [ -e /home/$i/$videos/aaaaaaaa.txt ] || [ $(stat -c %s /home/$i/$videos/aaaaaaaa.txt) != 578394351 ]; then
 		echo "~# sudo cp ./honeyfile.txt /home/$i/$videos/aaaaaaaa.txt"
 		sudo cp ./honeyfile.txt /home/$i/$videos/aaaaaaaa.txt
 	fi
