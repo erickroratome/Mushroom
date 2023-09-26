@@ -22,13 +22,22 @@ Execute o instalador com privilegios:
 Quando terminar a instalação, reinicie a máquina para subir os processos.
 
 
-Nossa solução executa um backup dos arquivos do usuario ao incializar a maquina, caso queira desativar os
-backups automaticos:
+Nossa solução executa um backup dos arquivos do usuario ao incializar a maquina que ficam
+armazenados em /backup, caso queira desativar os backups automaticos:
 
 ~$ sudo systemctl disable backup
 
 
 OBS:
-Deixamos uma pasta com alguns ransomwares famosos no mercado para testar a solução.
+Deixamos uma pasta com alguns ransomwares famosos no mercado para testar a solução (OBS: Aconselho testar apenas em VMs!).
 
 para evitar problemas o .zip está com protejido com senha: "infected"
+
+Se quiser extrair pelo terminal:
+~# unzip -p infected ./Mushroom/RANSOMWARE
+ou
+~# 7z -x ./Mushroom/RANSOMWARE
+
+para instalar o 7zip:
+~# sudo apt install p7zip-full
+
