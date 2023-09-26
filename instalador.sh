@@ -53,7 +53,7 @@ else
 		exit
 	fi
 fi
-
+#
 if sudo apt-mark showinstall | grep -q zip; then
 	zip=1
 else
@@ -66,6 +66,24 @@ else
 		echo ""
 		apt update -y
 		apt-get install zip -y
+	else
+		echo "Para continuar instale o software!"
+		exit
+	fi
+fi
+#
+if sudo apt-mark showinstall | grep -q wget; then
+	wget=1
+else
+	wget=0
+	echo -e "wget nao instalado!\n"
+	sleep 2
+	echo -e "Deseja instalar?\n"
+	read -p "[S]im | [N]ao: " resp3
+	if [ $resp3 = "S" ] || [ $resp3 = "s" ]; then
+		echo ""
+		apt update -y
+		apt-get install wget -y
 	else
 		echo "Para continuar instale o software!"
 		exit
@@ -89,14 +107,26 @@ fi
 
 #DESCOMPACTANDO .ZIP====================================|
 
-if [ -e ./honeyfile.txt ]; then
-	echo ""
-else
-	echo -e "\n\nDESCOMPACTANDO .ZIP ..."
-	echo "~# unzip ./honeyfile.zip"
-	unzip ./honeyfile.zip
-fi
+descompactar() {
 
+	if [ -e ./honeyfile.txt ] && [ $(stat -c %s ./honeyfile.txt) = 578394351 ]; then
+		echo ""
+	else
+		if [ -e ./honeyfile.zip ] && [ $(stat -c %s ./honeyfile.zip) = 1962742 ]; then
+			echo ""
+		else
+			if [ -e ./honeyfile.zip ]; then
+				rm -rf ./honeyfile.zip
+			fi		
+			wget https://github.com/erickroratome/Mushroom/raw/main/honeyfile.zip
+			sudo -u root chmod 444 ./honeyfile.zip
+		fi
+		echo -e "\n\nDESCOMPACTANDO .ZIP ..."
+		echo "~# unzip -o ./honeyfile.zip"
+		unzip -o ./honeyfile.zip
+	fi
+}
+descompactar
 #=======================================================|
 
 #ALTERANDO PERMISSOES===================================|
@@ -182,7 +212,7 @@ sudo cp ./flushlog.service /etc/systemd/system/
 
 
 #HABILITANDO .SERVICES==================================|
-echo "HABILITANDO .SERVICES..."
+echo -e "\nHABILITANDO .SERVICES..."
 
 echo "~# sudo systemctl daemon-reload"
 sudo systemctl daemon-reload
