@@ -39,7 +39,7 @@ while true; do
         if [ $i = "$PidAnti" ] || [ $i = "$PidAnti2" ]; then
                 echo ""
         else
-	    sudo echo "" > /var/log/audit/audit.log
+#	    sudo echo "" > /var/log/audit/audit.log
             echo "PID: $i"
 	    kill -9 "$i" 2>/dev/null
             echo -e "\n\n$i: PID Cancelado!"
