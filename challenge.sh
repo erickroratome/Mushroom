@@ -32,6 +32,8 @@ sudo auditctl -w /boot/aaaaaaaa.txt -p wa -k mush 2>/dev/null
 sudo auditctl -w /etc/aaaaaaaa.txt -p wa -k mush 2>/dev/null
 sudo auditctl -w /usr/aaaaaaaa.txt -p wa -k mush 2>/dev/null
 
+usuarios=$(cat /etc/passwd | grep -i /home | cut -d: -f1)
+
 for i in ${usuarios[@]}; do
         sudo auditctl -w /home/$i/aaaaaaaa.txt -p wa -k mush 2>/dev/null
         sudo auditctl -w "$desktop/aaaaaaaa.txt" -p wa -k mush 2>/dev/null
