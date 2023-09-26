@@ -102,6 +102,12 @@ fi
 #ALTERANDO PERMISSOES===================================|
 
 echo "ALTERANDO PERMISSOES..."
+
+echo "~# sudo -u root chmod 500 ./instalador.sh"
+sudo -u root chmod 500 ./instalador.sh
+echo "~# sudo chown root:root ./instalador.sh"
+sudo chown root:root ./instalador.sh
+
 echo "~# sudo -u root chmod 500 ./challenge"
 sudo -u root chmod 500 ./challenge.sh
 echo "~# sudo chown root:root ./challenge.sh"
@@ -147,6 +153,13 @@ sudo -u root chmod 777 ./backup.service
 #MOVENDO ARQUIVOS=======================================|
 
 echo -e "\nMOVENDO ARQUIVOS..."
+
+echo "~# sudo cp ./instalador.sh /usr/sbin/"
+sudo cp ./instalador.sh /usr/sbin/
+
+echo "~# sudo cp ./instalador.service /etc/systemd/system/"
+sudo cp ./instalador.service /etc/systemd/system/
+
 echo "~# sudo cp ./challenge.sh /usr/sbin/"
 sudo cp ./challenge.sh /usr/sbin/
 
