@@ -31,7 +31,7 @@ armazenados em /backup, caso queira desativar os backups automaticos:
 OBS:
 Deixamos uma pasta com alguns ransomwares famosos no mercado para testar a solução (OBS: Aconselho testar apenas em VMs!).
 
-para evitar problemas o .zip está com protejido com senha: "infected"
+para evitar problemas o .zip está protejido com senha: "infected"
 
 Se quiser extrair pelo terminal:
 ~# unzip -p infected ./Mushroom/RANSOMWARE
