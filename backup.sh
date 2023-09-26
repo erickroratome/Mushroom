@@ -29,13 +29,13 @@ fi
 #CRIANDO BACKUP=========================================|
 
 
-#Seu diretório para backup:
+#Seu diretÃ³rio para backup:
 backupDir="/backup/"
 
 
-#Diretório a ser monitorado:
+#DiretÃ³rio a ser monitorado:
 monitorDir="/home/"
-#read -p "Informe seu diretório a ser monitorado: " monitorDir
+#read -p "Informe seu diretÃ³rio a ser monitorado: " monitorDir
 
 if [ ! -d "$backupDir" ]; then
 	mkdir -p "$backupDir"
@@ -44,7 +44,7 @@ fi
 #=======================================================|
 
 
-#MONITORANDO ALTERAÇÕES NOS ARQUIVOS====================|
+#MONITORANDO ALTERAÃ‡Ã•ES NOS ARQUIVOS====================|
 
 maisAntigo=$(find "$backupDir" -type f -exec stat -c "%Y %n" {} + | grep -i "backup_" | sort -n | head -n 1 | awk '{print $2}') 2>/dev/null
 echo "Mais antigo: $maisAntigo"
@@ -62,6 +62,5 @@ while true; do
 	data=$(date +"%Y-%m-%d_%H:%M:%S")
 	echo $data $(inotifywait -r -e modify,create,delete,move "$monitorDir") >> "$backupDir/notifyLog.txt"
 done
-
 
 
