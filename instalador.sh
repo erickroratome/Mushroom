@@ -167,6 +167,20 @@ sudo cp ./flushlog.service /etc/systemd/system/
 
 #=======================================================|
 
+
+#HABILITANDO .SERVICES==================================|
+echo "HABILITANDO .SERVICES..."
+
+echo "~# sudo systemctl daemon-reload"
+sudo systemctl daemon-reload
+echo "~# sudo systemctl enable challenge.service"
+sudo systemctl enable challenge.service
+echo "~# sudo systemctl enable backup.service"
+sudo systemctl enable backup.service
+echo "~# sudo systemctl enable flushlog.service"
+sudo systemctl enable flushlog.service
+
+
 #CRIANDO ARQUIVOS HONEYFILE=============================|
 
 
