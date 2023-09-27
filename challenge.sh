@@ -42,24 +42,17 @@ for i in ${usuarios[@]}; do
         sudo auditctl -w /home/$i/$documents/aaaaaaaa.txt -p wa -k mush 2>/dev/null
 done
 
-#IDENTIFICANDO PID E MATANDO ===========================|
-
-#PidAnti=$(ps aux | grep -i challenge.sh | grep -i sudo | awk '{print $2}')
-#echo "PidAnti: $PidAnti"
-PidAnti2=$(ps aux | grep -i challenge.sh | grep -i bash | awk '{print $2}')
-echo "PidAnti2: $PidAnti2"
+#IDENTIFICANDO RANSOMWARE E MATANDO ===========================|
 
 while true; do
       PID=$(sudo ausearch -k mush | grep -i ppid | tail -n 1 | grep -o 'pid=[0-9]*' | awk -F'=' '{print $2}')
-      for i in $PID; do
-        if [ $i = "$PidAnti" ] || [ $i = "$PidAnti2" ]; then
-                echo ""
-        else
-#	    sudo echo "" > /var/log/audit/audit.log
-            echo "PID: $i"
-	    kill -9 "$i" 2>/dev/null
-            echo -e "\n\n$i: PID Cancelado!"
-        fi
-      done
-   #sleep 0.2
-  done
+      if [ -e "./SINALIZADOR.dat" ]; then
+		nada="nada"
+      else	
+		for i in $PID; do
+         	    echo "PID: $i"
+		    kill -9 "$i" 2>/dev/null
+	            echo -e "\n\n$i: PID Cancelado!"
+	    	done
+      fi
+done

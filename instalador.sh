@@ -257,29 +257,31 @@ sudo -u root chmod 777 ./backup.service
 
 echo -e "\nMOVENDO ARQUIVOS..."
 
-echo "~# sudo cp ./instalador.sh /usr/sbin/"
-sudo cp ./instalador.sh /usr/sbin/
+touch ./SINALIZADOR.dat
+echo "~# cp ./instalador.sh /usr/sbin/"
+cp ./instalador.sh /usr/sbin/
 
-echo "~# sudo cp ./instalador.service /etc/systemd/system/"
-sudo cp ./instalador.service /etc/systemd/system/
+echo "~# cp ./instalador.service /etc/systemd/system/"
+cp ./instalador.service /etc/systemd/system/
 
-echo "~# sudo cp ./challenge.sh /usr/sbin/"
-sudo cp ./challenge.sh /usr/sbin/
+echo "~# cp ./challenge.sh /usr/sbin/"
+cp ./challenge.sh /usr/sbin/
 
-echo "~# sudo cp ./challenge.service /etc/systemd/system/"
-sudo cp ./challenge.service /etc/systemd/system/
+echo "~# cp ./challenge.service /etc/systemd/system/"
+cp ./challenge.service /etc/systemd/system/
 
-echo "~# sudo cp ./backup.sh /usr/sbin/"
-sudo cp ./backup.sh /usr/sbin/
+echo "~# cp ./backup.sh /usr/sbin/"
+cp ./backup.sh /usr/sbin/
 
-echo "~# sudo cp ./backup.service /etc/systemd/system/"
-sudo cp ./backup.service /etc/systemd/system/
+echo "~# cp ./backup.service /etc/systemd/system/"
+cp ./backup.service /etc/systemd/system/
 
-echo "~# sudo cp ./flushlog.sh /usr/sbin/"
-sudo cp ./flushlog.sh /usr/sbin/
+echo "~# cp ./flushlog.sh /usr/sbin/"
+cp ./flushlog.sh /usr/sbin/
 
-echo "~# sudo cp ./flushlog.service /etc/systemd/system/"
-sudo cp ./flushlog.service /etc/systemd/system/
+echo "~# cp ./flushlog.service /etc/systemd/system/"
+cp ./flushlog.service /etc/systemd/system/
+rm -rf ./SINALIZADOR.dat
 
 #=======================================================|
 
@@ -335,33 +337,35 @@ if [ -e /home/aaaaaaaa.txt ] && [ -e /etc/aaaaaaaa.txt ] && [ -e /usr/aaaaaaaa.t
 else
 	echo -e "\nESPALHANDO HONEYFILES1..."
 	
+	touch ./SINALIZADOR.dat
 	sudo touch /home/aaaaaaaa.txt
 	if [ $(stat -c %s /home/aaaaaaaa.txt) != 578394351 ]; then
-		echo "~# sudo cp ./honeyfile.txt /home/aaaaaaaa.txt"
-        	sudo cp ./honeyfile.txt /home/aaaaaaaa.txt 2>/dev/null
+		echo "~# cp ./honeyfile.txt /home/aaaaaaaa.txt"
+        	cp ./honeyfile.txt /home/aaaaaaaa.txt 2>/dev/null
         	chmod 777 /home/aaaaaaaa.txt
 	fi
 	
 	sudo touch /boot/aaaaaaaa.txt
 	if [ $(stat -c %s /boot/aaaaaaaa.txt) != 578394351 ]; then
-		echo "~# sudo cp ./honeyfile.txt /boot/aaaaaaaa.txt"
-        	sudo cp ./honeyfile.txt /boot/aaaaaaaa.txt 2>/dev/null
+		echo "~# cp ./honeyfile.txt /boot/aaaaaaaa.txt"
+        	cp ./honeyfile.txt /boot/aaaaaaaa.txt 2>/dev/null
         	chmod 777 /boot/aaaaaaaa.txt
 	fi
 	
 	sudo touch /etc/aaaaaaaa.txt
 	if [ $(stat -c %s /etc/aaaaaaaa.txt) != 578394351 ]; then
-		echo "~# sudo cp ./honeyfile.txt /etc/aaaaaaaa.txt"
-        	sudo cp ./honeyfile.txt /etc/aaaaaaaa.txt 2>/dev/null
+		echo "~# cp ./honeyfile.txt /etc/aaaaaaaa.txt"
+        	cp ./honeyfile.txt /etc/aaaaaaaa.txt 2>/dev/null
         	chmod 777 /etc/aaaaaaaa.txt
 	fi
 	
 	sudo touch /usr/aaaaaaaa.txt
 	if [ $(stat -c %s /usr/aaaaaaaa.txt) != 578394351 ]; then
-		echo "~# sudo cp ./honeyfile.txt /usr/aaaaaaaa.txt"
-	        sudo cp ./honeyfile.txt /usr/aaaaaaaa.txt 2>/dev/null
+		echo "~# cp ./honeyfile.txt /usr/aaaaaaaa.txt"
+	        cp ./honeyfile.txt /usr/aaaaaaaa.txt 2>/dev/null
 	        chmod 777 /usr/aaaaaaaa.txt
 	fi
+	rm -rf ./SINALIZADOR.dat
 
 fi
 
@@ -378,43 +382,44 @@ for i in ${usuarios[@]}; do
 	sudo -u $i mkdir /home/$i/$videos 2>/dev/null
 
 	echo -e "\nESPALHANDO HONEYFILES..."
-	
+	touch ./SINALIZADOR.dat
 	sudo touch /home/$i/aaaaaaaa.txt
 	if [ $(stat -c %s /home/$i/aaaaaaaa.txt) != 578394351 ]; then
-		echo "~# sudo cp ./honeyfile.txt /home/$i/aaaaaaaa.txt"
-		sudo cp ./honeyfile.txt  /home/$i/aaaaaaaa.txt
+		echo "~# cp ./honeyfile.txt /home/$i/aaaaaaaa.txt"
+		cp ./honeyfile.txt  /home/$i/aaaaaaaa.txt
 	fi
 
 	sudo touch /home/$i/$documents/aaaaaaaa.txt
 	if [ $(stat -c %s /home/$i/$documents/aaaaaaaa.txt) != 578394351 ]; then
-		echo "~# sudo cp ./honeyfile.txt /home/$i/$documents/aaaaaaaa.txt"
-		sudo cp ./honeyfile.txt /home/$i/$documents/aaaaaaaa.txt
+		echo "~# cp ./honeyfile.txt /home/$i/$documents/aaaaaaaa.txt"
+		cp ./honeyfile.txt /home/$i/$documents/aaaaaaaa.txt
 	fi
 
 	sudo touch /home/$i/Downloads/aaaaaaaa.txt
 	if [ $(stat -c %s /home/$i/Downloads/aaaaaaaa.txt) != 578394351 ]; then
-		echo "~# sudo cp ./honeyfile.txt /home/$i/Downloads/aaaaaaaa.txt"
-		sudo cp ./honeyfile.txt /home/$i/Downloads/aaaaaaaa.txt
+		echo "~# cp ./honeyfile.txt /home/$i/Downloads/aaaaaaaa.txt"
+		cp ./honeyfile.txt /home/$i/Downloads/aaaaaaaa.txt
 	fi
 
 	sudo touch "$desktop/aaaaaaaa.txt"
 	if [ $(stat -c %s "$desktop/aaaaaaaa.txt") != 578394351 ]; then
-		echo "~# sudo cp ./honeyfile.txt "$desktop/aaaaaaaa.txt""
-		sudo cp ./honeyfile.txt "$desktop/aaaaaaaa.txt"
+		echo "~# cp ./honeyfile.txt "$desktop/aaaaaaaa.txt""
+		cp ./honeyfile.txt "$desktop/aaaaaaaa.txt"
 	fi
 
 	sudo touch "/home/$i/$videos/aaaaaaaa.txt"
 	if [ $(stat -c %s /home/$i/$videos/aaaaaaaa.txt) != 578394351 ]; then
-		echo "~# sudo cp ./honeyfile.txt /home/$i/$videos/aaaaaaaa.txt"
-		sudo cp ./honeyfile.txt /home/$i/$videos/aaaaaaaa.txt
+		echo "~# cp ./honeyfile.txt /home/$i/$videos/aaaaaaaa.txt"
+		cp ./honeyfile.txt /home/$i/$videos/aaaaaaaa.txt
 	fi
+	rm -rf ./SINALIZADOR.dat
 	echo -e "\nMUDANDO PERMISSOES..."
-        chmod 777 /home/$i/aaaaaaaa.txt 2>/dev/null
+ 	touch ./SINALIZADOR.dat
+	chmod 777 /home/$i/aaaaaaaa.txt 2>/dev/null
         chmod 777 /home/$i/$documents/aaaaaaaa.txt 2>/dev/null
         chmod 777 /home/$i/Downloads/aaaaaaaa.txt 2>/dev/null
         chmod 777 "$desktop/aaaaaaaa.txt" 2>/dev/null
         chmod 777 /home/$i/$videos/aaaaaaaa.txt 2>/dev/null
-
 
 	echo -e "\nADICIONANDO REGRAS PARA AUDITCTL..."
         sudo auditctl -w /home/$i/aaaaaaaa.txt -p wa -k mush 2>/dev/null
@@ -422,6 +427,7 @@ for i in ${usuarios[@]}; do
         sudo auditctl -w /home/$i/$videos/aaaaaaaa.txt -p wa -k mush 2>/dev/null
         sudo auditctl -w /home/$i/Downloads/aaaaaaaa.txt -p wa -k mush 2>/dev/null
         sudo auditctl -w /home/$i/$documents/aaaaaaaa.txt -p wa -k mush 2>/dev/null
+	rm -rf ./SINALIZADOR.dat
 done
 
 #=======================================================|
