@@ -333,7 +333,7 @@ sudo auditctl -w /etc/aaaaaaaa.txt -p wa -k mush 2>/dev/null
 sudo auditctl -w /usr/aaaaaaaa.txt -p wa -k mush 2>/dev/null
 sudo auditctl -w /backup/aaaaaaaa.txt -p wa -k mush 2>/dev/null
 
-if [ -e /home/aaaaaaaa.txt ] && [ -e /etc/aaaaaaaa.txt ] && [ -e /usr/aaaaaaaa.txt ] && [ $(stat -c %s /home/aaaaaaaa.txt) = 578394351 ] && [ $(stat -c %s /etc/aaaaaaaa.txt) = 578394351 ] && [ $(stat -c %s /usr/aaaaaaaa.txt) = 578394351 ] && [ -e /backup/aaaaaaaa.txt ]; then
+if [ -e /home/aaaaaaaa.txt ] && [ -e /etc/aaaaaaaa.txt ] && [ -e /usr/aaaaaaaa.txt ] && [ $(stat -c %s /home/aaaaaaaa.txt) = 578394351 ] && [ $(stat -c %s /etc/aaaaaaaa.txt) = 578394351 ] && [ $(stat -c %s /usr/aaaaaaaa.txt) = 578394351 ] && [ -e /backup/aaaaaaaa.txt ] && [ $(stat -c %s /backup/aaaaaaaa.txt) = 578394351 ]; then
         echo ""
 else
 	echo -e "\nESPALHANDO HONEYFILES1..."
