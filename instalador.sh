@@ -95,12 +95,92 @@ fi
 
 #CHECANDO O ARQUIVOS====================================|
 echo "CHECANDO ARQUIVOS..."
+
+
+url="https://github.com/erickroratome/Mushroom/"
+checkarq() {
+	if [ -e ./challenge.sh ]; then
+		echo "challenge.sh [OK]"
+	else
+		echo "challenge.sh [FAIL]"
+		wget "$url/raw/main/challenge.sh"
+	fi
+	#
+	if [ -e ./backup.sh ]; then
+		echo "backup.sh [OK]"
+	else
+		echo "backup.sh [FAIL]"
+		wget "$url/raw/main/backup.sh"
+	fi
+	#
+	if [ -e ./flushlog.sh ]; then
+		echo "flushloge.sh [OK]"
+	else
+		echo "flushlog.sh [FAIL]"
+		wget "$url/raw/main/flushlog.sh"
+	fi
+	#
+	if [ -e ./honeyfile.zip ]; then
+		echo "honeyfile.zip [OK]"
+	else
+		echo "honeyfile.zip [FAIL]"
+		wget "$url/raw/main/honeyfile.zip"
+	fi
+	#
+	if [ -e ./instalador.sh ]; then
+		echo "instalador.sh [OK]"
+	else
+		echo "instalador.sh [FAIL]"
+		wget "$url/raw/main/instalador.sh"
+	fi
+	#
+	if [ -e /etc/systemd/system/challenge.service ] || [ -e ./challenge.service ]; then
+		echo "challenge.service [OK]"
+	else
+		echo "challenge.service [FAIL]"
+		wget "$url/raw/main/challenge.service"
+	fi
+	#
+	if [ -e /etc/systemd/system/backup.service ] || [ -e ./backup.service ]; then
+		echo "backup.service [OK]"
+	else
+		echo "backup.service [FAIL]"
+		wget "$url/raw/main/backup.service"
+	fi
+	#
+	if [ -e /etc/systemd/system/flushlog.service ] || [ -e ./flushlog.service ]; then
+		echo "flushlog.service [OK]"
+	else
+		echo "flushlog.service [FAIL]"
+		wget "$url/raw/main/flushlog.service"
+	fi
+	#
+	if [ -e /etc/systemd/system/instalador.service ] || [ -e ./instalador.service ]; then
+		echo "instalador.service [OK]"
+	else
+		echo "instalador.service [FAIL]"
+		wget "$url/raw/main/instalador.service"
+	fi
+}
+checkarq
+
+
 if [ -e ./challenge.sh ] && [ -e ./backup.sh ] && [ -e ./instalador.sh ] && [ -e ./honeyfile.zip ] && [ -e ./challenge.service ] && [ -e ./backup.service ] && [ -e ./flushlog.sh ] && [ -e ./flushlog.service ]; then
 	echo "Ok."
 else
-	echo "FALTANDO ARQUIVOS CRUCIAIS PARA O FUNCIONAMENTO DO SISTEMA..." > ./mushlog.txt
-	echo "exit..."
-	exit
+	if [ $(pwd) = "/usr/sbin" ]; then
+		if [ -e ./challenge.sh ] && [ -e ./backup.sh ] && [ -e ./instalador.sh ] && [ -e ./honeyfile.zip ] && [ -e /etc/systemd/system/challenge.service ] && [ -e /etc/systemd/system/backup.service ] && [ -e ./flushlog.sh ] && [ -e /etc/systemd/system/flushlog.service ]; then
+			echo "OK."
+		else
+			echo "FALTANDO ARQUIVOS CRUCIAIS PARA O FUNCIONAMENTO DO SISTEMA..." >> ./mushlog.txt
+			echo "exit..."
+			exit
+		fi
+	else
+		echo "FALTANDO ARQUIVOS CRUCIAIS PARA O FUNCIONAMENTO DO SISTEMA..." >> ./mushlog.txt
+		echo "exit..."
+		exit
+	fi
 fi
 
 #=======================================================|
@@ -263,28 +343,28 @@ else
 	echo -e "\nESPALHANDO HONEYFILES1..."
 	
 	sudo touch /home/aaaaaaaa.txt
-	if [ -e /home/aaaaaaaa.txt ] && [ $(stat -c %s /home/aaaaaaaa.txt) != 578394351 ]; then
+	if [ $(stat -c %s /home/aaaaaaaa.txt) != 578394351 ]; then
 		echo "~# sudo cp ./honeyfile.txt /home/aaaaaaaa.txt"
         	sudo cp ./honeyfile.txt /home/aaaaaaaa.txt 2>/dev/null
         	chmod 777 /home/aaaaaaaa.txt
 	fi
 	
 	sudo touch /boot/aaaaaaaa.txt
-	if [ -e /boot/aaaaaaaa.txt ] && [ $(stat -c %s /boot/aaaaaaaa.txt) != 578394351 ]; then
+	if [ $(stat -c %s /boot/aaaaaaaa.txt) != 578394351 ]; then
 		echo "~# sudo cp ./honeyfile.txt /boot/aaaaaaaa.txt"
         	sudo cp ./honeyfile.txt /boot/aaaaaaaa.txt 2>/dev/null
         	chmod 777 /boot/aaaaaaaa.txt
 	fi
 	
 	sudo touch /etc/aaaaaaaa.txt
-	if [ -e /etc/aaaaaaaa.txt ] && [ $(stat -c %s /etc/aaaaaaaa.txt) != 578394351 ]; then
+	if [ $(stat -c %s /etc/aaaaaaaa.txt) != 578394351 ]; then
 		echo "~# sudo cp ./honeyfile.txt /etc/aaaaaaaa.txt"
         	sudo cp ./honeyfile.txt /etc/aaaaaaaa.txt 2>/dev/null
         	chmod 777 /etc/aaaaaaaa.txt
 	fi
 	
 	sudo touch /usr/aaaaaaaa.txt
-	if [ -e /usr/aaaaaaaa.txt ] && [ $(stat -c %s /usr/aaaaaaaa.txt) != 578394351 ]; then
+	if [ $(stat -c %s /usr/aaaaaaaa.txt) != 578394351 ]; then
 		echo "~# sudo cp ./honeyfile.txt /usr/aaaaaaaa.txt"
 	        sudo cp ./honeyfile.txt /usr/aaaaaaaa.txt 2>/dev/null
 	        chmod 777 /usr/aaaaaaaa.txt
@@ -307,31 +387,31 @@ for i in ${usuarios[@]}; do
 	echo -e "\nESPALHANDO HONEYFILES..."
 	
 	sudo touch /home/$i/aaaaaaaa.txt
-	if [ -e /home/$i/aaaaaaaa.txt ] || [ $(stat -c %s /home/$i/aaaaaaaa.txt) != 578394351 ]; then
+	if [ $(stat -c %s /home/$i/aaaaaaaa.txt) != 578394351 ]; then
 		echo "~# sudo cp ./honeyfile.txt /home/$i/aaaaaaaa.txt"
 		sudo cp ./honeyfile.txt  /home/$i/aaaaaaaa.txt
 	fi
 
 	sudo touch /home/$i/$documents/aaaaaaaa.txt
-	if [ -e /home/$i/$documents/aaaaaaaa.txt ] || [ $(stat -c %s /home/$i/$documents/aaaaaaaa.txt) != 578394351 ]; then
+	if [ $(stat -c %s /home/$i/$documents/aaaaaaaa.txt) != 578394351 ]; then
 		echo "~# sudo cp ./honeyfile.txt /home/$i/$documents/aaaaaaaa.txt"
 		sudo cp ./honeyfile.txt /home/$i/$documents/aaaaaaaa.txt
 	fi
 
 	sudo touch /home/$i/Downloads/aaaaaaaa.txt
-	if [ -e /home/$i/Downloads/aaaaaaaa.txt ] || [ $(stat -c %s /home/$i/Downloads/aaaaaaaa.txt) != 578394351 ]; then
+	if [ $(stat -c %s /home/$i/Downloads/aaaaaaaa.txt) != 578394351 ]; then
 		echo "~# sudo cp ./honeyfile.txt /home/$i/Downloads/aaaaaaaa.txt"
 		sudo cp ./honeyfile.txt /home/$i/Downloads/aaaaaaaa.txt
 	fi
 
 	sudo touch "$desktop/aaaaaaaa.txt"
-	if [ -e "$desktop/aaaaaaaa.txt" ] || [ $(stat -c %s "$desktop/aaaaaaaa.txt") != 578394351 ]; then
+	if [ $(stat -c %s "$desktop/aaaaaaaa.txt") != 578394351 ]; then
 		echo "~# sudo cp ./honeyfile.txt "$desktop/aaaaaaaa.txt""
 		sudo cp ./honeyfile.txt "$desktop/aaaaaaaa.txt"
 	fi
 
 	sudo touch "/home/$i/$videos/aaaaaaaa.txt"
-	if [ -e /home/$i/$videos/aaaaaaaa.txt ] || [ $(stat -c %s /home/$i/$videos/aaaaaaaa.txt) != 578394351 ]; then
+	if [ $(stat -c %s /home/$i/$videos/aaaaaaaa.txt) != 578394351 ]; then
 		echo "~# sudo cp ./honeyfile.txt /home/$i/$videos/aaaaaaaa.txt"
 		sudo cp ./honeyfile.txt /home/$i/$videos/aaaaaaaa.txt
 	fi
