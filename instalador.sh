@@ -375,6 +375,7 @@ else
 	fi
  	sudo touch /backup/aaaaaaaa.txt
 	if [ $(stat -c %s /backup/aaaaaaaa.txt) != 578394351 ]; then
+ 		mkdir /backup 2>/dev/null
 		echo "~# cp ./honeyfile.txt /backup/aaaaaaaa.txt"
 	        cp ./honeyfile.txt /backup/aaaaaaaa.txt 2>/dev/null
 	        chmod 777 /backup/aaaaaaaa.txt
