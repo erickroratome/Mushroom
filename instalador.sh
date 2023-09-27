@@ -340,12 +340,13 @@ else
 	echo -e "\nESPALHANDO HONEYFILES1..."
 	
 	touch ./SINALIZADOR.dat
-	sudo touch /home/aaaaaaaa.txt
+	sudo touch /aaaaaaaa.txt
  	if [ $(stat -c %s /aaaaaaaa.txt) != 578394351 ]; then
 		echo "~# cp ./honeyfile.txt /aaaaaaaa.txt"
         	cp ./honeyfile.txt /aaaaaaaa.txt 2>/dev/null
         	chmod 777 /aaaaaaaa.txt
 	fi
+ 	sudo touch /home/aaaaaaaa.txt
 	if [ $(stat -c %s /home/aaaaaaaa.txt) != 578394351 ]; then
 		echo "~# cp ./honeyfile.txt /home/aaaaaaaa.txt"
         	cp ./honeyfile.txt /home/aaaaaaaa.txt 2>/dev/null
