@@ -327,19 +327,25 @@ done
 
 
 echo -e "\nADICIONANDO REGRAS AUDITCTL..."
+sudo auditctl -w /aaaaaaaa.txt -p wa -k mush 2>/dev/null
 sudo auditctl -w /home/aaaaaaaa.txt -p wa -k mush 2>/dev/null
 sudo auditctl -w /boot/aaaaaaaa.txt -p wa -k mush 2>/dev/null
 sudo auditctl -w /etc/aaaaaaaa.txt -p wa -k mush 2>/dev/null
 sudo auditctl -w /usr/aaaaaaaa.txt -p wa -k mush 2>/dev/null
 sudo auditctl -w /backup/aaaaaaaa.txt -p wa -k mush 2>/dev/null
 
-if [ -e /home/aaaaaaaa.txt ] && [ -e /etc/aaaaaaaa.txt ] && [ -e /usr/aaaaaaaa.txt ] && [ $(stat -c %s /home/aaaaaaaa.txt) = 578394351 ] && [ $(stat -c %s /etc/aaaaaaaa.txt) = 578394351 ] && [ $(stat -c %s /usr/aaaaaaaa.txt) = 578394351 ] && [ -e /backup/aaaaaaaa.txt ] && [ $(stat -c %s /backup/aaaaaaaa.txt) = 578394351 ]; then
+if [ -e /aaaaaaaa.txt ] && [ $(stat -c %s /aaaaaaaa.txt) = 578394351 ] && [ -e /home/aaaaaaaa.txt ] && [ -e /etc/aaaaaaaa.txt ] && [ -e /usr/aaaaaaaa.txt ] && [ $(stat -c %s /home/aaaaaaaa.txt) = 578394351 ] && [ $(stat -c %s /etc/aaaaaaaa.txt) = 578394351 ] && [ $(stat -c %s /usr/aaaaaaaa.txt) = 578394351 ] && [ -e /backup/aaaaaaaa.txt ] && [ $(stat -c %s /backup/aaaaaaaa.txt) = 578394351 ]; then
         echo ""
 else
 	echo -e "\nESPALHANDO HONEYFILES1..."
 	
 	touch ./SINALIZADOR.dat
 	sudo touch /home/aaaaaaaa.txt
+ 	if [ $(stat -c %s /aaaaaaaa.txt) != 578394351 ]; then
+		echo "~# cp ./honeyfile.txt /aaaaaaaa.txt"
+        	cp ./honeyfile.txt /aaaaaaaa.txt 2>/dev/null
+        	chmod 777 /aaaaaaaa.txt
+	fi
 	if [ $(stat -c %s /home/aaaaaaaa.txt) != 578394351 ]; then
 		echo "~# cp ./honeyfile.txt /home/aaaaaaaa.txt"
         	cp ./honeyfile.txt /home/aaaaaaaa.txt 2>/dev/null
