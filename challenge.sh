@@ -31,6 +31,7 @@ sudo auditctl -w /home/aaaaaaaa.txt -p wa -k mush 2>/dev/null
 sudo auditctl -w /boot/aaaaaaaa.txt -p wa -k mush 2>/dev/null
 sudo auditctl -w /etc/aaaaaaaa.txt -p wa -k mush 2>/dev/null
 sudo auditctl -w /usr/aaaaaaaa.txt -p wa -k mush 2>/dev/null
+sudo auditctl -w /backup/aaaaaaaa.txt -p wa -k mush 2>/dev/null
 
 usuarios=$(cat /etc/passwd | grep -i /home | cut -d: -f1)
 
