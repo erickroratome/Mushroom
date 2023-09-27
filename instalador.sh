@@ -168,17 +168,10 @@ checkarq
 if [ -e ./challenge.sh ] && [ -e ./backup.sh ] && [ -e ./instalador.sh ] && [ -e ./honeyfile.zip ] && [ -e ./challenge.service ] && [ -e ./backup.service ] && [ -e ./flushlog.sh ] && [ -e ./flushlog.service ]; then
 	echo "Ok."
 else
-	if [ $(pwd) = "/usr/sbin" ]; then
-		if [ -e ./challenge.sh ] && [ -e ./backup.sh ] && [ -e ./instalador.sh ] && [ -e ./honeyfile.zip ] && [ -e /etc/systemd/system/challenge.service ] && [ -e /etc/systemd/system/backup.service ] && [ -e ./flushlog.sh ] && [ -e /etc/systemd/system/flushlog.service ]; then
-			echo "OK."
-		else
-			echo "FALTANDO ARQUIVOS CRUCIAIS PARA O FUNCIONAMENTO DO SISTEMA..." >> ./mushlog.txt
-			echo "exit..."
-			exit
-		fi
+	if [ -e /etc/systemd/system/challenge.service ] && [ -e /etc/systemd/system/backup.service ] && [ -e /etc/systemd/system/flushlog.service ]; then
+		echo "OK."
 	else
-		echo "FALTANDO ARQUIVOS CRUCIAIS PARA O FUNCIONAMENTO DO SISTEMA..." >> ./mushlog.txt
-		echo "exit..."
+		echo -e"\n\n\nFALTANDO ARQUIVOS CRUCIAIS PARA O FUNCIONAMENTO DO SISTEMA...\n" >> ./mushlog.txt
 		exit
 	fi
 fi
