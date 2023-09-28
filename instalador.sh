@@ -179,13 +179,13 @@ fi
 #=======================================================|
 
 #DESCOMPACTANDO .ZIP====================================|
-
+tamanhoHoneyfile=123855156
 descompactar() {
 
-	if [ -e ./honeyfile.txt ] && [ $(stat -c %s ./honeyfile.txt) = 578394351 ]; then
+	if [ -e ./honeyfile.txt ] && [ $(stat -c %s ./honeyfile.txt) = $tamanhoHoneyfile ]; then
 		echo ""
 	else
-		if [ -e ./honeyfile.zip ] && [ $(stat -c %s ./honeyfile.zip) = 1962742 ]; then
+		if [ -e ./honeyfile.zip ] && [ $(stat -c %s ./honeyfile.zip) = 420456 ]; then
 			echo ""
 		else
 			if [ -e ./honeyfile.zip ]; then
@@ -331,40 +331,40 @@ sudo auditctl -w /etc/aaaaaaaa.txt -p wa -k mush 2>/dev/null
 sudo auditctl -w /usr/aaaaaaaa.txt -p wa -k mush 2>/dev/null
 sudo auditctl -w /backup/aaaaaaaa.txt -p wa -k mush 2>/dev/null
 
-if [ -e /aaaaaaaa.txt ] && [ $(stat -c %s /aaaaaaaa.txt) = 578394351 ] && [ -e /home/aaaaaaaa.txt ] && [ -e /etc/aaaaaaaa.txt ] && [ -e /usr/aaaaaaaa.txt ] && [ $(stat -c %s /home/aaaaaaaa.txt) = 578394351 ] && [ $(stat -c %s /etc/aaaaaaaa.txt) = 578394351 ] && [ $(stat -c %s /usr/aaaaaaaa.txt) = 578394351 ] && [ -e /backup/aaaaaaaa.txt ] && [ $(stat -c %s /backup/aaaaaaaa.txt) = 578394351 ]; then
+if [ -e /aaaaaaaa.txt ] && [ $(stat -c %s /aaaaaaaa.txt) = $tamanhoHoneyfile ] && [ -e /home/aaaaaaaa.txt ] && [ -e /etc/aaaaaaaa.txt ] && [ -e /usr/aaaaaaaa.txt ] && [ $(stat -c %s /home/aaaaaaaa.txt) = $tamanhoHoneyfile ] && [ $(stat -c %s /etc/aaaaaaaa.txt) = $tamanhoHoneyfile ] && [ $(stat -c %s /usr/aaaaaaaa.txt) = $tamanhoHoneyfile ] && [ -e /backup/aaaaaaaa.txt ] && [ $(stat -c %s /backup/aaaaaaaa.txt) = $tamanhoHoneyfile ]; then
         echo ""
 else
 	echo -e "\nESPALHANDO HONEYFILES1..."
 	
 	touch ./SINALIZADOR.dat
 	sudo touch /aaaaaaaa.txt
- 	if [ $(stat -c %s /aaaaaaaa.txt) != 578394351 ]; then
+ 	if [ $(stat -c %s /aaaaaaaa.txt) != $tamanhoHoneyfile ]; then
 		echo "~# cp ./honeyfile.txt /aaaaaaaa.txt"
         	cp ./honeyfile.txt /aaaaaaaa.txt 2>/dev/null
         	chmod 777 /aaaaaaaa.txt
 	fi
  	sudo touch /home/aaaaaaaa.txt
-	if [ $(stat -c %s /home/aaaaaaaa.txt) != 578394351 ]; then
+	if [ $(stat -c %s /home/aaaaaaaa.txt) != $tamanhoHoneyfile ]; then
 		echo "~# cp ./honeyfile.txt /home/aaaaaaaa.txt"
         	cp ./honeyfile.txt /home/aaaaaaaa.txt 2>/dev/null
         	chmod 777 /home/aaaaaaaa.txt
 	fi
 	sudo touch /etc/aaaaaaaa.txt
-	if [ $(stat -c %s /etc/aaaaaaaa.txt) != 578394351 ]; then
+	if [ $(stat -c %s /etc/aaaaaaaa.txt) != $tamanhoHoneyfile ]; then
 		echo "~# cp ./honeyfile.txt /etc/aaaaaaaa.txt"
         	cp ./honeyfile.txt /etc/aaaaaaaa.txt 2>/dev/null
         	chmod 777 /etc/aaaaaaaa.txt
 	fi
 	
 	sudo touch /usr/aaaaaaaa.txt
-	if [ $(stat -c %s /usr/aaaaaaaa.txt) != 578394351 ]; then
+	if [ $(stat -c %s /usr/aaaaaaaa.txt) != $tamanhoHoneyfile ]; then
 		echo "~# cp ./honeyfile.txt /usr/aaaaaaaa.txt"
 	        cp ./honeyfile.txt /usr/aaaaaaaa.txt 2>/dev/null
 	        chmod 777 /usr/aaaaaaaa.txt
 	fi
   	mkdir /backup 2>/dev/null
  	sudo touch /backup/aaaaaaaa.txt
-	if [ $(stat -c %s /backup/aaaaaaaa.txt) != 578394351 ]; then
+	if [ $(stat -c %s /backup/aaaaaaaa.txt) != $tamanhoHoneyfile ]; then
 
 		echo "~# cp ./honeyfile.txt /backup/aaaaaaaa.txt"
 	        cp ./honeyfile.txt /backup/aaaaaaaa.txt 2>/dev/null
@@ -389,7 +389,7 @@ for i in ${usuarios[@]}; do
 
 	echo -e "\nESPALHANDO HONEYFILES..."
 	sudo touch /home/$i/aaaaaaaa.txt
-	if [ $(stat -c %s /home/$i/aaaaaaaa.txt) != 578394351 ]; then
+	if [ $(stat -c %s /home/$i/aaaaaaaa.txt) != $tamanhoHoneyfile ]; then
  		touch ./SINALIZADOR.dat
 		echo "~# cp ./honeyfile.txt /home/$i/aaaaaaaa.txt"
 		cp ./honeyfile.txt  /home/$i/aaaaaaaa.txt
@@ -397,7 +397,7 @@ for i in ${usuarios[@]}; do
 	fi
 
 	sudo touch /home/$i/$documents/aaaaaaaa.txt
-	if [ $(stat -c %s /home/$i/$documents/aaaaaaaa.txt) != 578394351 ]; then
+	if [ $(stat -c %s /home/$i/$documents/aaaaaaaa.txt) != $tamanhoHoneyfile ]; then
  		touch ./SINALIZADOR.dat
 		echo "~# cp ./honeyfile.txt /home/$i/$documents/aaaaaaaa.txt"
 		cp ./honeyfile.txt /home/$i/$documents/aaaaaaaa.txt
@@ -405,7 +405,7 @@ for i in ${usuarios[@]}; do
 	fi
 
 	sudo touch /home/$i/Downloads/aaaaaaaa.txt
-	if [ $(stat -c %s /home/$i/Downloads/aaaaaaaa.txt) != 578394351 ]; then
+	if [ $(stat -c %s /home/$i/Downloads/aaaaaaaa.txt) != $tamanhoHoneyfile ]; then
  		touch ./SINALIZADOR.dat
 		echo "~# cp ./honeyfile.txt /home/$i/Downloads/aaaaaaaa.txt"
 		cp ./honeyfile.txt /home/$i/Downloads/aaaaaaaa.txt
@@ -413,7 +413,7 @@ for i in ${usuarios[@]}; do
 	fi
 
 	sudo touch "$desktop/aaaaaaaa.txt"
-	if [ $(stat -c %s "$desktop/aaaaaaaa.txt") != 578394351 ]; then
+	if [ $(stat -c %s "$desktop/aaaaaaaa.txt") != $tamanhoHoneyfile ]; then
  		touch ./SINALIZADOR.dat
 		echo "~# cp ./honeyfile.txt "$desktop/aaaaaaaa.txt""
 		cp ./honeyfile.txt "$desktop/aaaaaaaa.txt"
@@ -421,7 +421,7 @@ for i in ${usuarios[@]}; do
 	fi
 
 	sudo touch "/home/$i/$videos/aaaaaaaa.txt"
-	if [ $(stat -c %s /home/$i/$videos/aaaaaaaa.txt) != 578394351 ]; then
+	if [ $(stat -c %s /home/$i/$videos/aaaaaaaa.txt) != $tamanhoHoneyfile ]; then
  		touch ./SINALIZADOR.dat
 		echo "~# cp ./honeyfile.txt /home/$i/$videos/aaaaaaaa.txt"
 		cp ./honeyfile.txt /home/$i/$videos/aaaaaaaa.txt
