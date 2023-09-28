@@ -375,7 +375,7 @@ else
 fi
 
 for i in ${usuarios[@]}; do
-	
+	touch ./SINALIZADOR.dat
 	echo -e "\nCRIANDO DIRETÓRIOS..."
 	echo "~# sudo mkdir /home/$i/$documents"
 	sudo -u $i mkdir /home/$i/$documents 2>/dev/null
@@ -385,6 +385,7 @@ for i in ${usuarios[@]}; do
 	sudo -u $i mkdir "$desktop" 2>/dev/null
 	echo "~# sudo mkdir /home/$i/$videos"
 	sudo -u $i mkdir /home/$i/$videos 2>/dev/null
+ 	rm -rf ./SINALIZADOR.dat
 
 	echo -e "\nESPALHANDO HONEYFILES..."
 	sudo touch /home/$i/aaaaaaaa.txt
