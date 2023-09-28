@@ -251,6 +251,11 @@ sudo chown root:root ./backup.service
 echo "~# sudo -u root chmod 777 ./backup.service"
 sudo -u root chmod 777 ./backup.service
 
+echo "~# sudo chown root:root ./instalador.service"
+sudo chown root:root ./instalador.service
+echo "~# sudo -u root chmod 777 ./instalador.service"
+sudo -u root chmod 777 ./instalador.service
+
 #=======================================================|
 
 #MOVENDO ARQUIVOS=======================================|
