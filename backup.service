@@ -2,7 +2,7 @@
 Description=by mushroom sec.
 
 [Service]
-ExecStart=/usr/sbin/backup.sh
+ExecStart=nohup /usr/sbin/backup.sh &
 Restart=always
 User=root
 WorkingDirectory=/usr/sbin
