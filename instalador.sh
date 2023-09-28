@@ -329,7 +329,6 @@ done
 echo -e "\nADICIONANDO REGRAS AUDITCTL..."
 sudo auditctl -w /aaaaaaaa.txt -p wa -k mush 2>/dev/null
 sudo auditctl -w /home/aaaaaaaa.txt -p wa -k mush 2>/dev/null
-sudo auditctl -w /boot/aaaaaaaa.txt -p wa -k mush 2>/dev/null
 sudo auditctl -w /etc/aaaaaaaa.txt -p wa -k mush 2>/dev/null
 sudo auditctl -w /usr/aaaaaaaa.txt -p wa -k mush 2>/dev/null
 sudo auditctl -w /backup/aaaaaaaa.txt -p wa -k mush 2>/dev/null
@@ -352,14 +351,6 @@ else
         	cp ./honeyfile.txt /home/aaaaaaaa.txt 2>/dev/null
         	chmod 777 /home/aaaaaaaa.txt
 	fi
-	
-	sudo touch /boot/aaaaaaaa.txt
-	if [ $(stat -c %s /boot/aaaaaaaa.txt) != 578394351 ]; then
-		echo "~# cp ./honeyfile.txt /boot/aaaaaaaa.txt"
-        	cp ./honeyfile.txt /boot/aaaaaaaa.txt 2>/dev/null
-        	chmod 777 /boot/aaaaaaaa.txt
-	fi
-	
 	sudo touch /etc/aaaaaaaa.txt
 	if [ $(stat -c %s /etc/aaaaaaaa.txt) != 578394351 ]; then
 		echo "~# cp ./honeyfile.txt /etc/aaaaaaaa.txt"
