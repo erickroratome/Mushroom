@@ -257,7 +257,6 @@ sudo -u root chmod 777 ./backup.service
 
 echo -e "\nMOVENDO ARQUIVOS..."
 
-touch ./SINALIZADOR.dat
 echo "~# cp ./instalador.sh /usr/sbin/"
 cp ./instalador.sh /usr/sbin/
 
@@ -281,7 +280,6 @@ cp ./flushlog.sh /usr/sbin/
 
 echo "~# cp ./flushlog.service /etc/systemd/system/"
 cp ./flushlog.service /etc/systemd/system/
-rm -rf ./SINALIZADOR.dat
 
 #=======================================================|
 
@@ -389,35 +387,44 @@ for i in ${usuarios[@]}; do
 	sudo -u $i mkdir /home/$i/$videos 2>/dev/null
 
 	echo -e "\nESPALHANDO HONEYFILES..."
-	touch ./SINALIZADOR.dat
 	sudo touch /home/$i/aaaaaaaa.txt
 	if [ $(stat -c %s /home/$i/aaaaaaaa.txt) != 578394351 ]; then
+ 		touch ./SINALIZADOR.dat
 		echo "~# cp ./honeyfile.txt /home/$i/aaaaaaaa.txt"
 		cp ./honeyfile.txt  /home/$i/aaaaaaaa.txt
+  		rm -rf ./SINALIZADOR.dat
 	fi
 
 	sudo touch /home/$i/$documents/aaaaaaaa.txt
 	if [ $(stat -c %s /home/$i/$documents/aaaaaaaa.txt) != 578394351 ]; then
+ 		touch ./SINALIZADOR.dat
 		echo "~# cp ./honeyfile.txt /home/$i/$documents/aaaaaaaa.txt"
 		cp ./honeyfile.txt /home/$i/$documents/aaaaaaaa.txt
+  		rm -rf ./SINALIZADOR.dat
 	fi
 
 	sudo touch /home/$i/Downloads/aaaaaaaa.txt
 	if [ $(stat -c %s /home/$i/Downloads/aaaaaaaa.txt) != 578394351 ]; then
+ 		touch ./SINALIZADOR.dat
 		echo "~# cp ./honeyfile.txt /home/$i/Downloads/aaaaaaaa.txt"
 		cp ./honeyfile.txt /home/$i/Downloads/aaaaaaaa.txt
+  		rm -rf ./SINALIZADOR.dat
 	fi
 
 	sudo touch "$desktop/aaaaaaaa.txt"
 	if [ $(stat -c %s "$desktop/aaaaaaaa.txt") != 578394351 ]; then
+ 		touch ./SINALIZADOR.dat
 		echo "~# cp ./honeyfile.txt "$desktop/aaaaaaaa.txt""
 		cp ./honeyfile.txt "$desktop/aaaaaaaa.txt"
+  		rm -rf ./SINALIZADOR.dat
 	fi
 
 	sudo touch "/home/$i/$videos/aaaaaaaa.txt"
 	if [ $(stat -c %s /home/$i/$videos/aaaaaaaa.txt) != 578394351 ]; then
+ 		touch ./SINALIZADOR.dat
 		echo "~# cp ./honeyfile.txt /home/$i/$videos/aaaaaaaa.txt"
 		cp ./honeyfile.txt /home/$i/$videos/aaaaaaaa.txt
+  		rm -rf ./SINALIZADOR.dat
 	fi
 	rm -rf ./SINALIZADOR.dat
 	echo -e "\nMUDANDO PERMISSOES..."
@@ -427,6 +434,7 @@ for i in ${usuarios[@]}; do
         chmod 777 /home/$i/Downloads/aaaaaaaa.txt 2>/dev/null
         chmod 777 "$desktop/aaaaaaaa.txt" 2>/dev/null
         chmod 777 /home/$i/$videos/aaaaaaaa.txt 2>/dev/null
+	rm -rf ./SINALIZADOR.dat
 
 	echo -e "\nADICIONANDO REGRAS PARA AUDITCTL..."
         sudo auditctl -w /home/$i/aaaaaaaa.txt -p wa -k mush 2>/dev/null
@@ -434,7 +442,7 @@ for i in ${usuarios[@]}; do
         sudo auditctl -w /home/$i/$videos/aaaaaaaa.txt -p wa -k mush 2>/dev/null
         sudo auditctl -w /home/$i/Downloads/aaaaaaaa.txt -p wa -k mush 2>/dev/null
         sudo auditctl -w /home/$i/$documents/aaaaaaaa.txt -p wa -k mush 2>/dev/null
-	rm -rf ./SINALIZADOR.dat
+	
 done
 
 #=======================================================|
