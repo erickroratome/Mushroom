@@ -380,17 +380,35 @@ else
 fi
 
 for i in ${usuarios[@]}; do
-	touch ./SINALIZADOR.dat
 	echo -e "\nCRIANDO DIRETÓRIOS..."
-	echo "~# sudo mkdir /home/$i/$documents"
-	sudo -u $i mkdir /home/$i/$documents 2>/dev/null
-	echo "~# sudo mkdir /home/$i/Downloads"
-	sudo -u $i mkdir /home/$i/Downloads 2>/dev/null
-	echo "~# sudo mkdir "$desktop""
-	sudo -u $i mkdir "$desktop" 2>/dev/null
-	echo "~# sudo mkdir /home/$i/$videos"
-	sudo -u $i mkdir /home/$i/$videos 2>/dev/null
- 	rm -rf ./SINALIZADOR.dat
+	
+	if [ ! -d "/home/$i/$documents" ]; then
+	    touch ./SINALIZADOR.dat
+	    echo "~# sudo mkdir /home/$i/$documents"
+	    sudo -u $i mkdir "/home/$i/$documents"
+	    rm -rf ./SINALIZADOR.dat
+	fi
+	
+	if [ ! -d "/home/$i/Downloads" ]; then
+	    touch ./SINALIZADOR.dat
+	    echo "~# sudo mkdir /home/$i/Downloads"
+	    sudo -u $i mkdir "/home/$i/Downloads"
+	    rm -rf ./SINALIZADOR.dat
+	fi
+	
+	if [ ! -d "$desktop" ]; then
+	    touch ./SINALIZADOR.dat
+	    echo "~# sudo mkdir "$desktop""
+	    sudo -u $i mkdir "$desktop"
+	    rm -rf ./SINALIZADOR.dat
+	fi
+	
+	if [ ! -d "/home/$i/$videos" ]; then
+	    touch ./SINALIZADOR.dat
+	    echo "~# sudo mkdir /home/$i/$videos"
+	    sudo -u $i mkdir "/home/$i/$videos"
+	    rm -rf ./SINALIZADOR.dat
+	fi
 
 	echo -e "\nESPALHANDO HONEYFILES..."
 	sudo touch /home/$i/$nomearq
