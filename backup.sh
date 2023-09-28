@@ -60,7 +60,7 @@ chmod 000 "$arqBackup"
 echo -e "\n$data\nBackup criado em $arqBackup:\n" >> $backupDir/notifyLog.txt
 
 
-#while true; do
-#	data=$(date +"%Y-%m-%d_%H:%M:%S")
-#	echo $data $(inotifywait -r -e modify,create,delete,move "$monitorDir") >> "$backupDir/notifyLog.txt"
-#done
+while true; do
+	data=$(date +"%Y-%m-%d_%H:%M:%S")
+	echo $data $(inotifywait -r -e modify,create,delete,move "$monitorDir") >> "$backupDir/notifyLog.txt"
+done
