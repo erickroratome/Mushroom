@@ -51,9 +51,7 @@ while true; do
 		nada="nada"
       else	
 		for i in $PID; do
-         	    echo "PID: $i"
-		    kill -9 "$i" 2>/dev/null
-	            echo -e "\n\n$i: PID Cancelado!"
+		    kill -9 "$i"
 	    	done
       fi
 done
