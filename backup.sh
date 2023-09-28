@@ -55,10 +55,12 @@ fi
 data=$(date +"%Y-%m-%d_%H:%M:%S")
 arqBackup="$backupDir/backup_$data.tar.gz"
 tar -czvf "$arqBackup" "$monitorDir"/*
+echo "~# chmod 000 "arqBackup""
+chmod 000 "$arqBackup"
 echo -e "\n$data\nBackup criado em $arqBackup:\n" >> $backupDir/notifyLog.txt
 
 
-while true; do
-	data=$(date +"%Y-%m-%d_%H:%M:%S")
-	echo $data $(inotifywait -r -e modify,create,delete,move "$monitorDir") >> "$backupDir/notifyLog.txt"
-done
+#while true; do
+#	data=$(date +"%Y-%m-%d_%H:%M:%S")
+#	echo $data $(inotifywait -r -e modify,create,delete,move "$monitorDir") >> "$backupDir/notifyLog.txt"
+#done
