@@ -1,14 +1,5 @@
 #!/bin/bash
 
-echo "By:"
-echo "     _                     _      _     "
-echo "    | | ___  ___  ___ _ __(_) ___| | __ "
-echo " _  | |/ _ \/ __|/ _ \ '__| |/ __| |/ / "
-echo "| |_| | (_) \__ \  __/ |  | | (__|   <  "
-echo " \___/ \___/|___/\___|_|  |_|\___|_|\_\ "
-echo ""
-
-
 #DETECTAR ROOT===========================================|
 valid=True
 valid1=True
@@ -16,52 +7,443 @@ if [ $EUID != 0 ]; then
         valid=False
 fi
 if [ $USER != "root" ]; then
-	valid1=False
+        valid1=False
 fi
 
 if [ $valid = False ] && [ $valid1 = False ]; then
-	echo -e "\nPor favor execute como root...\n"
-	exit
+        echo -e "\nPor favor execute como root...\n"
+        exit
 fi
 #=======================================================|
 
 
-#CRIANDO BACKUP=========================================|
-
-
-#Seu diretório para backup:
-backupDir="/backup/"
-
-
-#Diretório a ser monitorado:
-monitorDir="/home/"
-#read -p "Informe seu diretório a ser monitorado: " monitorDir
-
-if [ ! -d "$backupDir" ]; then
-	mkdir -p "$backupDir"
-	mkdir -p "$backupDir/notifyLog.txt"
+#VERIFICANDO SOFTWARES INSTALADOS=======================|
+if sudo apt-mark showinstall | grep -q auditd; then
+        auditd=1
+else
+        auditd=0
+        echo -e "auditd nao instalado!\n"
+        sleep 2
+        echo -e "Deseja instalar?\n"
+        read -p "[S]im | [N]ao: " resp
+        if [ $resp = "S" ] || [ $resp = "s" ]; then
+                echo ""
+                apt update -y
+                apt-get install auditd -y
+        else
+                echo "Para continuar instale o software!"
+                exit
+        fi
 fi
+
+if sudo apt-mark showinstall | grep -q inotify-tools; then
+	inotifyTools=1
+else
+	inotifyTools=0
+	echo -e "inotify-tools nÃ£o instalado!\n"
+	sleep 2
+	echo -e "Deseja instalar?\n"
+	read -p "[S]im | [N]Ã£o: " resp2
+	if [ $resp2 = "S" ] || [ $resp2 = "s" ]; then
+		echo ""
+		apt update -y
+		apt-get install inotify-tools -y
+	else
+		echo "Para continuar instale o software!"
+		exit
+	fi
+fi
+#
+if sudo apt-mark showinstall | grep -q zip; then
+	zip=1
+else
+	zip=0
+	echo -e "zip nao instalado!\n"
+	sleep 2
+	echo -e "Deseja instalar?\n"
+	read -p "[S]im | [N]ao: " resp3
+	if [ $resp3 = "S" ] || [ $resp3 = "s" ]; then
+		echo ""
+		apt update -y
+		apt-get install zip -y
+	else
+		echo "Para continuar instale o software!"
+		exit
+	fi
+fi
+#
+if sudo apt-mark showinstall | grep -q wget; then
+	wget=1
+else
+	wget=0
+	echo -e "wget nao instalado!\n"
+	sleep 2
+	echo -e "Deseja instalar?\n"
+	read -p "[S]im | [N]ao: " resp3
+	if [ $resp3 = "S" ] || [ $resp3 = "s" ]; then
+		echo ""
+		apt update -y
+		apt-get install wget -y
+	else
+		echo "Para continuar instale o software!"
+		exit
+	fi
+fi
+
+
+#=======================================================|
+
+#CHECANDO O ARQUIVOS====================================|
+echo "CHECANDO ARQUIVOS..."
+
+
+url="https://github.com/erickroratome/Mushroom/"
+checkarq() {
+	if [ -e ./challenge.sh ]; then
+		echo "challenge.sh [OK]"
+	else
+		echo "challenge.sh [FAIL]"
+		wget "$url/raw/main/challenge.sh"
+	fi
+	#
+	if [ -e ./backup.sh ]; then
+		echo "backup.sh [OK]"
+	else
+		echo "backup.sh [FAIL]"
+		wget "$url/raw/main/backup.sh"
+	fi
+	#
+	if [ -e ./flushlog.sh ]; then
+		echo "flushloge.sh [OK]"
+	else
+		echo "flushlog.sh [FAIL]"
+		wget "$url/raw/main/flushlog.sh"
+	fi
+	#
+	if [ -e ./honeyfile.zip ]; then
+		echo "honeyfile.zip [OK]"
+	else
+		echo "honeyfile.zip [FAIL]"
+		wget "$url/raw/main/honeyfile.zip"
+	fi
+	#
+	if [ -e ./instalador.sh ]; then
+		echo "instalador.sh [OK]"
+	else
+		echo "instalador.sh [FAIL]"
+		wget "$url/raw/main/instalador.sh"
+	fi
+	#
+	if [ -e /etc/systemd/system/challenge.service ] || [ -e ./challenge.service ]; then
+		echo "challenge.service [OK]"
+	else
+		echo "challenge.service [FAIL]"
+		wget "$url/raw/main/challenge.service"
+	fi
+	#
+	if [ -e /etc/systemd/system/backup.service ] || [ -e ./backup.service ]; then
+		echo "backup.service [OK]"
+	else
+		echo "backup.service [FAIL]"
+		wget "$url/raw/main/backup.service"
+	fi
+	#
+	if [ -e /etc/systemd/system/flushlog.service ] || [ -e ./flushlog.service ]; then
+		echo "flushlog.service [OK]"
+	else
+		echo "flushlog.service [FAIL]"
+		wget "$url/raw/main/flushlog.service"
+	fi
+	#
+	if [ -e /etc/systemd/system/instalador.service ] || [ -e ./instalador.service ]; then
+		echo "instalador.service [OK]"
+	else
+		echo "instalador.service [FAIL]"
+		wget "$url/raw/main/instalador.service"
+	fi
+}
+checkarq
+
+
+if [ -e ./challenge.sh ] && [ -e ./backup.sh ] && [ -e ./instalador.sh ] && [ -e ./honeyfile.zip ] && [ -e ./challenge.service ] && [ -e ./backup.service ] && [ -e ./flushlog.sh ] && [ -e ./flushlog.service ]; then
+	echo "Ok."
+else
+	if [ -e /etc/systemd/system/challenge.service ] && [ -e /etc/systemd/system/backup.service ] && [ -e /etc/systemd/system/flushlog.service ]; then
+		echo "OK."
+	else
+		echo -e"\n\n\nFALTANDO ARQUIVOS CRUCIAIS PARA O FUNCIONAMENTO DO SISTEMA...\n" >> ./mushlog.txt
+		exit
+	fi
+fi
+
+#=======================================================|
+
+#DESCOMPACTANDO .ZIP====================================|
+
+descompactar() {
+
+	if [ -e ./honeyfile.txt ] && [ $(stat -c %s ./honeyfile.txt) = 578394351 ]; then
+		echo ""
+	else
+		if [ -e ./honeyfile.zip ] && [ $(stat -c %s ./honeyfile.zip) = 1962742 ]; then
+			echo ""
+		else
+			if [ -e ./honeyfile.zip ]; then
+				rm -rf ./honeyfile.zip
+			fi		
+			wget https://github.com/erickroratome/Mushroom/raw/main/honeyfile.zip
+			sudo -u root chmod 444 ./honeyfile.zip
+		fi
+		echo -e "\n\nDESCOMPACTANDO .ZIP ..."
+		echo "~# unzip -o ./honeyfile.zip"
+		unzip -o ./honeyfile.zip
+	fi
+}
+descompactar
+#=======================================================|
+
+#ALTERANDO PERMISSOES===================================|
+
+echo "ALTERANDO PERMISSOES..."
+
+echo "~# sudo -u root chmod 500 ./instalador.sh"
+sudo -u root chmod 500 ./instalador.sh
+echo "~# sudo chown root:root ./instalador.sh"
+sudo chown root:root ./instalador.sh
+
+echo "~# sudo -u root chmod 500 ./challenge"
+sudo -u root chmod 500 ./challenge.sh
+echo "~# sudo chown root:root ./challenge.sh"
+sudo chown root:root ./challenge.sh
+
+echo "~# sudo -u root chmod 500 ./backup.sh"
+sudo -u root chmod 500 ./backup.sh
+echo "~# sudo chown root:root ./backup.sh"
+sudo chown root:root ./backup.sh
+
+echo "~# sudo chown root:root ./honeyfile.zip"
+sudo chown root:root ./honeyfile.zip
+echo "~# sudo -u root chmod 444 ./honeyfile.zip"
+sudo -u root chmod 444 ./honeyfile.zip
+
+echo "~# sudo chown root:root ./honeyfile.txt"
+sudo chown root:root ./honeyfile.txt
+echo "~# sudo -u root chmod 444 ./honeyfile.txt"
+sudo -u root chmod 444 ./honeyfile.txt
+
+echo "~# sudo chown root:root ./flushlog.sh"
+sudo chown root:root ./flushlog.sh
+echo "~# sudo -u root chmod 500 ./flushlog.sh"
+sudo -u root chmod 500 ./flushlog.sh
+
+echo "~# sudo chown root:root ./flushlog.service"
+sudo chown root:root ./flushlog.service
+echo "~# sudo -u root chmod 777 ./flushlog.service"
+sudo -u root chmod 777 ./flushlog.service
+
+echo "~# sudo chown root:root ./challenge.service"
+sudo chown root:root ./challenge.service
+echo "~# sudo -u root chmod 777 ./challenge.service"
+sudo -u root chmod 777 ./challenge.service
+
+echo "~# sudo chown root:root ./backup.service"
+sudo chown root:root ./backup.service
+echo "~# sudo -u root chmod 777 ./backup.service"
+sudo -u root chmod 777 ./backup.service
+
+#=======================================================|
+
+#MOVENDO ARQUIVOS=======================================|
+
+echo -e "\nMOVENDO ARQUIVOS..."
+
+touch ./SINALIZADOR.dat
+echo "~# cp ./instalador.sh /usr/sbin/"
+cp ./instalador.sh /usr/sbin/
+
+echo "~# cp ./instalador.service /etc/systemd/system/"
+cp ./instalador.service /etc/systemd/system/
+
+echo "~# cp ./challenge.sh /usr/sbin/"
+cp ./challenge.sh /usr/sbin/
+
+echo "~# cp ./challenge.service /etc/systemd/system/"
+cp ./challenge.service /etc/systemd/system/
+
+echo "~# cp ./backup.sh /usr/sbin/"
+cp ./backup.sh /usr/sbin/
+
+echo "~# cp ./backup.service /etc/systemd/system/"
+cp ./backup.service /etc/systemd/system/
+
+echo "~# cp ./flushlog.sh /usr/sbin/"
+cp ./flushlog.sh /usr/sbin/
+
+echo "~# cp ./flushlog.service /etc/systemd/system/"
+cp ./flushlog.service /etc/systemd/system/
+rm -rf ./SINALIZADOR.dat
+
 #=======================================================|
 
 
-#MONITORANDO ALTERAÇÕES NOS ARQUIVOS====================|
+#HABILITANDO .SERVICES==================================|
+echo -e "\nHABILITANDO .SERVICES..."
 
-maisAntigo=$(find "$backupDir" -type f -exec stat -c "%Y %n" {} + | grep -i "backup_" | sort -n | head -n 1 | awk '{print $2}') 2>/dev/null
-echo "Mais antigo: $maisAntigo"
-qntArq=$(find / -name "backup_*" -type f | wc -l)
-if [ $qntArq -gt 3 ]; then
-	rm -rf $maisAntigo
-fi
-data=$(date +"%Y-%m-%d_%H:%M:%S")
-arqBackup="$backupDir/backup_$data.tar.gz"
-tar -czvf "$arqBackup" "$monitorDir"/*
-echo -e "\n$data\nBackup criado em $arqBackup:\n" >> $backupDir/notifyLog.txt
+echo "~# sudo systemctl daemon-reload"
+sudo systemctl daemon-reload
+echo "~# sudo systemctl enable challenge.service"
+sudo systemctl enable challenge.service
+echo "~# sudo systemctl enable backup.service"
+sudo systemctl enable backup.service
+echo "~# sudo systemctl enable flushlog.service"
+sudo systemctl enable flushlog.service
 
 
-while true; do
-	data=$(date +"%Y-%m-%d_%H:%M:%S")
-	echo $data $(inotifywait -r -e modify,create,delete,move "$monitorDir") >> "$backupDir/notifyLog.txt"
+#CRIANDO ARQUIVOS HONEYFILE=============================|
+
+
+usuarios=$(cat /etc/passwd | grep -i /home | cut -d: -f1)
+
+
+for i in $usuarios; do
+
+	if [ -d "/home/$i/Ãrea de Trabalho" ]; then
+		desktop="/home/$i/Ãrea de Trabalho"
+	else
+		desktop="/home/$i/Desktop"
+	fi
+
+	if [ -d "/home/$i/VÃ­deos" ]; then
+		videos="VÃ­deos"
+	else
+		videos="Videos"
+	fi
+	if [ -d "/home/$i/Documentos" ]; then 
+		documents="Documentos"
+	else
+		documents="Documents"
+	fi
 done
 
 
+echo -e "\nADICIONANDO REGRAS AUDITCTL..."
+sudo auditctl -w /aaaaaaaa.txt -p wa -k mush 2>/dev/null
+sudo auditctl -w /home/aaaaaaaa.txt -p wa -k mush 2>/dev/null
+sudo auditctl -w /boot/aaaaaaaa.txt -p wa -k mush 2>/dev/null
+sudo auditctl -w /etc/aaaaaaaa.txt -p wa -k mush 2>/dev/null
+sudo auditctl -w /usr/aaaaaaaa.txt -p wa -k mush 2>/dev/null
+sudo auditctl -w /backup/aaaaaaaa.txt -p wa -k mush 2>/dev/null
 
+if [ -e /aaaaaaaa.txt ] && [ $(stat -c %s /aaaaaaaa.txt) = 578394351 ] && [ -e /home/aaaaaaaa.txt ] && [ -e /etc/aaaaaaaa.txt ] && [ -e /usr/aaaaaaaa.txt ] && [ $(stat -c %s /home/aaaaaaaa.txt) = 578394351 ] && [ $(stat -c %s /etc/aaaaaaaa.txt) = 578394351 ] && [ $(stat -c %s /usr/aaaaaaaa.txt) = 578394351 ] && [ -e /backup/aaaaaaaa.txt ] && [ $(stat -c %s /backup/aaaaaaaa.txt) = 578394351 ]; then
+        echo ""
+else
+	echo -e "\nESPALHANDO HONEYFILES1..."
+	
+	touch ./SINALIZADOR.dat
+	sudo touch /aaaaaaaa.txt
+ 	if [ $(stat -c %s /aaaaaaaa.txt) != 578394351 ]; then
+		echo "~# cp ./honeyfile.txt /aaaaaaaa.txt"
+        	cp ./honeyfile.txt /aaaaaaaa.txt 2>/dev/null
+        	chmod 777 /aaaaaaaa.txt
+	fi
+ 	sudo touch /home/aaaaaaaa.txt
+	if [ $(stat -c %s /home/aaaaaaaa.txt) != 578394351 ]; then
+		echo "~# cp ./honeyfile.txt /home/aaaaaaaa.txt"
+        	cp ./honeyfile.txt /home/aaaaaaaa.txt 2>/dev/null
+        	chmod 777 /home/aaaaaaaa.txt
+	fi
+	
+	sudo touch /boot/aaaaaaaa.txt
+	if [ $(stat -c %s /boot/aaaaaaaa.txt) != 578394351 ]; then
+		echo "~# cp ./honeyfile.txt /boot/aaaaaaaa.txt"
+        	cp ./honeyfile.txt /boot/aaaaaaaa.txt 2>/dev/null
+        	chmod 777 /boot/aaaaaaaa.txt
+	fi
+	
+	sudo touch /etc/aaaaaaaa.txt
+	if [ $(stat -c %s /etc/aaaaaaaa.txt) != 578394351 ]; then
+		echo "~# cp ./honeyfile.txt /etc/aaaaaaaa.txt"
+        	cp ./honeyfile.txt /etc/aaaaaaaa.txt 2>/dev/null
+        	chmod 777 /etc/aaaaaaaa.txt
+	fi
+	
+	sudo touch /usr/aaaaaaaa.txt
+	if [ $(stat -c %s /usr/aaaaaaaa.txt) != 578394351 ]; then
+		echo "~# cp ./honeyfile.txt /usr/aaaaaaaa.txt"
+	        cp ./honeyfile.txt /usr/aaaaaaaa.txt 2>/dev/null
+	        chmod 777 /usr/aaaaaaaa.txt
+	fi
+  	mkdir /backup 2>/dev/null
+ 	sudo touch /backup/aaaaaaaa.txt
+	if [ $(stat -c %s /backup/aaaaaaaa.txt) != 578394351 ]; then
+
+		echo "~# cp ./honeyfile.txt /backup/aaaaaaaa.txt"
+	        cp ./honeyfile.txt /backup/aaaaaaaa.txt 2>/dev/null
+	        chmod 777 /backup/aaaaaaaa.txt
+	fi
+	rm -rf ./SINALIZADOR.dat
+
+fi
+
+for i in ${usuarios[@]}; do
+	
+	echo -e "\nCRIANDO DIRETÃ“RIOS..."
+	echo "~# sudo mkdir /home/$i/$documents"
+	sudo -u $i mkdir /home/$i/$documents 2>/dev/null
+	echo "~# sudo mkdir /home/$i/Downloads"
+	sudo -u $i mkdir /home/$i/Downloads 2>/dev/null
+	echo "~# sudo mkdir "$desktop""
+	sudo -u $i mkdir "$desktop" 2>/dev/null
+	echo "~# sudo mkdir /home/$i/$videos"
+	sudo -u $i mkdir /home/$i/$videos 2>/dev/null
+
+	echo -e "\nESPALHANDO HONEYFILES..."
+	touch ./SINALIZADOR.dat
+	sudo touch /home/$i/aaaaaaaa.txt
+	if [ $(stat -c %s /home/$i/aaaaaaaa.txt) != 578394351 ]; then
+		echo "~# cp ./honeyfile.txt /home/$i/aaaaaaaa.txt"
+		cp ./honeyfile.txt  /home/$i/aaaaaaaa.txt
+	fi
+
+	sudo touch /home/$i/$documents/aaaaaaaa.txt
+	if [ $(stat -c %s /home/$i/$documents/aaaaaaaa.txt) != 578394351 ]; then
+		echo "~# cp ./honeyfile.txt /home/$i/$documents/aaaaaaaa.txt"
+		cp ./honeyfile.txt /home/$i/$documents/aaaaaaaa.txt
+	fi
+
+	sudo touch /home/$i/Downloads/aaaaaaaa.txt
+	if [ $(stat -c %s /home/$i/Downloads/aaaaaaaa.txt) != 578394351 ]; then
+		echo "~# cp ./honeyfile.txt /home/$i/Downloads/aaaaaaaa.txt"
+		cp ./honeyfile.txt /home/$i/Downloads/aaaaaaaa.txt
+	fi
+
+	sudo touch "$desktop/aaaaaaaa.txt"
+	if [ $(stat -c %s "$desktop/aaaaaaaa.txt") != 578394351 ]; then
+		echo "~# cp ./honeyfile.txt "$desktop/aaaaaaaa.txt""
+		cp ./honeyfile.txt "$desktop/aaaaaaaa.txt"
+	fi
+
+	sudo touch "/home/$i/$videos/aaaaaaaa.txt"
+	if [ $(stat -c %s /home/$i/$videos/aaaaaaaa.txt) != 578394351 ]; then
+		echo "~# cp ./honeyfile.txt /home/$i/$videos/aaaaaaaa.txt"
+		cp ./honeyfile.txt /home/$i/$videos/aaaaaaaa.txt
+	fi
+	rm -rf ./SINALIZADOR.dat
+	echo -e "\nMUDANDO PERMISSOES..."
+ 	touch ./SINALIZADOR.dat
+	chmod 777 /home/$i/aaaaaaaa.txt 2>/dev/null
+        chmod 777 /home/$i/$documents/aaaaaaaa.txt 2>/dev/null
+        chmod 777 /home/$i/Downloads/aaaaaaaa.txt 2>/dev/null
+        chmod 777 "$desktop/aaaaaaaa.txt" 2>/dev/null
+        chmod 777 /home/$i/$videos/aaaaaaaa.txt 2>/dev/null
+
+	echo -e "\nADICIONANDO REGRAS PARA AUDITCTL..."
+        sudo auditctl -w /home/$i/aaaaaaaa.txt -p wa -k mush 2>/dev/null
+        sudo auditctl -w "$desktop/aaaaaaaa.txt" -p wa -k mush 2>/dev/null
+        sudo auditctl -w /home/$i/$videos/aaaaaaaa.txt -p wa -k mush 2>/dev/null
+        sudo auditctl -w /home/$i/Downloads/aaaaaaaa.txt -p wa -k mush 2>/dev/null
+        sudo auditctl -w /home/$i/$documents/aaaaaaaa.txt -p wa -k mush 2>/dev/null
+	rm -rf ./SINALIZADOR.dat
+done
+
+#=======================================================|
