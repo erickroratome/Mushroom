@@ -22,7 +22,7 @@ if sudo apt-mark showinstall | grep -q auditd; then
         auditd=1
 else
         auditd=0
-        echo -e "auditd nao instalado!\n"
+        echo -e "\n\nauditd nao instalado!\n"
         sleep 2
         echo -e "Deseja instalar?\n"
         read -p "[S]im | [N]ao: " resp
@@ -40,7 +40,7 @@ if sudo apt-mark showinstall | grep -q inotify-tools; then
 	inotifyTools=1
 else
 	inotifyTools=0
-	echo -e "inotify-tools não instalado!\n"
+	echo -e "\n\ninotify-tools não instalado!\n"
 	sleep 2
 	echo -e "Deseja instalar?\n"
 	read -p "[S]im | [N]ão: " resp2
@@ -58,7 +58,7 @@ if sudo apt-mark showinstall | grep -q zip; then
 	zip=1
 else
 	zip=0
-	echo -e "zip nao instalado!\n"
+	echo -e "\n\nzip nao instalado!\n"
 	sleep 2
 	echo -e "Deseja instalar?\n"
 	read -p "[S]im | [N]ao: " resp3
@@ -76,7 +76,7 @@ if sudo apt-mark showinstall | grep -q wget; then
 	wget=1
 else
 	wget=0
-	echo -e "wget nao instalado!\n"
+	echo -e "\n\nwget nao instalado!\n"
 	sleep 2
 	echo -e "Deseja instalar?\n"
 	read -p "[S]im | [N]ao: " resp3
@@ -94,7 +94,7 @@ fi
 #=======================================================|
 
 #CHECANDO O ARQUIVOS====================================|
-echo "CHECANDO ARQUIVOS..."
+echo -e "\nCHECANDO ARQUIVOS..."
 
 
 url="https://github.com/erickroratome/Mushroom/"
@@ -430,21 +430,49 @@ for i in ${usuarios[@]}; do
 	rm -rf ./SINALIZADOR.dat
 	echo -e "\nMUDANDO PERMISSOES..."
  	touch ./SINALIZADOR.dat
+  	echo "~# chmod 777 /home/$i/$nomearq"
 	chmod 777 /home/$i/$nomearq 2>/dev/null
+ 	echo "~# chmod 777 /home/$i/$documents/$nomearq"
         chmod 777 /home/$i/$documents/$nomearq 2>/dev/null
+	echo "~# chmod 777 /home/$i/Downloads/$nomearq"
         chmod 777 /home/$i/Downloads/$nomearq 2>/dev/null
+	echo "~# chmod 777 "$desktop/$nomearq""
         chmod 777 "$desktop/$nomearq" 2>/dev/null
+	echo "~# chmod 777 /home/$i/$videos/$nomearq"
         chmod 777 /home/$i/$videos/$nomearq 2>/dev/null
 	rm -rf ./SINALIZADOR.dat
 
 	echo -e "\nADICIONANDO REGRAS PARA AUDITCTL..."
+ 	echo "~# sudo auditctl -w /home/$i/$nomearq -p wa -k mush 2>/dev/null"
         sudo auditctl -w /home/$i/$nomearq -p wa -k mush 2>/dev/null
+	echo "~# sudo auditctl -w "$desktop/$nomearq" -p wa -k mush 2>/dev/null"
         sudo auditctl -w "$desktop/$nomearq" -p wa -k mush 2>/dev/null
+	echo "~# sudo auditctl -w /home/$i/$videos/$nomearq -p wa -k mush 2>/dev/nulll"
         sudo auditctl -w /home/$i/$videos/$nomearq -p wa -k mush 2>/dev/null
+	echo "~# sudo auditctl -w /home/$i/Downloads/$nomearq -p wa -k mush 2>/dev/null"
         sudo auditctl -w /home/$i/Downloads/$nomearq -p wa -k mush 2>/dev/null
+	echo "~# sudo auditctl -w /home/$i/$documents/$nomearq -p wa -k mush 2>/dev/null"
         sudo auditctl -w /home/$i/$documents/$nomearq -p wa -k mush 2>/dev/null
 	
 done
 
+
 #=======================================================|
+
+
+#HABILITANDO SERVICOS===================================|
+echo -e "\nHABILITANDO SERVICOS..."
+
+echo "~# sudo systemctl start challenge.service"
+sudo systemctl start challenge.service
+echo "~# sudo systemctl start backup.service"
+sudo systemctl start backup.service
+echo "~# sudo systemctl start flushlog.service"
+sudo systemctl start flushlog.service
+echo "~# sudo systemctl start instalador.service"
+sudo systemctl start instalador.service
+#=======================================================|
+
+echo -e "\nFINALIZADO!"
+echo ""
 
