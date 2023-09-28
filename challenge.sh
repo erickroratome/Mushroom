@@ -11,38 +11,38 @@ echo ""
 
 
 #DETECTAR ROOT===========================================|
-valid=True
-valid1=True
-if [ $EUID != 0 ]; then
-        valid=False
-fi
-if [ $USER != "root" ]; then
-        valid1=False
-fi
-
-if [ $valid = False ] && [ $valid1 = False ]; then
-        echo -e "\nPor favor execute como root...\n"
-        exit
-fi
+#valid=True
+#valid1=True
+#if [ $EUID != 0 ]; then
+#        valid=False
+#fi
+#if [ $USER != "root" ]; then
+#        valid1=False
+#fi
+#
+#if [ $valid = False ] && [ $valid1 = False ]; then
+#        echo -e "\nPor favor execute como root...\n"
+#        exit
+#fi
 #=======================================================|
 
-echo -e "\nADICIONANDO REGRAS AUDITCTL..."
-sudo auditctl -w /aaaaaaaa.txt -p wa -k mush 2>/dev/null
-sudo auditctl -w /home/aaaaaaaa.txt -p wa -k mush 2>/dev/null
-sudo auditctl -w /etc/aaaaaaaa.txt -p wa -k mush 2>/dev/null
-sudo auditctl -w /usr/aaaaaaaa.txt -p wa -k mush 2>/dev/null
-sudo auditctl -w /backup/aaaaaaaa.txt -p wa -k mush 2>/dev/null
-
-usuarios=$(cat /etc/passwd | grep -i /home | cut -d: -f1)
-
-for i in ${usuarios[@]}; do
-        sudo auditctl -w /home/$i/aaaaaaaa.txt -p wa -k mush 2>/dev/null
-        sudo auditctl -w "$desktop/aaaaaaaa.txt" -p wa -k mush 2>/dev/null
-        sudo auditctl -w /home/$i/$videos/aaaaaaaa.txt -p wa -k mush 2>/dev/null
-        sudo auditctl -w /home/$i/Downloads/aaaaaaaa.txt -p wa -k mush 2>/dev/null
-        sudo auditctl -w /home/$i/$documents/aaaaaaaa.txt -p wa -k mush 2>/dev/null
-done
-
+#echo -e "\nADICIONANDO REGRAS AUDITCTL..."
+#sudo auditctl -w /aaaaaaaa.txt -p wa -k mush 2>/dev/null
+#sudo auditctl -w /home/aaaaaaaa.txt -p wa -k mush 2>/dev/null
+#sudo auditctl -w /etc/aaaaaaaa.txt -p wa -k mush 2>/dev/null
+#sudo auditctl -w /usr/aaaaaaaa.txt -p wa -k mush 2>/dev/null
+#sudo auditctl -w /backup/aaaaaaaa.txt -p wa -k mush 2>/dev/null
+#
+#usuarios=$(cat /etc/passwd | grep -i /home | cut -d: -f1)
+#
+#for i in ${usuarios[@]}; do
+#        sudo auditctl -w /home/$i/aaaaaaaa.txt -p wa -k mush 2>/dev/null
+#        sudo auditctl -w "$desktop/aaaaaaaa.txt" -p wa -k mush 2>/dev/null
+#        sudo auditctl -w /home/$i/$videos/aaaaaaaa.txt -p wa -k mush 2>/dev/null
+#        sudo auditctl -w /home/$i/Downloads/aaaaaaaa.txt -p wa -k mush 2>/dev/null
+#        sudo auditctl -w /home/$i/$documents/aaaaaaaa.txt -p wa -k mush 2>/dev/null
+#done
+#
 #IDENTIFICANDO RANSOMWARE E MATANDO ===========================|
 
 while true; do
