@@ -262,30 +262,58 @@ sudo chown root:root ./flushlog.sh
 echo "~# sudo -u root chmod 500 ./flushlog.sh"
 sudo -u root chmod 500 ./flushlog.sh
 
-echo "~# sudo chown root:root ./flushlog.service"
-sudo chown root:root ./flushlog.service
-echo "~# sudo -u root chmod 777 ./flushlog.service"
-sudo -u root chmod 777 ./flushlog.service
 
-echo "~# sudo chown root:root ./challenge.service"
-sudo chown root:root ./challenge.service
-echo "~# sudo -u root chmod 777 ./challenge.service"
-sudo -u root chmod 777 ./challenge.service
-
-echo "~# sudo chown root:root ./backup.service"
-sudo chown root:root ./backup.service
-echo "~# sudo -u root chmod 777 ./backup.service"
-sudo -u root chmod 777 ./backup.service
-
-echo "~# sudo chown root:root ./instalador.service"
-sudo chown root:root ./instalador.service
-echo "~# sudo -u root chmod 777 ./instalador.service"
-sudo -u root chmod 777 ./instalador.service
-
+if [ ! -e ./flushlog.service ]; then
+	echo "~# sudo chown root:root /etc/systemd/system/flushlog.service"
+	sudo chown root:root /etc/systemd/system/flushlog.service
+	echo "~# sudo -u root chmod 777 /etc/systemd/system/flushlog.service"
+	sudo -u root chmod 777 /etc/systemd/system/flushlog.service
+else
+	echo "~# sudo chown root:root ./flushlog.service"
+	sudo chown root:root ./flushlog.service
+	echo "~# sudo -u root chmod 777 ./flushlog.service"
+	sudo -u root chmod 777 ./flushlog.service
+fi
+#
+if [ ! -e ./challenge.service ]; then
+	echo "~# sudo chown root:root /etc/systemd/system/challenge.service"
+	sudo chown root:root /etc/systemd/system/challenge.service
+	echo "~# sudo -u root chmod 777 /etc/systemd/system/challenge.service"
+	sudo -u root chmod 777 /etc/systemd/system/challenge.service
+else
+	echo "~# sudo chown root:root ./challenge.service"
+	sudo chown root:root ./challenge.service
+	echo "~# sudo -u root chmod 777 ./challenge.service"
+	sudo -u root chmod 777 ./challenge.service
+fi
+#
+if [ ! -e ./challenge.service ]; then
+	echo "~# sudo chown root:root /etc/systemd/system/backup.service"
+	sudo chown root:root /etc/systemd/system/backup.service
+	echo "~# sudo -u root chmod 777 /etc/systemd/system/backup.service"
+	sudo -u root chmod 777 /etc/systemd/system/backup.service
+else
+	echo "~# sudo chown root:root ./backup.service"
+	sudo chown root:root ./backup.service
+	echo "~# sudo -u root chmod 777 ./backup.service"
+	sudo -u root chmod 777 ./backup.service
+fi
+#
+if [ ! -e ./challenge.service ]; then
+	echo "~# sudo chown root:root /etc/systemd/system/instalador.service"
+	sudo chown root:root /etc/systemd/system/instalador.service
+	echo "~# sudo -u root chmod 777 /etc/systemd/system/instalador.service"
+	sudo -u root chmod 777 /etc/systemd/system/instalador.service
+else
+	echo "~# sudo chown root:root ./instalador.service"
+	sudo chown root:root ./instalador.service
+	echo "~# sudo -u root chmod 777 ./instalador.service"
+	sudo -u root chmod 777 ./instalador.service
+fi
 #=======================================================|
 
-#MOVENDO ARQUIVOS=======================================|
 
+#MOVENDO ARQUIVOS=======================================|
 echo -e "\nMOVENDO ARQUIVOS..."
 
 echo "~# cp ./instalador.sh /usr/sbin/"
