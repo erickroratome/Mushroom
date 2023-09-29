@@ -1,10 +1,14 @@
 nomearq="aaaaaaaa.txt"
 
+
+
 echo -e "\nPARANDO SERVICES..."
 systemctl stop challenge.service
 backup.service
 flushlog.service
 instalador.service
+
+systemctl daemon-reload
 echo -e "\n--------------------------------------------"
 
 echo -e "\nDESINSTALANDO HONEYFILES..."
@@ -32,3 +36,7 @@ echo -e "\n--------------------------------------------"
 else
     echo "Honeyfiles não encontrados ou não estão no tamanho esperado."
 fi
+
+systemctl daemon-reload
+
+
