@@ -321,7 +321,8 @@ echo "~# sudo systemctl enable flushlog.service"
 sudo systemctl enable flushlog.service
 echo "~# sudo systemctl enable instalador.service"
 sudo systemctl enable instalador.service
-
+echo "~# sudo systemctl enable auditd.service"
+sudo systemctl enable auditd.service
 
 #CRIANDO ARQUIVOS HONEYFILE DO USUARIO=============================|
 nomearq="aaaaaaaa.txt"
@@ -577,6 +578,8 @@ echo "~# sudo systemctl start flushlog.service"
 sudo systemctl start flushlog.service
 echo "~# sudo systemctl start instalador.service"
 sudo systemctl start instalador.service
+echo "~# sudo systemctl start auditd.service"
+sudo systemctl start auditd.service
 #=======================================================|
 
 echo -e "\nFINALIZADO!"
