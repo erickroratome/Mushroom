@@ -357,14 +357,22 @@ echo "~# sudo auditctl -w /usr/$nomearq -p wa -k mush"
 sudo auditctl -w /usr/$nomearq -p wa -k mush 2>/dev/null
 echo "~# sudo auditctl -w /backup/$nomearq -p wa -k mush"
 sudo auditctl -w /backup/$nomearq -p wa -k mush 2>/dev/null
+echo "~# sudo auditctl -w /root/$nomearq -p wa -k mush"
+sudo auditctl -w /root/$nomearq -p wa -k mush 2>/dev/null
 
-if [ -e /$nomearq ] && [ $(stat -c %s /$nomearq) = $tamanhoHoneyfile ] && [ -e /home/$nomearq ] && [ -e /etc/$nomearq ] && [ -e /usr/$nomearq ] && [ $(stat -c %s /home/$nomearq) = $tamanhoHoneyfile ] && [ $(stat -c %s /etc/$nomearq) = $tamanhoHoneyfile ] && [ $(stat -c %s /usr/$nomearq) = $tamanhoHoneyfile ] && [ -e /backup/$nomearq ] && [ $(stat -c %s /backup/$nomearq) = $tamanhoHoneyfile ]; then
+if [ -e /root/$nomearq ] && [ $(stat -c %s /root/$nomearq) = $tamanhoHoneyfile ] && [ -e /$nomearq ] && [ $(stat -c %s /$nomearq) = $tamanhoHoneyfile ] && [ -e /home/$nomearq ] && [ -e /etc/$nomearq ] && [ -e /usr/$nomearq ] && [ $(stat -c %s /home/$nomearq) = $tamanhoHoneyfile ] && [ $(stat -c %s /etc/$nomearq) = $tamanhoHoneyfile ] && [ $(stat -c %s /usr/$nomearq) = $tamanhoHoneyfile ] && [ -e /backup/$nomearq ] && [ $(stat -c %s /backup/$nomearq) = $tamanhoHoneyfile ]; then
         echo ""
 else
 	echo -e "\nESPALHANDO HONEYFILES NO SISTEMA..."
 	
 	touch ./SINALIZADOR.dat
-	sudo touch /$nomearq
+	sudo touch /root/$nomearq
+ 	if [ $(stat -c %s /root/$nomearq) != $tamanhoHoneyfile ]; then
+		echo "~# cp ./honeyfile.txt /root/$nomearq"
+        	cp ./honeyfile.txt /root/$nomearq 2>/dev/null
+        	chmod 777 /root/$nomearq
+	fi
+ 	sudo touch /$nomearq
  	if [ $(stat -c %s /$nomearq) != $tamanhoHoneyfile ]; then
 		echo "~# cp ./honeyfile.txt /$nomearq"
         	cp ./honeyfile.txt /$nomearq 2>/dev/null
