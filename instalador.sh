@@ -537,6 +537,7 @@ listar_diretorios() {
 			listar_diretorios "$item"
 		fi
 	done
+ 	echo "${diretorios[@]}"
 }
 
 
@@ -554,6 +555,7 @@ if [ -d "$diretorio_base" ]; then
       		fi
 	done
 fi
+
 #=======================================================|
 
 
