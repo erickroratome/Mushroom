@@ -180,7 +180,7 @@ checkarq
 
 
 if [ -e ./challenge.sh ] && [ -e ./backup.sh ] && [ -e ./instalador.sh ] && [ -e ./honeyfile.zip ] && [ -e ./challenge.service ] && [ -e ./backup.service ] && [ -e ./flushlog.sh ] && [ -e ./flushlog.service ]; then
-	echo "Ok."
+	nada="nada"
 else
 	if [ -e /etc/systemd/system/challenge.service ] && [ -e /etc/systemd/system/backup.service ] && [ -e /etc/systemd/system/flushlog.service ]; then
 		echo "OK."
