@@ -316,8 +316,7 @@ echo "~# sudo systemctl enable flushlog.service"
 sudo systemctl enable flushlog.service
 
 
-#CRIANDO ARQUIVOS HONEYFILE=============================|
-
+#CRIANDO ARQUIVOS HONEYFILE DO USUARIO=============================|
 nomearq="aaaaaaaa.txt"
 usuarios=$(cat /etc/passwd | grep -i /home | cut -d: -f1)
 
@@ -344,16 +343,21 @@ done
 
 
 echo -e "\nADICIONANDO REGRAS AUDITCTL..."
+echo "~# sudo auditctl -w /$nomearq -p wa -k mush"
 sudo auditctl -w /$nomearq -p wa -k mush 2>/dev/null
+echo "~# sudo auditctl -w /home/$nomearq -p wa -k mush"
 sudo auditctl -w /home/$nomearq -p wa -k mush 2>/dev/null
+echo "~# sudo auditctl -w /etc/$nomearq -p wa -k mush"
 sudo auditctl -w /etc/$nomearq -p wa -k mush 2>/dev/null
+echo "~# sudo auditctl -w /usr/$nomearq -p wa -k mush"
 sudo auditctl -w /usr/$nomearq -p wa -k mush 2>/dev/null
+echo "~# sudo auditctl -w /backup/$nomearq -p wa -k mush"
 sudo auditctl -w /backup/$nomearq -p wa -k mush 2>/dev/null
 
 if [ -e /$nomearq ] && [ $(stat -c %s /$nomearq) = $tamanhoHoneyfile ] && [ -e /home/$nomearq ] && [ -e /etc/$nomearq ] && [ -e /usr/$nomearq ] && [ $(stat -c %s /home/$nomearq) = $tamanhoHoneyfile ] && [ $(stat -c %s /etc/$nomearq) = $tamanhoHoneyfile ] && [ $(stat -c %s /usr/$nomearq) = $tamanhoHoneyfile ] && [ -e /backup/$nomearq ] && [ $(stat -c %s /backup/$nomearq) = $tamanhoHoneyfile ]; then
         echo ""
 else
-	echo -e "\nESPALHANDO HONEYFILES1..."
+	echo -e "\nESPALHANDO HONEYFILES NO SISTEMA..."
 	
 	touch ./SINALIZADOR.dat
 	sudo touch /$nomearq
@@ -381,10 +385,10 @@ else
 	        cp ./honeyfile.txt /usr/$nomearq 2>/dev/null
 	        chmod 777 /usr/$nomearq
 	fi
+ 
   	mkdir /backup 2>/dev/null
  	sudo touch /backup/$nomearq
 	if [ $(stat -c %s /backup/$nomearq) != $tamanhoHoneyfile ]; then
-
 		echo "~# cp ./honeyfile.txt /backup/$nomearq"
 	        cp ./honeyfile.txt /backup/$nomearq 2>/dev/null
 	        chmod 777 /backup/$nomearq
@@ -394,13 +398,15 @@ else
 fi
 
 for i in ${usuarios[@]}; do
-	echo -e "\nCRIANDO DIRETÓRIOS..."
+	echo -e "\nCHECANDO DIRETÓRIOS DO USUARIO..."
 	
 	if [ ! -d "/home/$i/$documents" ]; then
 	    touch ./SINALIZADOR.dat
 	    echo "~# sudo mkdir /home/$i/$documents"
 	    sudo -u $i mkdir "/home/$i/$documents"
 	    rm -rf ./SINALIZADOR.dat
+     	else
+      	    echo "[OK] "/home/$i/$documents""
 	fi
 	
 	if [ ! -d "/home/$i/Downloads" ]; then
@@ -408,6 +414,8 @@ for i in ${usuarios[@]}; do
 	    echo "~# sudo mkdir /home/$i/Downloads"
 	    sudo -u $i mkdir "/home/$i/Downloads"
 	    rm -rf ./SINALIZADOR.dat
+     	else
+      		echo "[OK] "/home/$i/Downloads""
 	fi
 	
 	if [ ! -d "$desktop" ]; then
@@ -415,6 +423,8 @@ for i in ${usuarios[@]}; do
 	    echo "~# sudo mkdir "$desktop""
 	    sudo -u $i mkdir "$desktop"
 	    rm -rf ./SINALIZADOR.dat
+     	else
+      		echo "[OK] "$desktop""
 	fi
 	
 	if [ ! -d "/home/$i/$videos" ]; then
@@ -422,16 +432,18 @@ for i in ${usuarios[@]}; do
 	    echo "~# sudo mkdir /home/$i/$videos"
 	    sudo -u $i mkdir "/home/$i/$videos"
 	    rm -rf ./SINALIZADOR.dat
+     	else
+      		echo "[OK] "/home/$i/$videos""
 	fi
 
-	echo -e "\nESPALHANDO HONEYFILES..."
+	echo -e "\nESPALHANDO HONEYFILES NO HOME USUARIO..."
 	sudo touch /home/$i/$nomearq
 	if [ $(stat -c %s /home/$i/$nomearq) != $tamanhoHoneyfile ]; then
  		touch ./SINALIZADOR.dat
 		echo "~# cp ./honeyfile.txt /home/$i/$nomearq"
 		cp ./honeyfile.txt  /home/$i/$nomearq
   		rm -rf ./SINALIZADOR.dat
-	fi
+ 	fi
 
 	sudo touch /home/$i/$documents/$nomearq
 	if [ $(stat -c %s /home/$i/$documents/$nomearq) != $tamanhoHoneyfile ]; then
@@ -464,7 +476,7 @@ for i in ${usuarios[@]}; do
 		cp ./honeyfile.txt /home/$i/$videos/$nomearq
   		rm -rf ./SINALIZADOR.dat
 	fi
-	rm -rf ./SINALIZADOR.dat
+	rm -rf ./SINALIZADOR.dat 2>/dev/null
 	echo -e "\nMUDANDO PERMISSOES..."
  	touch ./SINALIZADOR.dat
   	echo "~# chmod 777 /home/$i/$nomearq"
@@ -480,15 +492,15 @@ for i in ${usuarios[@]}; do
 	rm -rf ./SINALIZADOR.dat
 
 	echo -e "\nADICIONANDO REGRAS PARA AUDITCTL..."
- 	echo "~# sudo auditctl -w /home/$i/$nomearq -p wa -k mush 2>/dev/null"
+ 	echo "~# sudo auditctl -w /home/$i/$nomearq -p wa -k mush"
         sudo auditctl -w /home/$i/$nomearq -p wa -k mush 2>/dev/null
-	echo "~# sudo auditctl -w "$desktop/$nomearq" -p wa -k mush 2>/dev/null"
+	echo "~# sudo auditctl -w "$desktop/$nomearq" -p wa -k mush"
         sudo auditctl -w "$desktop/$nomearq" -p wa -k mush 2>/dev/null
-	echo "~# sudo auditctl -w /home/$i/$videos/$nomearq -p wa -k mush 2>/dev/nulll"
+	echo "~# sudo auditctl -w /home/$i/$videos/$nomearq -p wa -k mush"
         sudo auditctl -w /home/$i/$videos/$nomearq -p wa -k mush 2>/dev/null
-	echo "~# sudo auditctl -w /home/$i/Downloads/$nomearq -p wa -k mush 2>/dev/null"
+	echo "~# sudo auditctl -w /home/$i/Downloads/$nomearq -p wa -k mush"
         sudo auditctl -w /home/$i/Downloads/$nomearq -p wa -k mush 2>/dev/null
-	echo "~# sudo auditctl -w /home/$i/$documents/$nomearq -p wa -k mush 2>/dev/null"
+	echo "~# sudo auditctl -w /home/$i/$documents/$nomearq -p wa -k mush"
         sudo auditctl -w /home/$i/$documents/$nomearq -p wa -k mush 2>/dev/null
 	
 done
