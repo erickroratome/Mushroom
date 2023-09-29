@@ -16,7 +16,14 @@ if [ $valid = False ] && [ $valid1 = False ]; then
 fi
 #=======================================================|
 
+#VERIFICANDO SOFTWARES INSTALADOS=======================|
+onde=$(pwd)
+if [ ! -e "$onde/instalador.sh" ]; then
+	echo "Execute no mesmo diretório do instalador..."
+ 	exit
+fi
 
+#=======================================================|
 #VERIFICANDO SOFTWARES INSTALADOS=======================|
 echo -e "\nCHECANDO SOFTWARES INSTALADOS..."
 if sudo apt-mark showinstall | grep -q auditd; then
