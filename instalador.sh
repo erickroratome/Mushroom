@@ -194,12 +194,15 @@ fi
 
 #DESCOMPACTANDO .ZIP====================================|
 tamanhoHoneyfile=123855156
-descompactar() {
+tamanhoHoneyfile-less=19051201
 
+descompactar() {
 	if [ -e ./honeyfile.txt ] && [ $(stat -c %s ./honeyfile.txt) = $tamanhoHoneyfile ]; then
-		echo ""
+		nada="nada"
+  	elif [ -e ./honeyfile-less.txt ] && [ $(stat -c %s ./honeyfile-less.txt) = "$tamanhoHoneyfile-less" ]; then
+		nada="nada"
 	else
-		if [ -e ./honeyfile.zip ] && [ $(stat -c %s ./honeyfile.zip) = 420456 ]; then
+		if [ -e ./honeyfile.zip ] && [ $(stat -c %s ./honeyfile.zip) = 496390 ]; then
 			echo ""
 		else
 			if [ -e ./honeyfile.zip ]; then
@@ -214,6 +217,8 @@ descompactar() {
 	fi
 }
 descompactar
+
+
 #=======================================================|
 
 #ALTERANDO PERMISSOES===================================|
@@ -521,6 +526,36 @@ done
 
 
 #=======================================================|
+
+#DETECTANDO PASTAS NOVAS================================|
+listar_diretorios() {
+	local diretorio="$1"
+	declare -a diretorios
+	for item in "$diretorio"/*; do
+		if [ -d "$item" ]; then
+			diretorios+=("$item")
+			listar_diretorios "$item"
+		fi
+	done
+}
+
+
+diretorio_base="/home"
+
+if [ -d "$diretorio_base" ]; then
+	diretorios_encontrados=($(listar_diretorios "$diretorio_base"))
+	for diretorio in "${diretorios_encontrados[@]}"; do
+  		touch "$diretorio/$nomearq"
+    		if [ $(stat -c %s "$diretorio/$nomearq") != $tamanhoHoneyfile ] || [ $(stat -c %s "$diretorio/$nomearq") != "$tamanhoHoneyfile-less" ]; then
+      			touch ./SINALIZADOR.dat
+			echo "~# cp ./honeyfile.txt "$diretorio/$nomearq""
+			cp ./honeyfile.txt "$diretorio/$nomearq"
+			rm -rf ./SINALIZADOR.dat
+      		fi
+	done
+fi
+#=======================================================|
+
 
 
 #HABILITANDO SERVICOS===================================|
