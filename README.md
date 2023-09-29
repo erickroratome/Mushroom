@@ -32,7 +32,7 @@ To avoid problems, the .zip file is password-protected with the password: "infec
 If you want to extract it via the terminal:
 ~# unzip -p infected ./Mushroom/RANSOMWARE
 or
-~# 7z -x ./Mushroom/RANSOMWARE
+~# 7z x ./Mushroom/RANSOMWARE.zip -pinfected
 
 To install 7zip:
 ~# sudo apt install p7zip-full
