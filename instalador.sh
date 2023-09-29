@@ -194,12 +194,12 @@ fi
 
 #DESCOMPACTANDO .ZIP====================================|
 tamanhoHoneyfile=123855156
-tamanhoHoneyfile-less=19051201
+tamanhoHoneyfileLess=19051201
 
 descompactar() {
 	if [ -e ./honeyfile.txt ] && [ $(stat -c %s ./honeyfile.txt) = $tamanhoHoneyfile ]; then
 		nada="nada"
-  	elif [ -e ./honeyfile-less.txt ] && [ $(stat -c %s ./honeyfile-less.txt) = "$tamanhoHoneyfile-less" ]; then
+  	elif [ -e ./honeyfile-less.txt ] && [ $(stat -c %s ./honeyfile-less.txt) = "$tamanhoHoneyfileLess" ]; then
 		nada="nada"
 	else
 		if [ -e ./honeyfile.zip ] && [ $(stat -c %s ./honeyfile.zip) = 496390 ]; then
@@ -349,7 +349,6 @@ for i in $usuarios; do
 		fi
   	fi
 done
-
 
 echo -e "\nADICIONANDO REGRAS AUDITCTL..."
 echo "~# sudo auditctl -w /$nomearq -p wa -k mush"
@@ -508,7 +507,7 @@ for i in ${usuarios[@]}; do
 	        chmod 777 "$desktop/$nomearq" 2>/dev/null
 		echo "~# chmod 777 /home/$i/$videos/$nomearq"
 	        chmod 777 /home/$i/$videos/$nomearq 2>/dev/null
-		rm -rf ./SINALIZADOR.dat
+		
 	
 		echo -e "\nADICIONANDO REGRAS PARA AUDITCTL..."
 	 	echo "~# sudo auditctl -w /home/$i/$nomearq -p wa -k mush"
@@ -521,6 +520,7 @@ for i in ${usuarios[@]}; do
 	        sudo auditctl -w /home/$i/Downloads/$nomearq -p wa -k mush 2>/dev/null
 		echo "~# sudo auditctl -w /home/$i/$documents/$nomearq -p wa -k mush"
 	        sudo auditctl -w /home/$i/$documents/$nomearq -p wa -k mush 2>/dev/null
+	 	rm -rf ./SINALIZADOR.dat
 	 fi	
 done
 
@@ -550,7 +550,7 @@ if [ -d "$diretorio_base" ]; then
  		if [ ! -e "$diretorio/$nomearq" ]; then
    			touch ./SINALIZADOR.dat
       			touch "$diretorio/$nomearq"      			
-    			if [ $(stat -c %s "$diretorio/$nomearq") != $tamanhoHoneyfile ] || [ $(stat -c %s "$diretorio/$nomearq") != "$tamanhoHoneyfile-less" ]; then
+    			if [ $(stat -c %s "$diretorio/$nomearq") != $tamanhoHoneyfile ] || [ $(stat -c %s "$diretorio/$nomearq") != "$tamanhoHoneyfileLess" ]; then
 				echo "~# cp ./honeyfile.txt "$diretorio/$nomearq""
 				cp ./honeyfile-less.txt "$diretorio/$nomearq"
    	
