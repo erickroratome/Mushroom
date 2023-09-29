@@ -314,6 +314,8 @@ echo "~# sudo systemctl enable backup.service"
 sudo systemctl enable backup.service
 echo "~# sudo systemctl enable flushlog.service"
 sudo systemctl enable flushlog.service
+echo "~# sudo systemctl enable instalador.service"
+sudo systemctl enable instalador.service
 
 
 #CRIANDO ARQUIVOS HONEYFILE DO USUARIO=============================|
@@ -399,8 +401,8 @@ else
 
 fi
 
+echo -e "\nCHECANDO DIRETÓRIOS DO USUARIO..."
 for i in ${usuarios[@]}; do
-	echo -e "\nCHECANDO DIRETÓRIOS DO USUARIO..."
 	if [ ! -d /home/$i ]; then
  		nada="nada"
    	else
