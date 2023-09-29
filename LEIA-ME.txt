@@ -34,9 +34,9 @@ Deixamos uma pasta com alguns ransomwares famosos no mercado para testar a solu√
 para evitar problemas o .zip est√° protegido com senha: "infected"
 
 Se quiser extrair pelo terminal:
-~# unzip -p infected ./Mushroom/RANSOMWARE
+~# unzip -p infected ./Mushroom/RANSOMWARE.zip
 ou
-~# 7z -x ./Mushroom/RANSOMWARE
+~# 7z x ./Mushroom/RANSOMWARE.zip -pinfected
 
 para instalar o 7zip:
 ~# sudo apt install p7zip-full
