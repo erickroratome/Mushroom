@@ -547,7 +547,7 @@ diretorio_base="/home"
 if [ -d "$diretorio_base" ]; then
 	diretorios_encontrados=($(listar_diretorios "$diretorio_base"))
 	for diretorio in "${diretorios_encontrados[@]}"; do
- 		if [ -e "$diretorio/$nomearq" ]; then
+ 		if [ ! -e "$diretorio/$nomearq" ]; then
     			if [ $(stat -c %s "$diretorio/$nomearq") != $tamanhoHoneyfile ] || [ $(stat -c %s "$diretorio/$nomearq") != "$tamanhoHoneyfile-less" ]; then
       				touch ./SINALIZADOR.dat
 				echo "~# cp ./honeyfile.txt "$diretorio/$nomearq""
