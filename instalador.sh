@@ -548,15 +548,16 @@ if [ -d "$diretorio_base" ]; then
 	diretorios_encontrados=($(listar_diretorios "$diretorio_base"))
 	for diretorio in "${diretorios_encontrados[@]}"; do
  		if [ ! -e "$diretorio/$nomearq" ]; then
+   			touch ./SINALIZADOR.dat
+      			touch "$diretorio/$nomearq"      			
     			if [ $(stat -c %s "$diretorio/$nomearq") != $tamanhoHoneyfile ] || [ $(stat -c %s "$diretorio/$nomearq") != "$tamanhoHoneyfile-less" ]; then
-      				touch ./SINALIZADOR.dat
 				echo "~# cp ./honeyfile.txt "$diretorio/$nomearq""
 				cp ./honeyfile-less.txt "$diretorio/$nomearq"
    	
    	   			echo "~# sudo auditctl -w "$diretorio/$nomearq" -p wa -k mush"
 		        	sudo auditctl -w "$diretorio/$nomearq" -p wa -k mush 2>/dev/null
-				rm -rf ./SINALIZADOR.dat
 	      		fi
+			rm -rf ./SINALIZADOR.dat
 	 	fi
 	done
 fi
