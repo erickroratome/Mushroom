@@ -528,6 +528,7 @@ done
 #=======================================================|
 
 #DETECTANDO PASTAS NOVAS================================|
+echo -e "\nDETECTANDO NOVAS PASTAS..."
 listar_diretorios() {
 	local diretorio="$1"
 	declare -a diretorios
@@ -550,7 +551,10 @@ if [ -d "$diretorio_base" ]; then
     		if [ $(stat -c %s "$diretorio/$nomearq") != $tamanhoHoneyfile ] || [ $(stat -c %s "$diretorio/$nomearq") != "$tamanhoHoneyfile-less" ]; then
       			touch ./SINALIZADOR.dat
 			echo "~# cp ./honeyfile.txt "$diretorio/$nomearq""
-			cp ./honeyfile.txt "$diretorio/$nomearq"
+			cp ./honeyfile-less.txt "$diretorio/$nomearq"
+   
+      			echo "~# sudo auditctl -w "$diretorio/$nomearq" -p wa -k mush"
+	        	sudo auditctl -w "$diretorio/$nomearq" -p wa -k mush 2>/dev/null
 			rm -rf ./SINALIZADOR.dat
       		fi
 	done
