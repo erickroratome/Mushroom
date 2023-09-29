@@ -1,42 +1,54 @@
+#!/bin/bash
+
 nomearq="aaaaaaaa.txt"
 
-
-
-echo -e "\nPARANDO SERVICES..."
-systemctl stop challenge.service
-backup.service
-flushlog.service
-instalador.service
-
-systemctl daemon-reload
+echo -e "Voce deseja:\n 1 - Parar os serviços\n 2 - Desinstalar ferramenta\n"
+read option
 echo -e "\n--------------------------------------------"
 
-echo -e "\nDESINSTALANDO HONEYFILES..."
-if [ -e /$nomearq ] && [ $(stat -c %s /$nomearq) = $tamanhoHoneyfile ] && [ -e /home/$nomearq ] && [ -e /etc/$nomearq ] && [ -e /usr/$nomearq ] && [ $(stat -c %s /home/$nomearq) = $tamanhoHoneyfile ] && [ $(stat -c %s /etc/$nomearq) = $tamanhoHoneyfile ] && [ $(stat -c %s /usr/$nomearq) = $tamanhoHoneyfile ] && [ -e /backup/$nomearq ] && [ $(stat -c %s /backup/$nomearq) = $tamanhoHoneyfile ]; then
-    echo "Desinstalando Honeyfiles..."
+if [ "$option" = "1" ]; then
+    echo "Parando serviços selecionados."
+    systemctl stop challenge.service
+    systemctl stop backup.service
+    systemctl stop flushlog.service
+    systemctl stop instalador.service
 
-    
-    sudo rm /$nomearq
-    sudo rm /home/$nomearq
-    sudo rm /etc/$nomearq
-    sudo rm /usr/$nomearq
-    sudo rm -r /backup/$nomearq
+    systemctl daemon-reload
 
-    
-    usuarios=$(cat /etc/passwd | grep -i /home | cut -d: -f1)
-    for i in ${usuarios[@]}; do
-        sudo -u $i rm /home/$i/$nomearq
-        sudo -u $i rm /home/$i/$documents/$nomearq
-        sudo -u $i rm /home/$i/Downloads/$nomearq
-        sudo -u $i rm "$desktop/$nomearq"
-        sudo -u $i rm /home/$i/$videos/$nomearq
-    done
-echo -e "\n--------------------------------------------"
-    echo "Honeyfiles desinstalados com sucesso!"
+elif [ "$option" = "2" ]; then
+    echo -e "\nDESINSTALANDO HONEYFILES..."
+    if [ -e /$nomearq ] && [ -e /home/$nomearq ] && [ -e /etc/$nomearq ] && [ -e /usr/$nomearq ] &&  [ -e /backup/$nomearq ]; then
+        echo "Desinstalando Honeyfiles..."
+
+        systemctl stop challenge.service
+        systemctl stop backup.service
+        systemctl stop flushlog.service
+        systemctl stop instalador.service
+
+        systemctl daemon-reload
+
+        sudo rm /$nomearq
+        sudo rm /home/$nomearq
+        sudo rm /etc/$nomearq
+        sudo rm /usr/$nomearq
+        sudo rm -r /backup/$nomearq
+
+        usuarios=$(cat /etc/passwd | grep -i /home | cut -d: -f1)
+        for i in ${usuarios[@]}; do
+            sudo -u $i rm /home/$i/$nomearq
+            sudo -u $i rm /home/$i/$documents/$nomearq
+            sudo -u $i rm /home/$i/Downloads/$nomearq
+            sudo -u $i rm "$desktop/$nomearq"
+            sudo -u $i rm /home/$i/$videos/$nomearq
+        done
+        echo -e "\n--------------------------------------------"
+        echo "Honeyfiles desinstalados com sucesso!"
+    else
+        echo "Honeyfiles não encontrados ou não estão no tamanho esperado."
+    fi
+    systemctl daemon-reload
 else
-    echo "Honeyfiles não encontrados ou não estão no tamanho esperado."
+    echo "Opção inválida."
 fi
-
-systemctl daemon-reload
 
 
