@@ -18,10 +18,10 @@ fi
 
 
 #VERIFICANDO SOFTWARES INSTALADOS=======================|
+echo -e "\nCHECANDO SOFTWARES INSTALADOS..."
 if sudo apt-mark showinstall | grep -q auditd; then
-        auditd=1
+	echo "[OK] auditd"
 else
-        auditd=0
         echo -e "\n\nauditd nao instalado!\n"
         sleep 2
         echo -e "Deseja instalar?\n"
@@ -37,9 +37,8 @@ else
 fi
 
 if sudo apt-mark showinstall | grep -q inotify-tools; then
-	inotifyTools=1
+ 	echo "[OK] inotify-tools"
 else
-	inotifyTools=0
 	echo -e "\n\ninotify-tools não instalado!\n"
 	sleep 2
 	echo -e "Deseja instalar?\n"
@@ -55,9 +54,8 @@ else
 fi
 #
 if sudo apt-mark showinstall | grep -q zip; then
-	zip=1
+	echo "[OK] zip"
 else
-	zip=0
 	echo -e "\n\nzip nao instalado!\n"
 	sleep 2
 	echo -e "Deseja instalar?\n"
@@ -73,9 +71,8 @@ else
 fi
 #
 if sudo apt-mark showinstall | grep -q wget; then
-	wget=1
+	echo "[OK] wget"
 else
-	wget=0
 	echo -e "\n\nwget nao instalado!\n"
 	sleep 2
 	echo -e "Deseja instalar?\n"
@@ -96,70 +93,87 @@ fi
 #CHECANDO O ARQUIVOS====================================|
 echo -e "\nCHECANDO ARQUIVOS..."
 
-
 url="https://github.com/erickroratome/Mushroom/"
 checkarq() {
 	if [ -e ./challenge.sh ]; then
-		echo "challenge.sh [OK]"
+		echo "[OK] challenge.sh"
 	else
-		echo "challenge.sh [FAIL]"
+		echo "[FAIL] challenge.sh"
+      		echo "~# wget "$url/raw/main/challenge.sh""
 		wget "$url/raw/main/challenge.sh"
+  		echo ""
 	fi
 	#
 	if [ -e ./backup.sh ]; then
-		echo "backup.sh [OK]"
+		echo "[OK] backup.sh"
 	else
-		echo "backup.sh [FAIL]"
+		echo "[FAIL] backup.sh"
+      		echo "~# wget "$url/raw/main/backup.sh""
 		wget "$url/raw/main/backup.sh"
+  		echo ""
 	fi
 	#
 	if [ -e ./flushlog.sh ]; then
-		echo "flushloge.sh [OK]"
+		echo "[OK] flushloge.sh"
 	else
-		echo "flushlog.sh [FAIL]"
+		echo "[FAIL] flushlog.sh"
+      		echo "~# wget "$url/raw/main/flushlog.sh""
 		wget "$url/raw/main/flushlog.sh"
+    		echo ""
 	fi
 	#
 	if [ -e ./honeyfile.zip ]; then
-		echo "honeyfile.zip [OK]"
+		echo "[OK] honeyfile.zip"
 	else
-		echo "honeyfile.zip [FAIL]"
+		echo "[FAIL] honeyfile.zip"
+      		echo "~# wget "$url/raw/main/honeyfile.zip""
 		wget "$url/raw/main/honeyfile.zip"
+    		echo ""
 	fi
 	#
 	if [ -e ./instalador.sh ]; then
-		echo "instalador.sh [OK]"
+		echo "[OK] instalador.sh"
 	else
-		echo "instalador.sh [FAIL]"
+		echo "[FAIL] instalador.sh"
+      		echo "~# wget "$url/raw/main/instalador.sh""
 		wget "$url/raw/main/instalador.sh"
+    		echo ""
 	fi
 	#
 	if [ -e /etc/systemd/system/challenge.service ] || [ -e ./challenge.service ]; then
-		echo "challenge.service [OK]"
+		echo "[OK] challenge.service"
 	else
-		echo "challenge.service [FAIL]"
+		echo "[FAIL] challenge.service"
+      		echo "~# wget "$url/raw/main/challenge.service""
 		wget "$url/raw/main/challenge.service"
+    		echo ""
 	fi
 	#
 	if [ -e /etc/systemd/system/backup.service ] || [ -e ./backup.service ]; then
-		echo "backup.service [OK]"
+		echo "[OK] backup.service"
 	else
-		echo "backup.service [FAIL]"
+		echo "[FAIL] backup.service"
+      		echo "~# wget "$url/raw/main/backup.service""
 		wget "$url/raw/main/backup.service"
+    		echo ""
 	fi
 	#
 	if [ -e /etc/systemd/system/flushlog.service ] || [ -e ./flushlog.service ]; then
-		echo "flushlog.service [OK]"
+		echo "[OK] flushlog.service"
 	else
-		echo "flushlog.service [FAIL]"
+		echo "[FAIL] flushlog.service"
+      		echo "~# wget "$url/raw/main/flushlog.service""
 		wget "$url/raw/main/flushlog.service"
+    		echo ""
 	fi
 	#
 	if [ -e /etc/systemd/system/instalador.service ] || [ -e ./instalador.service ]; then
-		echo "instalador.service [OK]"
+		echo "[OK] instalador.service"
 	else
-		echo "instalador.service [FAIL]"
+		echo "[FAIL] instalador.service"
+    		echo "~# wget "$url/raw/main/instalador.service""
 		wget "$url/raw/main/instalador.service"
+    		echo ""
 	fi
 }
 checkarq
@@ -204,7 +218,7 @@ descompactar
 
 #ALTERANDO PERMISSOES===================================|
 
-echo "ALTERANDO PERMISSOES..."
+echo -e "\nALTERANDO PERMISSOES..."
 
 echo "~# sudo -u root chmod 500 ./instalador.sh"
 sudo -u root chmod 500 ./instalador.sh
