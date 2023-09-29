@@ -16,8 +16,8 @@ Após instalar dê permissão de execução para o "instalador.sh":
 
 Execute o instalador com privilegios:
 
-~$ sudo ./Mushroom/instalador.sh
-
+~$ cd ./Mushroom
+~$ sudo ./instalador.sh
 
 Quando terminar a instalação, reinicie a máquina para subir os processos.
 
