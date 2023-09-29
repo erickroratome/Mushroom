@@ -220,20 +220,20 @@ descompactar
 
 echo -e "\nALTERANDO PERMISSOES..."
 
-echo "~# sudo -u root chmod 500 ./instalador.sh"
-sudo -u root chmod 500 ./instalador.sh
 echo "~# sudo chown root:root ./instalador.sh"
 sudo chown root:root ./instalador.sh
+echo "~# sudo -u root chmod 500 ./instalador.sh"
+sudo -u root chmod 500 ./instalador.sh
 
-echo "~# sudo -u root chmod 500 ./challenge"
-sudo -u root chmod 500 ./challenge.sh
 echo "~# sudo chown root:root ./challenge.sh"
 sudo chown root:root ./challenge.sh
+echo "~# sudo -u root chmod 500 ./challenge"
+sudo -u root chmod 500 ./challenge.sh
 
-echo "~# sudo -u root chmod 500 ./backup.sh"
-sudo -u root chmod 500 ./backup.sh
 echo "~# sudo chown root:root ./backup.sh"
 sudo chown root:root ./backup.sh
+echo "~# sudo -u root chmod 500 ./backup.sh"
+sudo -u root chmod 500 ./backup.sh
 
 echo "~# sudo chown root:root ./honeyfile.zip"
 sudo chown root:root ./honeyfile.zip
