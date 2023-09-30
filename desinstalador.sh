@@ -24,8 +24,8 @@ echo -e "\n--------------------------------------------"
 
 if [ "$option" = "1" ]; then
     echo "Parando serviços selecionados."
-    echo "~# systemctl stop challenge.service"
-    systemctl stop challenge.service
+    echo "~# systemctl stop mushroom.service"
+    systemctl stop mushroom.service
     echo "~# systemctl stop backup.service"
     systemctl stop backup.service
     echo "~# systemctl stop flushlog.service"
@@ -37,8 +37,8 @@ if [ "$option" = "1" ]; then
 
 elif [ "$option" = "2" ]; then
     echo "Parando serviços selecionados."
-    echo "~# systemctl stop challenge.service"
-    systemctl stop challenge.service
+    echo "~# systemctl stop mushroom.service"
+    systemctl stop mushroom.service
     echo "~# systemctl stop backup.service"
     systemctl stop backup.service
     echo "~# systemctl stop flushlog.service"
@@ -46,8 +46,8 @@ elif [ "$option" = "2" ]; then
     echo "~# systemctl stop instalador.service"
     systemctl stop instalador.service
 
-    echo "~# systemctl disable challenge.service"
-    systemctl disable challenge.service
+    echo "~# systemctl disable mushroom.service"
+    systemctl disable mushroom.service
     echo "~# systemctl disable backup.service"
     systemctl disable backup.service
     echo "~# systemctl disable flushlog.service"
