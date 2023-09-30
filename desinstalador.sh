@@ -104,21 +104,17 @@ elif [ "$option" = "2" ]; then
     echo -e "Removendo scripts"
     echo "~# rm -rf /usr/sbin/challange.sh"
     rm -rf /usr/sbin/challange.sh
-    echo "~# /usr/sbin/backup.sh"
+    echo "~# rm -rf /usr/sbin/backup.sh"
     rm -rf /usr/sbin/backup.sh
-    echo "~# /usr/sbin/flushlog.sh"
+    echo "~# rm -rf /usr/sbin/flushlog.sh"
     rm -rf /usr/sbin/flushlog.sh
-    echo "~# /usr/sbin/instalador.sh"
+    echo "~# rm -rf /usr/sbin/instalador.sh"
     rm -rf /usr/sbin/instalador.sh
 
-        
-    else
-        nada="nada"
-    fi
     echo "~# systemctl daemon-reload"
     systemctl daemon-reload
 
-    echo -e "~# Desintalação concluida!"
+    echo -e "\n\nDesintalação concluida!\n"
 else
     echo "Opção inválida."
 fi
