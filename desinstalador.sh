@@ -101,7 +101,7 @@ elif [ "$option" = "2" ]; then
     echo "~# /etc/systemd/system/instalador.service"
     rm -rf /etc/systemd/system/instalador.service
 
-    echo -e "Removendo scripts"
+    echo -e "\nRemovendo scripts"
     echo "~# rm -rf /usr/sbin/challange.sh"
     rm -rf /usr/sbin/challange.sh
     echo "~# rm -rf /usr/sbin/backup.sh"
