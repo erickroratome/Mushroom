@@ -37,7 +37,7 @@ sudo ./instalador.sh
 
 **Once the installation is complete, restart the machine to start the processes.**
 
-**Our solution backs up user files upon machine startup, which are stored in /backup. If you want to disable automatic backups:**
+**Our solution backs up user files upon machine startup, which are stored in /zbackup. If you want to disable automatic backups:**
 ```shell
 sudo systemctl disable backup
 ```
