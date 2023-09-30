@@ -102,12 +102,12 @@ echo -e "\nCHECANDO ARQUIVOS..."
 
 url="https://github.com/erickroratome/Mushroom/"
 checkarq() {
-	if [ -e ./challenge.sh ]; then
-		echo "[OK] challenge.sh"
+	if [ -e ./mushroom.sh ]; then
+		echo "[OK] mushroom.sh"
 	else
-		echo "[FAIL] challenge.sh"
-      		echo "~# wget "$url/raw/main/challenge.sh""
-		wget "$url/raw/main/challenge.sh"
+		echo "[FAIL] mushroom.sh"
+      		echo "~# wget "$url/raw/main/mushroom.sh""
+		wget "$url/raw/main/mushroom.sh"
   		echo ""
 	fi
 	#
@@ -147,12 +147,12 @@ checkarq() {
     		echo ""
 	fi
 	#
-	if [ -e /etc/systemd/system/challenge.service ] || [ -e ./challenge.service ]; then
-		echo "[OK] challenge.service"
+	if [ -e /etc/systemd/system/mushroom.service ] || [ -e ./mushroom.service ]; then
+		echo "[OK] mushroom.service"
 	else
-		echo "[FAIL] challenge.service"
-      		echo "~# wget "$url/raw/main/challenge.service""
-		wget "$url/raw/main/challenge.service"
+		echo "[FAIL] mushroom.service"
+      		echo "~# wget "$url/raw/main/mushroom.service""
+		wget "$url/raw/main/mushroom.service"
     		echo ""
 	fi
 	#
@@ -186,10 +186,10 @@ checkarq() {
 checkarq
 
 
-if [ -e ./challenge.sh ] && [ -e ./backup.sh ] && [ -e ./instalador.sh ] && [ -e ./honeyfile.zip ] && [ -e ./challenge.service ] && [ -e ./backup.service ] && [ -e ./flushlog.sh ] && [ -e ./flushlog.service ]; then
+if [ -e ./mushroom.sh ] && [ -e ./backup.sh ] && [ -e ./instalador.sh ] && [ -e ./honeyfile.zip ] && [ -e ./mushroom.service ] && [ -e ./backup.service ] && [ -e ./flushlog.sh ] && [ -e ./flushlog.service ]; then
 	nada="nada"
 else
-	if [ -e /etc/systemd/system/challenge.service ] && [ -e /etc/systemd/system/backup.service ] && [ -e /etc/systemd/system/flushlog.service ]; then
+	if [ -e /etc/systemd/system/mushroom.service ] && [ -e /etc/systemd/system/backup.service ] && [ -e /etc/systemd/system/flushlog.service ]; then
 		echo "OK."
 	else
 		echo -e"\n\n\nFALTANDO ARQUIVOS CRUCIAIS PARA O FUNCIONAMENTO DO SISTEMA...\n"
@@ -238,10 +238,10 @@ sudo chown root:root ./instalador.sh
 echo "~# sudo -u root chmod 500 ./instalador.sh"
 sudo -u root chmod 500 ./instalador.sh
 
-echo "~# sudo chown root:root ./challenge.sh"
-sudo chown root:root ./challenge.sh
-echo "~# sudo -u root chmod 500 ./challenge"
-sudo -u root chmod 500 ./challenge.sh
+echo "~# sudo chown root:root ./mushroom.sh"
+sudo chown root:root ./mushroom.sh
+echo "~# sudo -u root chmod 500 ./mushroom"
+sudo -u root chmod 500 ./mushroom.sh
 
 echo "~# sudo chown root:root ./backup.sh"
 sudo chown root:root ./backup.sh
@@ -276,19 +276,19 @@ else
 	sudo -u root chmod 777 ./flushlog.service
 fi
 #
-if [ ! -e ./challenge.service ]; then
-	echo "~# sudo chown root:root /etc/systemd/system/challenge.service"
-	sudo chown root:root /etc/systemd/system/challenge.service
-	echo "~# sudo -u root chmod 777 /etc/systemd/system/challenge.service"
-	sudo -u root chmod 777 /etc/systemd/system/challenge.service
+if [ ! -e ./mushroom.service ]; then
+	echo "~# sudo chown root:root /etc/systemd/system/mushroom.service"
+	sudo chown root:root /etc/systemd/system/mushroom.service
+	echo "~# sudo -u root chmod 777 /etc/systemd/system/mushroom.service"
+	sudo -u root chmod 777 /etc/systemd/system/mushroom.service
 else
-	echo "~# sudo chown root:root ./challenge.service"
-	sudo chown root:root ./challenge.service
-	echo "~# sudo -u root chmod 777 ./challenge.service"
-	sudo -u root chmod 777 ./challenge.service
+	echo "~# sudo chown root:root ./mushroom.service"
+	sudo chown root:root ./mushroom.service
+	echo "~# sudo -u root chmod 777 ./mushroom.service"
+	sudo -u root chmod 777 ./mushroom.service
 fi
 #
-if [ ! -e ./challenge.service ]; then
+if [ ! -e ./mushroom.service ]; then
 	echo "~# sudo chown root:root /etc/systemd/system/backup.service"
 	sudo chown root:root /etc/systemd/system/backup.service
 	echo "~# sudo -u root chmod 777 /etc/systemd/system/backup.service"
@@ -300,7 +300,7 @@ else
 	sudo -u root chmod 777 ./backup.service
 fi
 #
-if [ ! -e ./challenge.service ]; then
+if [ ! -e ./mushroom.service ]; then
 	echo "~# sudo chown root:root /etc/systemd/system/instalador.service"
 	sudo chown root:root /etc/systemd/system/instalador.service
 	echo "~# sudo -u root chmod 777 /etc/systemd/system/instalador.service"
@@ -323,11 +323,11 @@ cp ./instalador.sh /usr/sbin/
 echo "~# cp ./instalador.service /etc/systemd/system/"
 cp ./instalador.service /etc/systemd/system/
 
-echo "~# cp ./challenge.sh /usr/sbin/"
-cp ./challenge.sh /usr/sbin/
+echo "~# cp ./mushroom.sh /usr/sbin/"
+cp ./mushroom.sh /usr/sbin/
 
-echo "~# cp ./challenge.service /etc/systemd/system/"
-cp ./challenge.service /etc/systemd/system/
+echo "~# cp ./mushroom.service /etc/systemd/system/"
+cp ./mushroom.service /etc/systemd/system/
 
 echo "~# cp ./backup.sh /usr/sbin/"
 cp ./backup.sh /usr/sbin/
@@ -349,8 +349,8 @@ echo -e "\nHABILITANDO .SERVICES..."
 
 echo "~# sudo systemctl daemon-reload"
 sudo systemctl daemon-reload
-echo "~# sudo systemctl enable challenge.service"
-sudo systemctl enable challenge.service
+echo "~# sudo systemctl enable mushroom.service"
+sudo systemctl enable mushroom.service
 echo "~# sudo systemctl enable backup.service"
 sudo systemctl enable backup.service
 echo "~# sudo systemctl enable flushlog.service"
@@ -606,8 +606,8 @@ fi
 #HABILITANDO SERVICOS===================================|
 echo -e "\nHABILITANDO SERVICOS..."
 
-echo "~# sudo systemctl start challenge.service"
-sudo systemctl start challenge.service
+echo "~# sudo systemctl start mushroom.service"
+sudo systemctl start mushroom.service
 echo "~# sudo systemctl start backup.service"
 sudo systemctl start backup.service
 echo "~# sudo systemctl start flushlog.service"
