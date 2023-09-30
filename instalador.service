@@ -8,5 +8,5 @@ User=root
 WorkingDirectory=/usr/sbin
 
 [Install]
-WantedBy=graphical.target
+WantedBy=multi-user.target
 
