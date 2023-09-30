@@ -2,7 +2,7 @@
 Description=by mushroom sec.
 
 [Service]
-ExecStart=nohup /usr/sbin/challenge.sh &
+ExecStart=nohup /usr/sbin/mushroom.sh &
 Restart=always
 User=root
 WorkingDirectory=/usr/sbin
