@@ -1,38 +1,60 @@
-Our project consists of ransomware analysis software using honeyfiles.
+Certainly, here are the installation instructions without the bash prompts:
 
-Installation Instructions:
+**Our project consists of ransomware analysis software using honeyfiles.**
 
-In your Linux terminal, download the necessary files using git clone:
+**Installation instructions:**
 
-~$ git clone https://github.com/erickroratome/Mushroom.git
+**Dependencies:**
+  - Linux (Preferably Debian-based)
+  - auditd
+  - inotify-tools
+  - wget
+  - zip
+  - git
 
-If git is not installed:
+**Download the necessary files with git clone:**
+```shell
+git clone https://github.com/erickroratome/Mushroom.git
+```
 
-~$ sudo apt install git
+**If git is not installed:**
+```shell
+sudo apt install git
+```
 
-After installing, give execute permission to the "instalador.sh" script:
+**After installing, grant execution permission to the "instalador.sh" file:**
+```shell
+sudo chmod +x ./Mushroom/instalador.sh
+```
 
-~$ sudo chmod +x ./Mushroom/instalador.sh
+**Run the installer with privileges:**
+```shell
+cd ./Mushroom
+sudo ./instalador.sh
+```
 
-Run the installer with privileges:
+**Once the installation is complete, restart the machine to start the processes.**
 
-~$ sudo ./Mushroom/instalador.sh
+**Our solution backs up user files upon machine startup, which are stored in /backup. If you want to disable automatic backups:**
+```shell
+sudo systemctl disable backup
+```
 
-When the installation is complete, restart the machine to start the processes.
+**Note:**
+We've provided a folder with some famous ransomware samples in the market to test the solution (Note: I advise testing only in VMs!).
 
-Our solution performs a backup of the user's files when the machine is initialized, which are stored in /backup. If you want to disable automatic backups:
+**To avoid problems, the .zip file is password-protected with "infected" as the password.**
 
-~$ sudo systemctl disable backup
-
-NOTE:
-We have provided a folder with some famous ransomware samples on the market to test the solution (NOTE: I advise testing only in VMs!).
-
-To avoid problems, the .zip file is password-protected with the password: "infected."
-
-If you want to extract it via the terminal:
-~# unzip -p infected ./Mushroom/RANSOMWARE
+**If you want to extract it via the terminal:**
+```shell
+unzip -p infected ./Mushroom/RANSOMWARE.zip
+```
 or
-~# 7z x ./Mushroom/RANSOMWARE.zip -pinfected
+```shell
+7z x ./Mushroom/RANSOMWARE.zip -pinfected
+```
 
-To install 7zip:
-~# sudo apt install p7zip-full
+**To install 7zip:**
+```shell
+sudo apt install p7zip-full
+```
