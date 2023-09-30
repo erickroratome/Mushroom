@@ -2,6 +2,14 @@ Nosso projeto consiste em um software de analise de ransomware por honeyfiles.
 
 Instruções para instalação:
 
+Dependencias:
+  - Linux (De preferencia base Debian)
+  - auditd
+  - inotify-tools
+  - wget
+  - zip
+  - git
+
 No seu terminal linux baixe os arquivos necessários com git clone:
 
 ~$ git clone https://github.com/erickroratome/Mushroom.git
