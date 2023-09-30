@@ -1,5 +1,3 @@
-Certainly, here are the installation instructions without the bash prompts:
-
 **Our project consists of ransomware analysis software using honeyfiles.**
 
 **Installation instructions:**
