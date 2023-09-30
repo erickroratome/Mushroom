@@ -30,6 +30,8 @@ sudo chmod +x ./Mushroom/instalador.sh
 **Run the installer with privileges:**
 ```shell
 cd ./Mushroom
+```
+```shell
 sudo ./instalador.sh
 ```
 
