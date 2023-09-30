@@ -115,6 +115,9 @@ elif [ "$option" = "2" ]; then
     systemctl daemon-reload
 
     echo -e "\n\nDesintalação concluida!\n"
+
+    echo -e "\nForam instaladas as depencias:\nwget\ninotify-tools\nzip\nauditd\nPara desinstalar:\n~$ sudo apt remove dependecia\n"
+    
 else
     echo "Opção inválida."
 fi
