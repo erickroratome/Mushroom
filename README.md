@@ -1,7 +1,3 @@
-<kbd style="background-color: red; color: white;">
-TESTE
-</kbd>
-
 **Our project consists of ransomware analysis software using honeyfiles.**
 
 **Installation instructions:**
