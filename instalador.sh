@@ -740,7 +740,7 @@ fi
 echo -e "\n VERIFICANDO LOCAL DOS ARQUIVOS..."
 
 locaal() {
-	local $arquivoo="$1"
+	local arquivoo="$1"
 	if [ -e "$arquivoo" ]; then
 		echo -e "\e[32m[OK]\e[0m $arquivoo"
 	else
@@ -762,7 +762,7 @@ locaal "/etc/systemd/system/mushroom.service"
 echo -e "\n VERIFICANDO HONEYFILES..."
 
 checkHoneyfiles() {
-	local $arquivoo="$1"
+	local arquivoo="$1"
  	if [ $(stat -c %s "$arquivoo") != $tamanhoHoneyfile ]; then
 		echo -e "\e[32m[OK]\e[0m '$arquivoo'"
 	else
