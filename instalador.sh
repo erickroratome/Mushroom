@@ -1,4 +1,15 @@
 #!/bin/bash
+# Autores: 
+# Erick Rorato
+# Josué Suptitz
+# github.com/erickroratome/Mushroom
+
+echo -e "Anti-Ransomware - By:"
+echo -e "\e[91m  _  __           _                                   \e[0m"
+echo -e "\e[91m|  \/  |_   _ ___| |__  _ __ ___ ___  _ __ ___  ___ \e[0m"
+echo -e "\e[91m| |\/| | | | / __| '_ \| '__/ _ \ _ \| '_ \` _ \/ __|\e[0m"
+echo -e "\e[91m| |  | | |_| \__ \ | | | | | (_) (_) | | | | | \__ \\\ \e[0m"
+echo -e "\e[91m|_|  |_|\__,_|___/_| |_|_|  \___/___/|_| |_| |_|___/\e[0m"
 
 #DETECTAR ROOT===========================================|
 valid=True
@@ -619,5 +630,6 @@ sudo systemctl start auditd.service
 #=======================================================|
 
 echo -e "\nFINALIZADO!"
-echo ""
+echo -e "\n ATENÇÃO.. Nosso software ira proteger apenas seus diretórios (pastas) que não possuam [Espaço]"
+echo -e "Ex:\n MinhasFotos - [OK]\n Minhas Fotos - [Vulneravel!]\n Estamos trabalhando para corrigir!..."
 
