@@ -652,7 +652,7 @@ else
 fi
 #
 if [ -e ./flushlog.sh ]; then
-	echo -e "\e[32m[OK]\e[0m flushloge.sh"
+	echo -e "\e[32m[OK]\e[0m flushlog.sh"
 else
 	echo -e "\e[31m[Fail]\e[0m flushlog.sh"
 fi
