@@ -739,7 +739,7 @@ fi
 #-------------------------------------
 echo -e "\n VERIFICANDO LOCAL DOS ARQUIVOS..."
 
-local() {
+locaal() {
 	local $arquivoo="$1"
 	if [ -e "$arquivoo" ]; then
 		echo -e "\e[32m[OK]\e[0m $arquivoo"
@@ -748,14 +748,14 @@ local() {
 	fi
 }
 
-local "/usr/sbin/instalador.sh"
-local "/etc/systemd/system/instalador.service"
-local "/usr/sbin/flushlog.sh"
-local "/etc/systemd/system/flushlog.service"
-local "/usr/sbin/backup.sh"
-local "/etc/systemd/system/backup.service"
-local "/usr/sbin/mushroom.sh"
-local "/etc/systemd/system/mushroom.service"
+locaal "/usr/sbin/instalador.sh"
+locaal "/etc/systemd/system/instalador.service"
+locaal "/usr/sbin/flushlog.sh"
+locaal "/etc/systemd/system/flushlog.service"
+locaal "/usr/sbin/backup.sh"
+locaal "/etc/systemd/system/backup.service"
+locaal "/usr/sbin/mushroom.sh"
+locaal "/etc/systemd/system/mushroom.service"
 
 
 #-------------------------------------
