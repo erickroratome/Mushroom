@@ -763,10 +763,10 @@ echo -e "\n VERIFICANDO HONEYFILES..."
 
 checkHoneyfiles() {
 	local arquivoo="$1"
- 	if [ $(stat -c %s "$arquivoo") != $tamanhoHoneyfile ]; then
-		echo -e "\e[32m[OK]\e[0m '$arquivoo'"
+ 	if [ $(stat -c %s "$arquivoo") = $tamanhoHoneyfile ]; then
+		echo -e "\e[32m[OK]\e[0m $arquivoo"
 	else
- 		echo -e "\e[31m[Fail]\e[0m '$arquivoo'"
+ 		echo -e "\e[31m[Fail]\e[0m $arquivoo"
    	fi
 }
 
