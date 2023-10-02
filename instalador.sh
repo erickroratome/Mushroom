@@ -612,7 +612,210 @@ fi
 
 #=======================================================|
 
+#VERIFICANDO INSTALAÇÃO===================================|
+echo -e "\n VERIFICANDO SOFTWARES..."
+if sudo apt-mark showinstall | grep -q auditd; then
+	echo -e "\e[32m[OK]\e[0m auditd"
+else
+    	echo -e "\e[31m[Fail]\e[0m auditd"
+fi
 
+if sudo apt-mark showinstall | grep -q inotify-tools; then
+ 	echo -e "\e[32m[OK]\e[0m inotify-tools"
+else
+	echo -e "\e[31m[Fail]\e[0m inotify-tools"
+fi
+#
+if sudo apt-mark showinstall | grep -q zip; then
+	echo -e "\e[32m[OK]\e[0m zip"
+else
+	echo -e "\e[31m[Fail]\e[0m zip"
+fi
+#
+if sudo apt-mark showinstall | grep -q wget; then
+	echo -e "\e[32m[OK]\e[0m wget"
+else
+	echo -e "\e[31m[Fail]\e[0m wget"
+fi
+-------------------------------------
+echo -e "\n VERIFICANDO ARQUIVOS..."
+if [ -e ./mushroom.sh ]; then
+	echo -e "\e[32m[OK]\e[0m mushroom.sh"
+else
+	echo -e "\e[31m[Fail]\e[0m mushroom.sh"
+fi
+#
+if [ -e ./backup.sh ]; then
+	echo -e "\e[32m[OK]\e[0m backup.sh"
+else
+	echo -e "\e[31m[Fail]\e[0m backup.sh"
+fi
+#
+if [ -e ./flushlog.sh ]; then
+	echo -e "\e[32m[OK]\e[0m flushloge.sh"
+else
+	echo -e "\e[31m[Fail]\e[0m flushlog.sh"
+fi
+#
+if [ -e ./honeyfile.zip ]; then
+	echo -e "\e[32m[OK]\e[0m honeyfile.zip"
+else
+	echo -e "\e[31m[Fail]\e[0m honeyfile.zip"
+fi
+#
+if [ -e ./honeyfile.txt ]; then
+	echo -e "\e[32m[OK]\e[0m honeyfile.txt"
+else
+	echo -e "\e[31m[Fail]\e[0m honeyfile.txt"
+fi
+#
+if [ -e ./honeyfile-less.txt ]; then
+	echo -e "\e[32m[OK]\e[0m honeyfile-less.txt"
+else
+	echo -e "\e[31m[Fail]\e[0m honeyfile-less.txt"
+fi
+#
+if [ -e ./instalador.sh ]; then
+	echo -e "\e[32m[OK]\e[0m instalador.sh"
+else
+	echo -e "\e[31m[Fail]\e[0m instalador.sh"
+fi
+#
+if [ -e /etc/systemd/system/mushroom.service ] || [ -e ./mushroom.service ]; then
+	echo -e "\e[32m[OK]\e[0m mushroom.service"
+else
+	echo -e "\e[31m[Fail]\e[0m mushroom.service"
+fi
+#
+if [ -e /etc/systemd/system/backup.service ] || [ -e ./backup.service ]; then
+	echo -e "\e[32m[OK]\e[0m backup.service"
+else
+	echo -e "\e[31m[Fail]\e[0m backup.service"
+fi
+#
+if [ -e /etc/systemd/system/flushlog.service ] || [ -e ./flushlog.service ]; then
+	echo -e "\e[32m[OK]\e[0m flushlog.service"
+else
+	echo -e "\e[31m[Fail]\e[0m flushlog.service"
+fi
+#
+if [ -e /etc/systemd/system/instalador.service ] || [ -e ./instalador.service ]; then
+	echo -e "\e[32m[OK]\e[0m instalador.service"
+else
+	echo -e "\e[31m[Fail]\e[0m instalador.service"
+fi
+-------------------------------------
+echo -e "\n VERIFICANDO ARQUIVOS..."
+permission() {
+	local arquivoo="$1"
+	if [ -x "$arquivoo" ] && [ -r "$arquivoo" ]; then
+		echo -e "\e[32m[OK]\e[0m $arquivoo"
+	else
+		echo -e "\e[31m[Fail]\e[0m $arquivoo"
+	fi
+}
+
+permission "./instalador.sh"
+permission "./mushroom.sh"
+permission "./backup.sh"
+permission "./flushlog.sh"
+permission "./flushlog.service"
+permission "./mushroom.service"
+permission "./backup.service"
+permission "./instalador.service"
+
+if [ -r "./honeyfile.txt" ]; then
+	echo -e "\e[32m[OK]\e[0m ./honeyfile.txt"
+else
+	echo -e "\e[31m[Fail]\e[0m ./honeyfile.txt"
+fi
+#
+if [ -r "./honeyfile-less.txt" ]; then
+	echo -e "\e[32m[OK]\e[0m ./honeyfile-less.txt"
+else
+	echo -e "\e[31m[Fail]\e[0m ./honeyfile-less.txt"
+fi
+
+-------------------------------------
+echo -e "\n VERIFICANDO LOCAL DOS ARQUIVOS..."
+
+local() {
+	local $arquivoo="$1"
+	if [ -e "$arquivoo" ]; then
+		echo -e "\e[32m[OK]\e[0m $arquivoo"
+	else
+		echo -e "\e[31m[Fail]\e[0m $arquivoo"
+	fi
+}
+
+local "/usr/sbin/instalador.sh"
+local "/etc/systemd/system/instalador.service"
+local "/usr/sbin/flushlog.sh"
+local "/etc/systemd/system/flushlog.service"
+local "/usr/sbin/backup.sh"
+local "/etc/systemd/system/backup.service"
+local "/usr/sbin/mushroom.sh"
+local "/etc/systemd/system/mushroom.service"
+
+
+-------------------------------------
+echo -e "\n VERIFICANDO HONEYFILES..."
+
+checkHoneyfiles() {
+	local $arquivoo="$1"
+ 	if [ $(stat -c %s "$arquivoo") != $tamanhoHoneyfile ]; then
+		echo -e "\e[32m[OK]\e[0m '$arquivoo'"
+	else
+ 		echo -e "\e[31m[Fail]\e[0m '$arquivoo'"
+   	fi
+}
+
+checkHoneyfiles "/$nomearq"
+checkHoneyfiles "/root/$nomearq"
+checkHoneyfiles "/home/$nomearq"
+checkHoneyfiles "/etc/$nomearq"
+checkHoneyfiles "/usr/$nomearq"
+checkHoneyfiles "/backup/$nomearq"
+
+-------------------------------------
+echo -e "\n VERIFICANDO REGRAS AUDITD..."
+
+regraAuditctl() {
+  local regra="$1"
+
+  local -a regras=()
+  readarray -t regras < <(auditctl -l)
+
+  for i in "${regras[@]}"; do
+    if [[ "$i" == *"$regra"* ]]; then
+      echo -e "\e[32m[OK]\e[0m '$regra'"
+      return 0
+    fi
+  done
+
+  echo -e "\e[31m[Fail]\e[0m '$regra'"
+  return 1
+}
+
+regra="-w /$nomearq -p wa -k mush"
+regraAuditctl "$regra"
+
+regra="-w /home/$nomearq -p wa -k mush"
+regraAuditctl "$regra"
+
+regra="-w /etc/$nomearq -p wa -k mush"
+regraAuditctl "$regra"
+
+regra="-w /usr/$nomearq -p wa -k mush"
+regraAuditctl "$regra"
+
+regra="-w /backup/$nomearq -p wa -k mush"
+regraAuditctl "$regra"
+
+regra="-w /root/$nomearq -p wa -k mush"
+regraAuditctl "$regra"
+
+#=======================================================|
 
 #HABILITANDO SERVICOS===================================|
 echo -e "\nHABILITANDO SERVICOS..."
