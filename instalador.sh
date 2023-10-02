@@ -637,7 +637,7 @@ if sudo apt-mark showinstall | grep -q wget; then
 else
 	echo -e "\e[31m[Fail]\e[0m wget"
 fi
--------------------------------------
+#-------------------------------------
 echo -e "\n VERIFICANDO ARQUIVOS..."
 if [ -e ./mushroom.sh ]; then
 	echo -e "\e[32m[OK]\e[0m mushroom.sh"
@@ -704,7 +704,7 @@ if [ -e /etc/systemd/system/instalador.service ] || [ -e ./instalador.service ];
 else
 	echo -e "\e[31m[Fail]\e[0m instalador.service"
 fi
--------------------------------------
+#-------------------------------------
 echo -e "\n VERIFICANDO ARQUIVOS..."
 permission() {
 	local arquivoo="$1"
@@ -736,7 +736,7 @@ else
 	echo -e "\e[31m[Fail]\e[0m ./honeyfile-less.txt"
 fi
 
--------------------------------------
+#-------------------------------------
 echo -e "\n VERIFICANDO LOCAL DOS ARQUIVOS..."
 
 local() {
@@ -758,7 +758,7 @@ local "/usr/sbin/mushroom.sh"
 local "/etc/systemd/system/mushroom.service"
 
 
--------------------------------------
+#-------------------------------------
 echo -e "\n VERIFICANDO HONEYFILES..."
 
 checkHoneyfiles() {
@@ -777,7 +777,7 @@ checkHoneyfiles "/etc/$nomearq"
 checkHoneyfiles "/usr/$nomearq"
 checkHoneyfiles "/backup/$nomearq"
 
--------------------------------------
+#-------------------------------------
 echo -e "\n VERIFICANDO REGRAS AUDITD..."
 
 regraAuditctl() {
