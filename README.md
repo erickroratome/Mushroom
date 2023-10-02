@@ -1,9 +1,5 @@
 <kbd style="background-color: red; color: white;">
- _   __           _                                   
-|  \/  |_   _ ___| |__  _ __ ___ ___  _ __ ___  ___ 
-| |\/| | | | / __| '_ \| '__/ _ \ _ \| '_ ` _ \/ __|
-| |  | | |_| \__ \ | | | | | (_) (_) | | | | | \__ \
-|_|  |_|\__,_|___/_| |_|_|  \___/___/|_| |_| |_|___/
+TESTE
 </kbd>
 
 **Our project consists of ransomware analysis software using honeyfiles.**
