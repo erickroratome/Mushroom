@@ -705,7 +705,7 @@ else
 	echo -e "\e[31m[Fail]\e[0m instalador.service"
 fi
 #-------------------------------------
-echo -e "\n VERIFICANDO ARQUIVOS..."
+echo -e "\n VERIFICANDO PERISSOES DE ARQUIVOS..."
 permission() {
 	local arquivoo="$1"
 	if [ -x "$arquivoo" ] && [ -r "$arquivoo" ]; then
