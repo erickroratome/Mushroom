@@ -9,6 +9,7 @@
   - wget
   - zip
   - git
+  - sudo
 
 **Download the necessary files with git clone:**
 ```shell
