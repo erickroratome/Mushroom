@@ -262,7 +262,7 @@ else
 	echo -e "\nESPALHANDO HONEYFILES NO SISTEMA..."
 
  	function espalhandoHoneys() {
-  		local locaal=$1
+  		local locaal="$1"
     		touch ./SINALIZADOR.dat
  		if [ $(stat -c %s "$locaal""$nomearq") != $tamanhoHoneyfile ]; then
 			echo "~# cp ./honeyfile.txt "$locaal""$nomearq""
