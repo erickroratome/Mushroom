@@ -400,6 +400,7 @@ verifcSoftware "auditd"
 verifcSoftware "inotify-tools"
 verifcSoftware "zip"
 verifcSoftware "wget"
+verifcSoftware "sudo"
 
 #-------------------------------------
 echo -e "\n VERIFICANDO ARQUIVOS..."
