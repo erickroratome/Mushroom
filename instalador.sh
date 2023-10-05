@@ -654,7 +654,6 @@ function activee() {
 activee "mushroom.service"
 activee "backup.service"
 activee "flushlog.service"
-activee "instalador.service"
 activee "auditd.service"
 #=======================================================|
 
