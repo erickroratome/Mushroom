@@ -249,14 +249,14 @@ function regraAuditctl() {
 	echo "~# sudo auditctl -w "$locaal""$nomearq" -p wa -k mush"
 	sudo auditctl -w "$locaal""$nomearq" -p wa -k mush 2>/dev/null
 }
-touch ./SINALIZADOR.dat
+touch /usr/sbin/SINALIZADOR.dat
 regraAuditctl "/"
 regraAuditctl "/home/"
 regraAuditctl "/etc/"
 regraAuditctl "/usr/"
 regraAuditctl "/backup/"
 regraAuditctl "/root/"
-rm -rf ./SINALIZADOR.dat
+rm -rf /usr/sbin/SINALIZADOR.dat
 
 
 if [ -e /root/$nomearq ] && [ $(stat -c %s /root/$nomearq) = $tamanhoHoneyfile ] && [ -e /$nomearq ] && [ $(stat -c %s /$nomearq) = $tamanhoHoneyfile ] && [ -e /home/$nomearq ] && [ -e /etc/$nomearq ] && [ -e /usr/$nomearq ] && [ $(stat -c %s /home/$nomearq) = $tamanhoHoneyfile ] && [ $(stat -c %s /etc/$nomearq) = $tamanhoHoneyfile ] && [ $(stat -c %s /usr/$nomearq) = $tamanhoHoneyfile ] && [ -e /backup/$nomearq ] && [ $(stat -c %s /backup/$nomearq) = $tamanhoHoneyfile ]; then
@@ -266,14 +266,14 @@ else
 
  	function espalhandoHoneys() {
   		local locaal="$1"
-    		touch ./SINALIZADOR.dat
+    		touch /usr/sbin/SINALIZADOR.dat
       		touch "$locaal"
  		if [ $(stat -c %s "$locaal") != $tamanhoHoneyfile ]; then
 			echo "~# cp ./honeyfile.txt "$locaal""
         		cp ./honeyfile.txt "$locaal" 2>/dev/null
         		chmod 777 "$locaal"
 		fi
-  		rm -rf ./SINALIZADOR.dat
+  		rm -rf /usr/sbin/SINALIZADOR.dat
     	}
 	espalhandoHoneys "/$nomearq"
 	espalhandoHoneys "/root/$nomearq"
@@ -293,10 +293,10 @@ for i in ${usuarios[@]}; do
 	 	function checkDir() {
 	  		local locaal="$1"
 			if [ ! -d "$locaal" ]; then
-			    touch ./SINALIZADOR.dat
+			    touch /usr/sbin/SINALIZADOR.dat
 			    echo "~# sudo mkdir "$locaal""
 			    sudo -u "$i" mkdir "$locaal"
-			    rm -rf ./SINALIZADOR.dat
+			    rm -rf /usr/sbin/SINALIZADOR.dat
 		     	else
 		      	    echo "[OK] "$locaal""
 			fi
@@ -312,10 +312,10 @@ for i in ${usuarios[@]}; do
 	  		local locaal="$1"
 			sudo touch "$locaal"
 			if [ $(stat -c %s "$locaal") != $tamanhoHoneyfile ]; then
-		 		touch ./SINALIZADOR.dat
+		 		touch /usr/sbin/SINALIZADOR.dat
 				echo "~# cp ./honeyfile.txt "$locaal""
 				cp ./honeyfile.txt  "$locaal"
-		  		rm -rf ./SINALIZADOR.dat
+		  		rm -rf /usr/sbin/SINALIZADOR.dat
 		 	fi
 	    	}
 		espHoneyFilesUser "/home/$i/$nomearq"
@@ -326,46 +326,46 @@ for i in ${usuarios[@]}; do
 	
 		#sudo touch /home/$i/$nomearq
 		#if [ $(stat -c %s /home/$i/$nomearq) != $tamanhoHoneyfile ]; then
-	 	#	touch ./SINALIZADOR.dat
+	 	#	touch /usr/sbin/SINALIZADOR.dat
 		#	echo "~# cp ./honeyfile.txt /home/$i/$nomearq"
 		#	cp ./honeyfile.txt  /home/$i/$nomearq
-	  	#	rm -rf ./SINALIZADOR.dat
+	  	#	rm -rf /usr/sbin/SINALIZADOR.dat
 	 	#fi
 	
 		#sudo touch /home/$i/$documents/$nomearq
 		#if [ $(stat -c %s /home/$i/$documents/$nomearq) != $tamanhoHoneyfile ]; then
-	 	#	touch ./SINALIZADOR.dat
+	 	#	touch /usr/sbin/SINALIZADOR.dat
 		#	echo "~# cp ./honeyfile.txt /home/$i/$documents/$nomearq"
 		#	cp ./honeyfile.txt /home/$i/$documents/$nomearq
-	  	#	rm -rf ./SINALIZADOR.dat
+	  	#	rm -rf /usr/sbin/SINALIZADOR.dat
 		#fi
 	
 		#sudo touch /home/$i/Downloads/$nomearq
 		#if [ $(stat -c %s /home/$i/Downloads/$nomearq) != $tamanhoHoneyfile ]; then
-	 	#	touch ./SINALIZADOR.dat
+	 	#	touch /usr/sbin/SINALIZADOR.dat
 		#	echo "~# cp ./honeyfile.txt /home/$i/Downloads/$nomearq"
 		#	cp ./honeyfile.txt /home/$i/Downloads/$nomearq
-	  	#	rm -rf ./SINALIZADOR.dat
+	  	#	rm -rf /usr/sbin/SINALIZADOR.dat
 		#fi
 	
 		#sudo touch "$desktop/$nomearq"
 		#if [ $(stat -c %s "$desktop/$nomearq") != $tamanhoHoneyfile ]; then
-	 	#	touch ./SINALIZADOR.dat
+	 	#	touch /usr/sbin/SINALIZADOR.dat
 		#	echo "~# cp ./honeyfile.txt "$desktop/$nomearq""
 		#	cp ./honeyfile.txt "$desktop/$nomearq"
-	  	#	rm -rf ./SINALIZADOR.dat
+	  	#	rm -rf /usr/sbin/SINALIZADOR.dat
 		#fi
 	
 		#sudo touch "/home/$i/$videos/$nomearq"
 		#if [ $(stat -c %s /home/$i/$videos/$nomearq) != $tamanhoHoneyfile ]; then
-	 	#	touch ./SINALIZADOR.dat
+	 	#	touch /usr/sbin/SINALIZADOR.dat
 		#	echo "~# cp ./honeyfile.txt /home/$i/$videos/$nomearq"
 		#	cp ./honeyfile.txt /home/$i/$videos/$nomearq
-	  	#	rm -rf ./SINALIZADOR.dat
+	  	#	rm -rf /usr/sbin/SINALIZADOR.dat
 		#fi
-		#rm -rf ./SINALIZADOR.dat 2>/dev/null
+		#rm -rf /usr/sbin/SINALIZADOR.dat 2>/dev/null
 		echo -e "\nMUDANDO PERMISSOES..."
-	 	touch ./SINALIZADOR.dat
+	 	touch /usr/sbin/SINALIZADOR.dat
 	  	echo "~# chmod 777 /home/$i/$nomearq"
 		chmod 777 /home/$i/$nomearq 2>/dev/null
 	 	echo "~# chmod 777 /home/$i/$documents/$nomearq"
@@ -389,7 +389,7 @@ for i in ${usuarios[@]}; do
 	        sudo auditctl -w /home/$i/Downloads/$nomearq -p wa -k mush 2>/dev/null
 		echo "~# sudo auditctl -w /home/$i/$documents/$nomearq -p wa -k mush"
 	        sudo auditctl -w /home/$i/$documents/$nomearq -p wa -k mush 2>/dev/null
-	 	rm -rf ./SINALIZADOR.dat
+	 	rm -rf /usr/sbin/SINALIZADOR.dat
 	 fi	
 done
 
@@ -414,7 +414,7 @@ if [ -d "$diretorio_base" ]; then
 	diretorios_encontrados=($(listar_diretorios "$diretorio_base"))
 	for diretorio in "${diretorios_encontrados[@]}"; do
  		if [ ! -e ""$diretorio"/"$nomearq"" ]; then
-   			touch ./SINALIZADOR.dat
+   			touch /usr/sbin/SINALIZADOR.dat
       			touch ""$diretorio"/"$nomearq""      			
     			if [ $(stat -c %s ""$diretorio"/"$nomearq"") != $tamanhoHoneyfile ] || [ $(stat -c %s ""$diretorio"/"$nomearq"") != "$tamanhoHoneyfileLess" ]; then
 				echo "~# cp ./honeyfile.txt ""$diretorio"/"$nomearq"""
@@ -423,7 +423,7 @@ if [ -d "$diretorio_base" ]; then
    	   			echo "~# sudo auditctl -w ""$diretorio"/"$nomearq"" -p wa -k mush"
 		        	sudo auditctl -w ""$diretorio"/"$nomearq"" -p wa -k mush 2>/dev/null
 	      		fi
-			rm -rf ./SINALIZADOR.dat
+			rm -rf /usr/sbin/SINALIZADOR.dat
 	 	fi
 	done
 fi
