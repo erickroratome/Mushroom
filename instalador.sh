@@ -264,20 +264,20 @@ else
  	function espalhandoHoneys() {
   		local locaal="$1"
     		touch ./SINALIZADOR.dat
- 		if [ $(stat -c %s "$locaal""$nomearq") != $tamanhoHoneyfile ]; then
-			echo "~# cp ./honeyfile.txt "$locaal""$nomearq""
-        		cp ./honeyfile.txt "$locaal""$nomearq" 2>/dev/null
-        		chmod 777 "$locaal""$nomearq"
+ 		if [ $(stat -c %s "$locaal") != $tamanhoHoneyfile ]; then
+			echo "~# cp ./honeyfile.txt "$locaal""
+        		cp ./honeyfile.txt "$locaal" 2>/dev/null
+        		chmod 777 "$locaal"
 		fi
   		rm -rf ./SINALIZADOR.dat
     	}
-	espalhandoHoneys "/"
-	espalhandoHoneys "/root/"
-	espalhandoHoneys "/home/"
-	espalhandoHoneys "/etc/"
-  	espalhandoHoneys "/usr/"
+	espalhandoHoneys "/$nomearq"
+	espalhandoHoneys "/root/$nomearq"
+	espalhandoHoneys "/home/$nomearq"
+	espalhandoHoneys "/etc/$nomearq"
+  	espalhandoHoneys "/usr/$nomearq"
    	mkdir /backup 2>/dev/null
-   	espalhandoHoneys "/backup/"
+   	espalhandoHoneys "/backup/$nomearq"
 fi
 
 echo -e "\nCHECANDO DIRETÓRIOS DO USUARIO..."
