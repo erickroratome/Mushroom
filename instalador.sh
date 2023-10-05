@@ -41,7 +41,7 @@ function instalacao() {
 	local arquivoo="$1"
  	local erro="1"
   	while [ $erro != "0" ]; do	   
-		if sudo apt-mark showinstall | grep -q $arquivoo; then
+		if apt-mark showinstall | grep -q $arquivoo; then
 			echo "[OK] $arquivoo"
    			erro="0"
 		else
@@ -52,7 +52,7 @@ function instalacao() {
 		                echo ""
 		                apt update -y
 				apt-get install $arquivoo -y
-			        if sudo apt-mark showinstall | grep -q $arquivoo; then
+			        if apt-mark showinstall | grep -q $arquivoo; then
 		  			erro="0"
 				else
 	   				erro="1"
