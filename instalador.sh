@@ -262,11 +262,11 @@ else
 	echo -e "\nESPALHANDO HONEYFILES NO SISTEMA..."
 
  	function espalhandoHoneys() {
-  		local locaal="$1"
+  		local locaal=$1
     		touch ./SINALIZADOR.dat
- 		if [ $(stat -c %s "$locaal""/$nomearq") != $tamanhoHoneyfile ]; then
-			echo "~# cp ./honeyfile.txt "$locaal""/$nomearq""
-        		cp ./honeyfile.txt "$locaal""/$nomearq" 2>/dev/null
+ 		if [ $(stat -c %s "$locaal""$nomearq") != $tamanhoHoneyfile ]; then
+			echo "~# cp ./honeyfile.txt "$locaal""$nomearq""
+        		cp ./honeyfile.txt "$locaal""$nomearq" 2>/dev/null
         		chmod 777 "$locaal""$nomearq"
 		fi
   		rm -rf ./SINALIZADOR.dat
