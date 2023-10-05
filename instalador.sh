@@ -245,7 +245,7 @@ echo -e "\nADICIONANDO REGRAS AUDITCTL..."
 
 regraAuditctl() {
   	local locaal="$1"
-	echo "~# sudo auditctl -w "$locaal""/$nomearq" -p wa -k mush"
+	echo "~# sudo auditctl -w "$locaal""$nomearq" -p wa -k mush"
 	sudo auditctl -w "$locaal""$nomearq" -p wa -k mush 2>/dev/null
 }
 
