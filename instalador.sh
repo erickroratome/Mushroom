@@ -243,18 +243,20 @@ done
 
 echo -e "\nADICIONANDO REGRAS AUDITCTL..."
 
-regraAuditctl() {
+function regraAuditctl() {
   	local locaal="$1"
 	echo "~# sudo auditctl -w "$locaal""$nomearq" -p wa -k mush"
 	sudo auditctl -w "$locaal""$nomearq" -p wa -k mush 2>/dev/null
 }
-
+touch ./SINALIZADOR.dat
 regraAuditctl "/"
 regraAuditctl "/home/"
 regraAuditctl "/etc/"
 regraAuditctl "/usr/"
 regraAuditctl "/backup/"
 regraAuditctl "/root/"
+rm -rf ./SINALIZADOR.dat
+
 
 if [ -e /root/$nomearq ] && [ $(stat -c %s /root/$nomearq) = $tamanhoHoneyfile ] && [ -e /$nomearq ] && [ $(stat -c %s /$nomearq) = $tamanhoHoneyfile ] && [ -e /home/$nomearq ] && [ -e /etc/$nomearq ] && [ -e /usr/$nomearq ] && [ $(stat -c %s /home/$nomearq) = $tamanhoHoneyfile ] && [ $(stat -c %s /etc/$nomearq) = $tamanhoHoneyfile ] && [ $(stat -c %s /usr/$nomearq) = $tamanhoHoneyfile ] && [ -e /backup/$nomearq ] && [ $(stat -c %s /backup/$nomearq) = $tamanhoHoneyfile ]; then
         echo ""
