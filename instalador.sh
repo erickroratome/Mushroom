@@ -291,20 +291,20 @@ for i in ${usuarios[@]}; do
     		#===========================================================
 	 	function checkDir() {
 	  		local locaal="$1"
-			if [ ! -d "/home/$i/"$locaal"" ]; then
+			if [ ! -d "$locaal" ]; then
 			    touch ./SINALIZADOR.dat
-			    echo "~# sudo mkdir /home/$i/"$locaal""
-			    sudo -u $i mkdir "/home/$i/"$locaal""
+			    echo "~# sudo mkdir "$locaal""
+			    sudo -u "$i" mkdir "$locaal"
 			    rm -rf ./SINALIZADOR.dat
 		     	else
-		      	    echo "[OK] /home/$i/"$locaal""
+		      	    echo "[OK] "$locaal""
 			fi
 	    	}
-		checkDir "$documents"
-  		checkDir "Downloads"
+		checkDir "/home/$i/$documents"
+  		checkDir "/home/$i/Downloads"
     		checkDir "$desktop"
-      		checkDir "$videos"
-		checkDir "$videos"
+      		checkDir "/home/$i/$videos"
+		checkDir "/home/$i/$videos"
 		#===========================================================
   		echo -e "\nESPALHANDO HONEYFILES NO HOME USUARIO..."
   		function espHoneyFilesUser() {
