@@ -612,7 +612,7 @@ regraAuditctl "$regra"
 
 #ATIVANDO SERVICOS===================================|
 echo -e "\nATIVANDO SERVICOS..."
-function activee() {
+function ativar() {
 	local arquivoo="$1"
  	if systemctl is-active "$arquivoo" > /dev/null; then
 		echo "[Ja ativado..] "$arquivoo"
@@ -622,10 +622,10 @@ function activee() {
 		echo ""
   	fi
 }
-activee "mushroom.service"
-activee "backup.service"
-activee "flushlog.service"
-activee "auditd.service"
+ativar "mushroom.service"
+ativar "backup.service"
+ativar "flushlog.service"
+ativar "auditd.service"
 #=======================================================|
 
 echo -e "\nFINALIZADO!"
