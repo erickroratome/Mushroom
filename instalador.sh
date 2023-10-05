@@ -203,21 +203,21 @@ move "flushlog.service" "/etc/systemd/system/flushlog.service"
 echo -e "\nHABILITANDO .SERVICES..."
 echo "~# sudo systemctl daemon-reload"
 sudo systemctl daemon-reload
-function enable() {
+function habilitar() {
 	local arquivoo="$1"
  	if systemctl is-enabled "$arquivoo" > /dev/null; then
-		echo "[Ja habilitado..] "$arquivoo"
+		echo "[Ja habilitado..] "$arquivoo""
  	else
   		echo "~# sudo systemctl enable $arquivoo"
 		sudo systemctl enable $arquivoo
 		echo ""
   	fi
 }
-enable "mushroom.service"
-enable "backup.service"
-enable "flushlog.service"
-enable "instalador.service"
-enable "auditd.service"
+habilitar "mushroom.service"
+habilitar "backup.service"
+habilitar "flushlog.service"
+habilitar "instalador.service"
+habilitar "auditd.service"
 
 #CRIANDO ARQUIVOS HONEYFILE DO USUARIO=============================|
 nomearq="aaaaaaaa.txt"
