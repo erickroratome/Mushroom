@@ -507,15 +507,24 @@ permission() {
 		echo -e "\e[31m[Fail]\e[0m $arquivoo"
 	fi
 }
-
+permissionSystemd() {
+	local arquivoo="$1"
+	if [ -x "$arquivoo" ] && [ -r "$arquivoo" ]; then
+		echo -e "\e[32m[OK]\e[0m $arquivoo"
+	elif [ -x "/etc/systemd/system/$arquivoo" ] && [ -r "/etc/systemd/system/$arquivoo" ]; then
+		echo -e "\e[32m[OK]\e[0m $arquivoo"
+  	else
+   		echo -e "\e[31m[Fail]\e[0m $arquivoo"
+	fi
+}
 permission "./instalador.sh"
 permission "./mushroom.sh"
 permission "./backup.sh"
 permission "./flushlog.sh"
-permission "./flushlog.service"
-permission "./mushroom.service"
-permission "./backup.service"
-permission "./instalador.service"
+permissionSystemd "flushlog.service"
+permissionSystemd "mushroom.service"
+permissionSystemd "backup.service"
+permissionSystemd "instalador.service"
 
 if [ -r "./honeyfile.txt" ]; then
 	echo -e "\e[32m[OK]\e[0m ./honeyfile.txt"
