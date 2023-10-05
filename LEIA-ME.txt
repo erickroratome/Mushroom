@@ -9,6 +9,7 @@ Dependencias:
   - wget
   - zip
   - git
+  - sudo
 
 No seu terminal linux baixe os arquivos necessários com git clone:
 
