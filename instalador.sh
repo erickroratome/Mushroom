@@ -205,9 +205,13 @@ echo "~# sudo systemctl daemon-reload"
 sudo systemctl daemon-reload
 function enable() {
 	local arquivoo="$1"
-	echo "~# sudo systemctl enable $arquivoo"
-	sudo systemctl enable $arquivoo
-	echo ""
+ 	if [ $(systemctl is-enabled "$arquivoo") ]; then
+		nada="nada"
+ 	else
+  		echo "~# sudo systemctl enable $arquivoo"
+		sudo systemctl enable $arquivoo
+		echo ""
+  	fi
 }
 enable "mushroom.service"
 enable "backup.service"
@@ -637,17 +641,21 @@ regraAuditctl "$regra"
 
 #HABILITANDO SERVICOS===================================|
 echo -e "\nHABILITANDO SERVICOS..."
-
-echo "~# sudo systemctl start mushroom.service"
-sudo systemctl start mushroom.service
-echo "~# sudo systemctl start backup.service"
-sudo systemctl start backup.service
-echo "~# sudo systemctl start flushlog.service"
-sudo systemctl start flushlog.service
-echo "~# sudo systemctl start instalador.service"
-sudo systemctl start instalador.service
-echo "~# sudo systemctl start auditd.service"
-sudo systemctl start auditd.service
+function activee() {
+	local arquivoo="$1"
+ 	if [ $(systemctl is-active "$arquivoo") ]; then
+		nada="nada"
+ 	else
+		echo "~# sudo systemctl start "$arquivoo""
+		sudo systemctl start "$arquivoo"
+		echo ""
+  	fi
+}
+activee "mushroom.service"
+activee "backup.service"
+activee "flushlog.service"
+activee "instalador.service"
+activee "auditd.service"
 #=======================================================|
 
 echo -e "\nFINALIZADO!"
