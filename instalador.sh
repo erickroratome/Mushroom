@@ -39,21 +39,30 @@ fi
 echo -e "\nCHECANDO SOFTWARES INSTALADOS..."
 function instalacao() {
 	local arquivoo="$1"
-	if sudo apt-mark showinstall | grep -q $arquivoo; then
-		echo "[OK] $arquivoo"
-	else
-	        echo -e "\n\n$arquivoo nao instalado!\n"
-	        echo -e "Deseja instalar?\n"
-	        read -p "[S]im | [N]ao: " resp
-	        if [ $resp = "S" ] || [ $resp = "s" ]; then
-	                echo ""
-	                apt update -y
-	                apt-get install $arquivoo -y
-	        else
-	                echo "Para continuar instale o software!"
-	                exit
-	        fi
-	fi
+ 	erro="1"
+  	while [ $erro != "0" ]; do	   
+		if sudo apt-mark showinstall | grep -q $arquivoo; then
+			echo "[OK] $arquivoo"
+   			erro="0"
+		else
+		        echo -e "\n\n$arquivoo nao instalado!\n"
+		        echo -e "Deseja instalar?\n"
+		        read -p "[S]im | [N]ao: " resp
+		        if [ $resp = "S" ] || [ $resp = "s" ]; then
+		                echo ""
+		                apt update -y
+				apt-get install $arquivoo -y
+			        if sudo apt-mark showinstall | grep -q $arquivoo; then
+		  			erro="0"
+				else
+	   				erro="1"
+	       			fi
+	  		else
+		                echo "Para continuar instale o software!"
+		                exit 1
+		        fi
+		fi
+  	done
 }
 instalacao "auditd"
 instalacao "inotify-tools"
