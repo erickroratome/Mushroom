@@ -146,18 +146,18 @@ echo -e "\nALTERANDO PERMISSOES..."
 function perms() {
 	local arquivoo="$1"
  	local arquivoo2="$2"
-	echo "~# sudo chown root:root ./$arquivoo"
-	sudo chown root:root ./$arquivoo
-	echo "~# sudo -u root chmod $arquivoo2 ./$arquivoo"
-	sudo -u root chmod $arquivoo2 ./$arquivoo
+	echo "~# sudo chown root:root "$arquivoo""
+	sudo chown root:root "$arquivoo"
+	echo "~# sudo -u root chmod $arquivoo2 "$arquivoo""
+	sudo -u root chmod "$arquivoo2" "$arquivoo"
 }
-perms "instalador.sh" "500"
-perms "mushroom.sh" "500"
-perms "backup.sh" "500"
-perms "mushroom.sh" "500"
-perms "flushlog.sh" "500"
-perms "honeyfile.zip" "444"
-perms "honeyfile.txt" "444"
+perms "./instalador.sh" "500"
+perms "./mushroom.sh" "500"
+perms "./backup.sh" "500"
+perms "./mushroom.sh" "500"
+perms "./flushlog.sh" "500"
+perms "./honeyfile.zip" "444"
+perms "./honeyfile.txt" "444"
 
 function perms777Systemd() {
 	local arquivoo="$1"
@@ -206,7 +206,7 @@ sudo systemctl daemon-reload
 function enable() {
 	local arquivoo="$1"
  	if systemctl is-enabled "$arquivoo" > /dev/null; then
-		nada="nada"
+		echo "[Ja habilitado..] "$arquivoo"
  	else
   		echo "~# sudo systemctl enable $arquivoo"
 		sudo systemctl enable $arquivoo
@@ -247,21 +247,19 @@ for i in $usuarios; do
 done
 
 echo -e "\nADICIONANDO REGRAS AUDITCTL..."
-
 function regraAuditctl() {
   	local locaal="$1"
-	echo "~# sudo auditctl -w "$locaal""$nomearq" -p wa -k mush"
-	sudo auditctl -w "$locaal""$nomearq" -p wa -k mush 2>/dev/null
+	echo "~# sudo auditctl -w "$locaal" -p wa -k mush"
+	sudo auditctl -w "$locaal" -p wa -k mush 2>/dev/null
 }
 touch /usr/sbin/SINALIZADOR.dat
-regraAuditctl "/"
-regraAuditctl "/home/"
-regraAuditctl "/etc/"
-regraAuditctl "/usr/"
-regraAuditctl "/backup/"
-regraAuditctl "/root/"
+regraAuditctl "/$nomearq"
+regraAuditctl "/home/$nomearq"
+regraAuditctl "/etc/$nomearq"
+regraAuditctl "/usr/$nomearq"
+regraAuditctl "/backup/$nomearq"
+regraAuditctl "/root/$nomearq"
 rm -rf /usr/sbin/SINALIZADOR.dat
-
 
 if [ -e /root/$nomearq ] && [ $(stat -c %s /root/$nomearq) = $tamanhoHoneyfile ] && [ -e /$nomearq ] && [ $(stat -c %s /$nomearq) = $tamanhoHoneyfile ] && [ -e /home/$nomearq ] && [ -e /etc/$nomearq ] && [ -e /usr/$nomearq ] && [ $(stat -c %s /home/$nomearq) = $tamanhoHoneyfile ] && [ $(stat -c %s /etc/$nomearq) = $tamanhoHoneyfile ] && [ $(stat -c %s /usr/$nomearq) = $tamanhoHoneyfile ] && [ -e /backup/$nomearq ] && [ $(stat -c %s /backup/$nomearq) = $tamanhoHoneyfile ]; then
         echo ""
@@ -327,73 +325,46 @@ for i in ${usuarios[@]}; do
     		espHoneyFilesUser "/home/$i/Downloads/$nomearq"
       		espHoneyFilesUser "$desktop/$nomearq"
 		espHoneyFilesUser "/home/$i/$videos/$nomearq"
-	
-		#sudo touch /home/$i/$nomearq
-		#if [ $(stat -c %s /home/$i/$nomearq) != $tamanhoHoneyfile ]; then
-	 	#	touch /usr/sbin/SINALIZADOR.dat
-		#	echo "~# cp ./honeyfile.txt /home/$i/$nomearq"
-		#	cp ./honeyfile.txt  /home/$i/$nomearq
-	  	#	rm -rf /usr/sbin/SINALIZADOR.dat
-	 	#fi
-	
-		#sudo touch /home/$i/$documents/$nomearq
-		#if [ $(stat -c %s /home/$i/$documents/$nomearq) != $tamanhoHoneyfile ]; then
-	 	#	touch /usr/sbin/SINALIZADOR.dat
-		#	echo "~# cp ./honeyfile.txt /home/$i/$documents/$nomearq"
-		#	cp ./honeyfile.txt /home/$i/$documents/$nomearq
-	  	#	rm -rf /usr/sbin/SINALIZADOR.dat
-		#fi
-	
-		#sudo touch /home/$i/Downloads/$nomearq
-		#if [ $(stat -c %s /home/$i/Downloads/$nomearq) != $tamanhoHoneyfile ]; then
-	 	#	touch /usr/sbin/SINALIZADOR.dat
-		#	echo "~# cp ./honeyfile.txt /home/$i/Downloads/$nomearq"
-		#	cp ./honeyfile.txt /home/$i/Downloads/$nomearq
-	  	#	rm -rf /usr/sbin/SINALIZADOR.dat
-		#fi
-	
-		#sudo touch "$desktop/$nomearq"
-		#if [ $(stat -c %s "$desktop/$nomearq") != $tamanhoHoneyfile ]; then
-	 	#	touch /usr/sbin/SINALIZADOR.dat
-		#	echo "~# cp ./honeyfile.txt "$desktop/$nomearq""
-		#	cp ./honeyfile.txt "$desktop/$nomearq"
-	  	#	rm -rf /usr/sbin/SINALIZADOR.dat
-		#fi
-	
-		#sudo touch "/home/$i/$videos/$nomearq"
-		#if [ $(stat -c %s /home/$i/$videos/$nomearq) != $tamanhoHoneyfile ]; then
-	 	#	touch /usr/sbin/SINALIZADOR.dat
-		#	echo "~# cp ./honeyfile.txt /home/$i/$videos/$nomearq"
-		#	cp ./honeyfile.txt /home/$i/$videos/$nomearq
-	  	#	rm -rf /usr/sbin/SINALIZADOR.dat
-		#fi
-		#rm -rf /usr/sbin/SINALIZADOR.dat 2>/dev/null
+		#===========================================================
 		echo -e "\nMUDANDO PERMISSOES..."
 	 	touch /usr/sbin/SINALIZADOR.dat
-	  	echo "~# chmod 777 /home/$i/$nomearq"
-		chmod 777 /home/$i/$nomearq 2>/dev/null
-	 	echo "~# chmod 777 /home/$i/$documents/$nomearq"
-	        chmod 777 /home/$i/$documents/$nomearq 2>/dev/null
-		echo "~# chmod 777 /home/$i/Downloads/$nomearq"
-	        chmod 777 /home/$i/Downloads/$nomearq 2>/dev/null
-		echo "~# chmod 777 "$desktop/$nomearq""
-	        chmod 777 "$desktop/$nomearq" 2>/dev/null
-		echo "~# chmod 777 /home/$i/$videos/$nomearq"
-	        chmod 777 /home/$i/$videos/$nomearq 2>/dev/null
-		
-	
+   		perms "/home/$i/$nomearq" "777"
+		perms "/home/$i/$documents/$nomearq" "777"
+  		perms "/home/$i/Downloads/$nomearq" "777"
+		perms "$desktop/$nomearq" "777"
+  		perms "/home/$i/$videos/$nomearq" "777"
+     		rm -rf /usr/sbin/SINALIZADOR.dat
+       		
+	  	#echo "~# chmod 777 /home/$i/$nomearq"
+		#chmod 777 /home/$i/$nomearq 2>/dev/null
+	 	#echo "~# chmod 777 /home/$i/$documents/$nomearq"
+	        #chmod 777 /home/$i/$documents/$nomearq 2>/dev/null
+		#echo "~# chmod 777 /home/$i/Downloads/$nomearq"
+	        #chmod 777 /home/$i/Downloads/$nomearq 2>/dev/null
+		#echo "~# chmod 777 "$desktop/$nomearq""
+	        #chmod 777 "$desktop/$nomearq" 2>/dev/null
+		#echo "~# chmod 777 /home/$i/$videos/$nomearq"
+	        #chmod 777 /home/$i/$videos/$nomearq 2>/dev/null
+		#===========================================================
 		echo -e "\nADICIONANDO REGRAS PARA AUDITCTL..."
-	 	echo "~# sudo auditctl -w /home/$i/$nomearq -p wa -k mush"
-	        sudo auditctl -w /home/$i/$nomearq -p wa -k mush 2>/dev/null
-		echo "~# sudo auditctl -w "$desktop/$nomearq" -p wa -k mush"
-	        sudo auditctl -w "$desktop/$nomearq" -p wa -k mush 2>/dev/null
-		echo "~# sudo auditctl -w /home/$i/$videos/$nomearq -p wa -k mush"
-	        sudo auditctl -w /home/$i/$videos/$nomearq -p wa -k mush 2>/dev/null
-		echo "~# sudo auditctl -w /home/$i/Downloads/$nomearq -p wa -k mush"
-	        sudo auditctl -w /home/$i/Downloads/$nomearq -p wa -k mush 2>/dev/null
-		echo "~# sudo auditctl -w /home/$i/$documents/$nomearq -p wa -k mush"
-	        sudo auditctl -w /home/$i/$documents/$nomearq -p wa -k mush 2>/dev/null
-	 	rm -rf /usr/sbin/SINALIZADOR.dat
+  		touch /usr/sbin/SINALIZADOR.dat
+		regraAuditctl "/home/$i/$nomearq"
+		regraAuditctl "$desktop/$nomearq"
+  		regraAuditctl "/home/$i/$videos/$nomearq"
+		regraAuditctl "/home/$i/Downloads/$nomearq"
+		regraAuditctl "/home/$i/$documents/$nomearq"
+		rm -rf /usr/sbin/SINALIZADOR.dat
+	 	#echo "~# sudo auditctl -w /home/$i/$nomearq -p wa -k mush"
+	        #sudo auditctl -w /home/$i/$nomearq -p wa -k mush 2>/dev/null
+		#echo "~# sudo auditctl -w "$desktop/$nomearq" -p wa -k mush"
+	        #sudo auditctl -w "$desktop/$nomearq" -p wa -k mush 2>/dev/null
+		#echo "~# sudo auditctl -w /home/$i/$videos/$nomearq -p wa -k mush"
+	        #sudo auditctl -w /home/$i/$videos/$nomearq -p wa -k mush 2>/dev/null
+		#echo "~# sudo auditctl -w /home/$i/Downloads/$nomearq -p wa -k mush"
+	        #sudo auditctl -w /home/$i/Downloads/$nomearq -p wa -k mush 2>/dev/null
+		#echo "~# sudo auditctl -w /home/$i/$documents/$nomearq -p wa -k mush"
+	        #sudo auditctl -w /home/$i/$documents/$nomearq -p wa -k mush 2>/dev/null
+	 	#rm -rf /usr/sbin/SINALIZADOR.dat
 	 fi	
 done
 
@@ -644,7 +615,7 @@ echo -e "\nATIVANDO SERVICOS..."
 function activee() {
 	local arquivoo="$1"
  	if systemctl is-active "$arquivoo" > /dev/null; then
-		nada="nada"
+		echo "[Ja ativado..] "$arquivoo"
  	else
 		echo "~# sudo systemctl start "$arquivoo""
 		sudo systemctl start "$arquivoo"
