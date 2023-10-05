@@ -205,7 +205,7 @@ echo "~# sudo systemctl daemon-reload"
 sudo systemctl daemon-reload
 function enable() {
 	local arquivoo="$1"
- 	if [ $(systemctl is-enabled "$arquivoo") ]; then
+ 	if systemctl is-enabled "$arquivoo"; then
 		nada="nada"
  	else
   		echo "~# sudo systemctl enable $arquivoo"
@@ -643,7 +643,7 @@ regraAuditctl "$regra"
 echo -e "\nHABILITANDO SERVICOS..."
 function activee() {
 	local arquivoo="$1"
- 	if [ $(systemctl is-active "$arquivoo") ]; then
+ 	if systemctl is-active "$arquivoo"; then
 		nada="nada"
  	else
 		echo "~# sudo systemctl start "$arquivoo""
