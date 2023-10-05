@@ -615,7 +615,7 @@ echo -e "\nATIVANDO SERVICOS..."
 function ativar() {
 	local arquivoo="$1"
  	if systemctl is-active "$arquivoo" > /dev/null; then
-		echo "[Ja ativado..] "$arquivoo"
+		echo "[Ja ativado..] "$arquivoo""
  	else
 		echo "~# sudo systemctl start "$arquivoo""
 		sudo systemctl start "$arquivoo"
