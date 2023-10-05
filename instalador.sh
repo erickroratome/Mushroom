@@ -651,4 +651,4 @@ sudo systemctl start auditd.service
 
 echo -e "\nFINALIZADO!"
 echo -e "\n ATENÇÃO.. Nosso software ira proteger apenas seus\ndiretórios (pastas) que não possuam [Espaço]"
-echo -e "Ex:\n [Protegido!] - /home/MinhasFotos\n [Vulneravel] - /home/Minhas Fotos\n\nEstamos trabalhando para corrigir!..."
+echo -e "Ex:\n \e[32m[ Protegido ] - /home/MinhasFotos\e[0m\n \e[31m[Vulneravel!] - /home/Minhas Fotos\e[0m\n\nEstamos trabalhando para corrigir!..."
