@@ -207,6 +207,7 @@ function enable() {
 	local arquivoo="$1"
 	echo "~# sudo systemctl enable $arquivoo"
 	sudo systemctl enable $arquivoo
+	echo ""
 }
 enable "mushroom.service"
 enable "backup.service"
