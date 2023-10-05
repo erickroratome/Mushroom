@@ -184,7 +184,7 @@ echo -e "\nMOVENDO ARQUIVOS..."
 function move() {
 	local arquivoo="$1"
  	local arquivoo2="$2"
-  	if [ ! -e "./$arquivoo2" ]; then
+  	if [ ! -e "$arquivoo2" ]; then
 		echo "~# cp ./$arquivoo "$arquivoo2""
 		cp ./$arquivoo "$arquivoo2"
   	fi
