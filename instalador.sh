@@ -39,7 +39,7 @@ fi
 echo -e "\nCHECANDO SOFTWARES INSTALADOS..."
 function instalacao() {
 	local arquivoo="$1"
- 	erro="1"
+ 	local erro="1"
   	while [ $erro != "0" ]; do	   
 		if sudo apt-mark showinstall | grep -q $arquivoo; then
 			echo "[OK] $arquivoo"
