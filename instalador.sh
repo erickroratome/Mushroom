@@ -602,7 +602,7 @@ regraAuditctl() {
   local regra="$1"
 
   local -a regras=()
-  readarray -t regras < <(auditctl -l)
+  readarray -t regras < <(sudo auditctl -l)
 
   for i in "${regras[@]}"; do
     if [[ "$i" == *"$regra"* ]]; then
