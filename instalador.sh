@@ -334,17 +334,7 @@ for i in ${usuarios[@]}; do
 		perms "$desktop/$nomearq" "777"
   		perms "/home/$i/$videos/$nomearq" "777"
      		rm -rf /usr/sbin/SINALIZADOR.dat
-       		
-	  	#echo "~# chmod 777 /home/$i/$nomearq"
-		#chmod 777 /home/$i/$nomearq 2>/dev/null
-	 	#echo "~# chmod 777 /home/$i/$documents/$nomearq"
-	        #chmod 777 /home/$i/$documents/$nomearq 2>/dev/null
-		#echo "~# chmod 777 /home/$i/Downloads/$nomearq"
-	        #chmod 777 /home/$i/Downloads/$nomearq 2>/dev/null
-		#echo "~# chmod 777 "$desktop/$nomearq""
-	        #chmod 777 "$desktop/$nomearq" 2>/dev/null
-		#echo "~# chmod 777 /home/$i/$videos/$nomearq"
-	        #chmod 777 /home/$i/$videos/$nomearq 2>/dev/null
+
 		#===========================================================
 		echo -e "\nADICIONANDO REGRAS PARA AUDITCTL..."
   		touch /usr/sbin/SINALIZADOR.dat
@@ -354,17 +344,7 @@ for i in ${usuarios[@]}; do
 		regraAuditctl "/home/$i/Downloads/$nomearq"
 		regraAuditctl "/home/$i/$documents/$nomearq"
 		rm -rf /usr/sbin/SINALIZADOR.dat
-	 	#echo "~# sudo auditctl -w /home/$i/$nomearq -p wa -k mush"
-	        #sudo auditctl -w /home/$i/$nomearq -p wa -k mush 2>/dev/null
-		#echo "~# sudo auditctl -w "$desktop/$nomearq" -p wa -k mush"
-	        #sudo auditctl -w "$desktop/$nomearq" -p wa -k mush 2>/dev/null
-		#echo "~# sudo auditctl -w /home/$i/$videos/$nomearq -p wa -k mush"
-	        #sudo auditctl -w /home/$i/$videos/$nomearq -p wa -k mush 2>/dev/null
-		#echo "~# sudo auditctl -w /home/$i/Downloads/$nomearq -p wa -k mush"
-	        #sudo auditctl -w /home/$i/Downloads/$nomearq -p wa -k mush 2>/dev/null
-		#echo "~# sudo auditctl -w /home/$i/$documents/$nomearq -p wa -k mush"
-	        #sudo auditctl -w /home/$i/$documents/$nomearq -p wa -k mush 2>/dev/null
-	 	#rm -rf /usr/sbin/SINALIZADOR.dat
+
 	 fi	
 done
 
@@ -403,100 +383,45 @@ if [ -d "$diretorio_base" ]; then
 	done
 fi
 
-#=======================================================|
+#=========================================================|
 
 #VERIFICANDO INSTALAÇÃO===================================|
 echo -e "\n VERIFICANDO SOFTWARES..."
-if sudo apt-mark showinstall | grep -q auditd; then
-	echo -e "\e[32m[OK]\e[0m auditd"
-else
-    	echo -e "\e[31m[Fail]\e[0m auditd"
-fi
+function verifcSoftware() {
+	local arquivoo="$1"
+	if sudo apt-mark showinstall | grep -q "$arquivoo"; then
+		echo -e "\e[32m[OK]\e[0m "$arquivoo""
+	else
+    		echo -e "\e[31m[Fail]\e[0m "$arquivoo""
+	fi
+}
+verifcSoftware "auditd"
+verifcSoftware "inotify-tools"
+verifcSoftware "zip"
+verifcSoftware "wget"
 
-if sudo apt-mark showinstall | grep -q inotify-tools; then
- 	echo -e "\e[32m[OK]\e[0m inotify-tools"
-else
-	echo -e "\e[31m[Fail]\e[0m inotify-tools"
-fi
-#
-if sudo apt-mark showinstall | grep -q zip; then
-	echo -e "\e[32m[OK]\e[0m zip"
-else
-	echo -e "\e[31m[Fail]\e[0m zip"
-fi
-#
-if sudo apt-mark showinstall | grep -q wget; then
-	echo -e "\e[32m[OK]\e[0m wget"
-else
-	echo -e "\e[31m[Fail]\e[0m wget"
-fi
 #-------------------------------------
 echo -e "\n VERIFICANDO ARQUIVOS..."
-if [ -e ./mushroom.sh ]; then
-	echo -e "\e[32m[OK]\e[0m mushroom.sh"
-else
-	echo -e "\e[31m[Fail]\e[0m mushroom.sh"
-fi
-#
-if [ -e ./backup.sh ]; then
-	echo -e "\e[32m[OK]\e[0m backup.sh"
-else
-	echo -e "\e[31m[Fail]\e[0m backup.sh"
-fi
-#
-if [ -e ./flushlog.sh ]; then
-	echo -e "\e[32m[OK]\e[0m flushlog.sh"
-else
-	echo -e "\e[31m[Fail]\e[0m flushlog.sh"
-fi
-#
-if [ -e ./honeyfile.zip ]; then
-	echo -e "\e[32m[OK]\e[0m honeyfile.zip"
-else
-	echo -e "\e[31m[Fail]\e[0m honeyfile.zip"
-fi
-#
-if [ -e ./honeyfile.txt ]; then
-	echo -e "\e[32m[OK]\e[0m honeyfile.txt"
-else
-	echo -e "\e[31m[Fail]\e[0m honeyfile.txt"
-fi
-#
-if [ -e ./honeyfile-less.txt ]; then
-	echo -e "\e[32m[OK]\e[0m honeyfile-less.txt"
-else
-	echo -e "\e[31m[Fail]\e[0m honeyfile-less.txt"
-fi
-#
-if [ -e ./instalador.sh ]; then
-	echo -e "\e[32m[OK]\e[0m instalador.sh"
-else
-	echo -e "\e[31m[Fail]\e[0m instalador.sh"
-fi
-#
-if [ -e /etc/systemd/system/mushroom.service ] || [ -e ./mushroom.service ]; then
-	echo -e "\e[32m[OK]\e[0m mushroom.service"
-else
-	echo -e "\e[31m[Fail]\e[0m mushroom.service"
-fi
-#
-if [ -e /etc/systemd/system/backup.service ] || [ -e ./backup.service ]; then
-	echo -e "\e[32m[OK]\e[0m backup.service"
-else
-	echo -e "\e[31m[Fail]\e[0m backup.service"
-fi
-#
-if [ -e /etc/systemd/system/flushlog.service ] || [ -e ./flushlog.service ]; then
-	echo -e "\e[32m[OK]\e[0m flushlog.service"
-else
-	echo -e "\e[31m[Fail]\e[0m flushlog.service"
-fi
-#
-if [ -e /etc/systemd/system/instalador.service ] || [ -e ./instalador.service ]; then
-	echo -e "\e[32m[OK]\e[0m instalador.service"
-else
-	echo -e "\e[31m[Fail]\e[0m instalador.service"
-fi
+function verifcArquivos() {
+	local arquivoo="$1"
+	if [ -e "$arquivoo" ]; then
+		echo -e "\e[32m[OK]\e[0m "$arquivoo""
+	else
+		echo -e "\e[31m[Fail]\e[0m "$arquivoo""
+	fi
+}
+verifcArquivos "./mushroom.sh"
+verifcArquivos "./backup.sh"
+verifcArquivos "./flushlog.sh"
+verifcArquivos "./instalador.sh"
+verifcArquivos "./honeyfile.zip"
+verifcArquivos "./honeyfile.txt"
+verifcArquivos "./honeyfile-less.txt"
+verifcArquivos "/etc/systemd/system/mushroom.service"
+verifcArquivos "/etc/systemd/system/backup.service"
+verifcArquivos "/etc/systemd/system/flushlog.service"
+verifcArquivos "/etc/systemd/system/instalador.service"
+
 #-------------------------------------
 echo -e "\n VERIFICANDO PERISSOES DE ARQUIVOS..."
 permission() {
