@@ -27,7 +27,6 @@ if [ $valid = False ] && [ $valid1 = False ]; then
 fi
 #=======================================================|
 
-
 #VERIFICANDO LOCAL DA EXECUCAO==========================|
 onde=$(pwd)
 if [ ! -e "$onde/instalador.sh" ]; then
@@ -37,168 +36,70 @@ fi
 
 #=======================================================|
 
-
 #VERIFICANDO SOFTWARES INSTALADOS=======================|
 echo -e "\nCHECANDO SOFTWARES INSTALADOS..."
-if sudo apt-mark showinstall | grep -q auditd; then
-	echo "[OK] auditd"
-else
-        echo -e "\n\nauditd nao instalado!\n"
-        sleep 2
-        echo -e "Deseja instalar?\n"
-        read -p "[S]im | [N]ao: " resp
-        if [ $resp = "S" ] || [ $resp = "s" ]; then
-                echo ""
-                apt update -y
-                apt-get install auditd -y
-        else
-                echo "Para continuar instale o software!"
-                exit
-        fi
-fi
 
-if sudo apt-mark showinstall | grep -q inotify-tools; then
- 	echo "[OK] inotify-tools"
-else
-	echo -e "\n\ninotify-tools não instalado!\n"
-	sleep 2
-	echo -e "Deseja instalar?\n"
-	read -p "[S]im | [N]ão: " resp2
-	if [ $resp2 = "S" ] || [ $resp2 = "s" ]; then
-		echo ""
-		apt update -y
-		apt-get install inotify-tools -y
+function instalacao() {
+	local arquivoo="$1"
+	if sudo apt-mark showinstall | grep -q $arquivoo; then
+		echo "[OK] $arquivoo"
 	else
-		echo "Para continuar instale o software!"
-		exit
+	        echo -e "\n\n$arquivoo nao instalado!\n"
+	        sleep 2
+	        echo -e "Deseja instalar?\n"
+	        read -p "[S]im | [N]ao: " resp
+	        if [ $resp = "S" ] || [ $resp = "s" ]; then
+	                echo ""
+	                apt update -y
+	                apt-get install $arquivoo -y
+	        else
+	                echo "Para continuar instale o software!"
+	                exit
+	        fi
 	fi
-fi
-#
-if sudo apt-mark showinstall | grep -q zip; then
-	echo "[OK] zip"
-else
-	echo -e "\n\nzip nao instalado!\n"
-	sleep 2
-	echo -e "Deseja instalar?\n"
-	read -p "[S]im | [N]ao: " resp3
-	if [ $resp3 = "S" ] || [ $resp3 = "s" ]; then
-		echo ""
-		apt update -y
-		apt-get install zip -y
-	else
-		echo "Para continuar instale o software!"
-		exit
-	fi
-fi
-#
-if sudo apt-mark showinstall | grep -q wget; then
-	echo "[OK] wget"
-else
-	echo -e "\n\nwget nao instalado!\n"
-	sleep 2
-	echo -e "Deseja instalar?\n"
-	read -p "[S]im | [N]ao: " resp3
-	if [ $resp3 = "S" ] || [ $resp3 = "s" ]; then
-		echo ""
-		apt update -y
-		apt-get install wget -y
-	else
-		echo "Para continuar instale o software!"
-		exit
-	fi
-fi
+}
 
-
+instalacao "auditd"
+instalacao "inotify-tools"
+instalacao "wget"
+instalacao "zip"
 #=======================================================|
 
 #CHECANDO O ARQUIVOS====================================|
 echo -e "\nCHECANDO ARQUIVOS..."
 
 url="https://github.com/erickroratome/Mushroom/"
-checkarq() {
-	if [ -e ./mushroom.sh ]; then
-		echo "[OK] mushroom.sh"
+function checkArqs() {
+	local arquivoo="$1"
+	if [ -e "./$arquivoo" ]; then
+		echo "[OK] $arquivoo"
 	else
-		echo "[FAIL] mushroom.sh"
-      		echo "~# wget "$url/raw/main/mushroom.sh""
-		wget "$url/raw/main/mushroom.sh"
+		echo "[FAIL] $arquivoo"
+      		echo "~# wget "$url/raw/main/$arquivoo""
+		wget "$url/raw/main/$arquivoo"
   		echo ""
-	fi
-	#
-	if [ -e ./backup.sh ]; then
-		echo "[OK] backup.sh"
-	else
-		echo "[FAIL] backup.sh"
-      		echo "~# wget "$url/raw/main/backup.sh""
-		wget "$url/raw/main/backup.sh"
-  		echo ""
-	fi
-	#
-	if [ -e ./flushlog.sh ]; then
-		echo "[OK] flushloge.sh"
-	else
-		echo "[FAIL] flushlog.sh"
-      		echo "~# wget "$url/raw/main/flushlog.sh""
-		wget "$url/raw/main/flushlog.sh"
-    		echo ""
-	fi
-	#
-	if [ -e ./honeyfile.zip ]; then
-		echo "[OK] honeyfile.zip"
-	else
-		echo "[FAIL] honeyfile.zip"
-      		echo "~# wget "$url/raw/main/honeyfile.zip""
-		wget "$url/raw/main/honeyfile.zip"
-    		echo ""
-	fi
-	#
-	if [ -e ./instalador.sh ]; then
-		echo "[OK] instalador.sh"
-	else
-		echo "[FAIL] instalador.sh"
-      		echo "~# wget "$url/raw/main/instalador.sh""
-		wget "$url/raw/main/instalador.sh"
-    		echo ""
-	fi
-	#
-	if [ -e /etc/systemd/system/mushroom.service ] || [ -e ./mushroom.service ]; then
-		echo "[OK] mushroom.service"
-	else
-		echo "[FAIL] mushroom.service"
-      		echo "~# wget "$url/raw/main/mushroom.service""
-		wget "$url/raw/main/mushroom.service"
-    		echo ""
-	fi
-	#
-	if [ -e /etc/systemd/system/backup.service ] || [ -e ./backup.service ]; then
-		echo "[OK] backup.service"
-	else
-		echo "[FAIL] backup.service"
-      		echo "~# wget "$url/raw/main/backup.service""
-		wget "$url/raw/main/backup.service"
-    		echo ""
-	fi
-	#
-	if [ -e /etc/systemd/system/flushlog.service ] || [ -e ./flushlog.service ]; then
-		echo "[OK] flushlog.service"
-	else
-		echo "[FAIL] flushlog.service"
-      		echo "~# wget "$url/raw/main/flushlog.service""
-		wget "$url/raw/main/flushlog.service"
-    		echo ""
-	fi
-	#
-	if [ -e /etc/systemd/system/instalador.service ] || [ -e ./instalador.service ]; then
-		echo "[OK] instalador.service"
-	else
-		echo "[FAIL] instalador.service"
-    		echo "~# wget "$url/raw/main/instalador.service""
-		wget "$url/raw/main/instalador.service"
-    		echo ""
 	fi
 }
-checkarq
-
+function checkArqSystemd() {
+	local arquivoo="$1"
+	if [ -e "/etc/systemd/system/$arquivoo" ] || [ -e "./$arquivoo" ]; then
+		echo "[OK] $arquivoo"
+	else
+		echo "[FAIL] $arquivoo"
+      		echo "~# wget "$url/raw/main/$arquivoo""
+		wget "$url/raw/main/$arquivoo"
+  		echo ""
+	fi
+}
+checkArqs "mushroom.sh"
+checkArqs "backup.sh"
+checkArqs "flushlog.sh"
+checkArqs "honeyfile.zip"
+checkArqs "instalador.sh"
+checkArqSystemd "mushroom.service"
+checkArqSystemd "backup.service"
+checkArqSystemd "flushlog.service"
+checkArqSystemd "instalador.service"
 
 if [ -e ./mushroom.sh ] && [ -e ./backup.sh ] && [ -e ./instalador.sh ] && [ -e ./honeyfile.zip ] && [ -e ./mushroom.service ] && [ -e ./backup.service ] && [ -e ./flushlog.sh ] && [ -e ./flushlog.service ]; then
 	nada="nada"
@@ -211,14 +112,13 @@ else
 		exit
 	fi
 fi
-
 #=======================================================|
 
 #DESCOMPACTANDO .ZIP====================================|
 tamanhoHoneyfile=123855156
 tamanhoHoneyfileLess=19051201
 
-descompactar() {
+function descompactar() {
 	if [ -e ./honeyfile.txt ] && [ $(stat -c %s ./honeyfile.txt) = $tamanhoHoneyfile ]; then
 		nada="nada"
   	elif [ -e ./honeyfile-less.txt ] && [ $(stat -c %s ./honeyfile-less.txt) = "$tamanhoHoneyfileLess" ]; then
@@ -239,140 +139,80 @@ descompactar() {
 	fi
 }
 descompactar
-
-
 #=======================================================|
 
 #ALTERANDO PERMISSOES===================================|
-
 echo -e "\nALTERANDO PERMISSOES..."
+function perms() {
+	local arquivoo="$1"
+ 	local arquivoo2="$2"
+	echo "~# sudo chown root:root ./$arquivoo"
+	sudo chown root:root ./$arquivoo
+	echo "~# sudo -u root chmod $arquivoo2 ./$arquivoo"
+	sudo -u root chmod $arquivoo2 ./$arquivoo
+}
 
-echo "~# sudo chown root:root ./instalador.sh"
-sudo chown root:root ./instalador.sh
-echo "~# sudo -u root chmod 500 ./instalador.sh"
-sudo -u root chmod 500 ./instalador.sh
+perms "instalador.sh" "500"
+perms "mushroom.sh" "500"
+perms "backup.sh" "500"
+perms "mushroom.sh" "500"
+perms "flushlog.sh" "500"
+perms "honeyfile.zip" "444"
+perms "honeyfile.txt" "444"
 
-echo "~# sudo chown root:root ./mushroom.sh"
-sudo chown root:root ./mushroom.sh
-echo "~# sudo -u root chmod 500 ./mushroom"
-sudo -u root chmod 500 ./mushroom.sh
-
-echo "~# sudo chown root:root ./backup.sh"
-sudo chown root:root ./backup.sh
-echo "~# sudo -u root chmod 500 ./backup.sh"
-sudo -u root chmod 500 ./backup.sh
-
-echo "~# sudo chown root:root ./honeyfile.zip"
-sudo chown root:root ./honeyfile.zip
-echo "~# sudo -u root chmod 444 ./honeyfile.zip"
-sudo -u root chmod 444 ./honeyfile.zip
-
-echo "~# sudo chown root:root ./honeyfile.txt"
-sudo chown root:root ./honeyfile.txt
-echo "~# sudo -u root chmod 444 ./honeyfile.txt"
-sudo -u root chmod 444 ./honeyfile.txt
-
-echo "~# sudo chown root:root ./flushlog.sh"
-sudo chown root:root ./flushlog.sh
-echo "~# sudo -u root chmod 500 ./flushlog.sh"
-sudo -u root chmod 500 ./flushlog.sh
-
-
-if [ ! -e ./flushlog.service ]; then
-	echo "~# sudo chown root:root /etc/systemd/system/flushlog.service"
-	sudo chown root:root /etc/systemd/system/flushlog.service
-	echo "~# sudo -u root chmod 777 /etc/systemd/system/flushlog.service"
-	sudo -u root chmod 777 /etc/systemd/system/flushlog.service
-else
-	echo "~# sudo chown root:root ./flushlog.service"
-	sudo chown root:root ./flushlog.service
-	echo "~# sudo -u root chmod 777 ./flushlog.service"
-	sudo -u root chmod 777 ./flushlog.service
-fi
-#
-if [ ! -e ./mushroom.service ]; then
-	echo "~# sudo chown root:root /etc/systemd/system/mushroom.service"
-	sudo chown root:root /etc/systemd/system/mushroom.service
-	echo "~# sudo -u root chmod 777 /etc/systemd/system/mushroom.service"
-	sudo -u root chmod 777 /etc/systemd/system/mushroom.service
-else
-	echo "~# sudo chown root:root ./mushroom.service"
-	sudo chown root:root ./mushroom.service
-	echo "~# sudo -u root chmod 777 ./mushroom.service"
-	sudo -u root chmod 777 ./mushroom.service
-fi
-#
-if [ ! -e ./mushroom.service ]; then
-	echo "~# sudo chown root:root /etc/systemd/system/backup.service"
-	sudo chown root:root /etc/systemd/system/backup.service
-	echo "~# sudo -u root chmod 777 /etc/systemd/system/backup.service"
-	sudo -u root chmod 777 /etc/systemd/system/backup.service
-else
-	echo "~# sudo chown root:root ./backup.service"
-	sudo chown root:root ./backup.service
-	echo "~# sudo -u root chmod 777 ./backup.service"
-	sudo -u root chmod 777 ./backup.service
-fi
-#
-if [ ! -e ./mushroom.service ]; then
-	echo "~# sudo chown root:root /etc/systemd/system/instalador.service"
-	sudo chown root:root /etc/systemd/system/instalador.service
-	echo "~# sudo -u root chmod 777 /etc/systemd/system/instalador.service"
-	sudo -u root chmod 777 /etc/systemd/system/instalador.service
-else
-	echo "~# sudo chown root:root ./instalador.service"
-	sudo chown root:root ./instalador.service
-	echo "~# sudo -u root chmod 777 ./instalador.service"
-	sudo -u root chmod 777 ./instalador.service
-fi
+function perms777Systemd() {
+	local arquivoo="$1"
+	if [ ! -e ./$arquivoo ]; then
+		echo "~# sudo chown root:root /etc/systemd/system/$arquivoo"
+		sudo chown root:root /etc/systemd/system/$arquivoo
+		echo "~# sudo -u root chmod 777 /etc/systemd/system/$arquivoo"
+		sudo -u root chmod 777 /etc/systemd/system/$arquivoo
+	else
+		echo "~# sudo chown root:root ./$arquivoo"
+		sudo chown root:root ./$arquivoo
+		echo "~# sudo -u root chmod 777 ./$arquivoo"
+		sudo -u root chmod 777 ./$arquivoo
+	fi
+}
+perms777Systemd "flushlog.service"
+perms777Systemd "mushroom.service"
+perms777Systemd "backup.service"
+perms777Systemd "instalador.service"
 #=======================================================|
-
 
 #MOVENDO ARQUIVOS=======================================|
 echo -e "\nMOVENDO ARQUIVOS..."
-
-echo "~# cp ./instalador.sh /usr/sbin/"
-cp ./instalador.sh /usr/sbin/
-
-echo "~# cp ./instalador.service /etc/systemd/system/"
-cp ./instalador.service /etc/systemd/system/
-
-echo "~# cp ./mushroom.sh /usr/sbin/"
-cp ./mushroom.sh /usr/sbin/
-
-echo "~# cp ./mushroom.service /etc/systemd/system/"
-cp ./mushroom.service /etc/systemd/system/
-
-echo "~# cp ./backup.sh /usr/sbin/"
-cp ./backup.sh /usr/sbin/
-
-echo "~# cp ./backup.service /etc/systemd/system/"
-cp ./backup.service /etc/systemd/system/
-
-echo "~# cp ./flushlog.sh /usr/sbin/"
-cp ./flushlog.sh /usr/sbin/
-
-echo "~# cp ./flushlog.service /etc/systemd/system/"
-cp ./flushlog.service /etc/systemd/system/
-
+function move() {
+	local arquivoo="$1"
+ 	local arquivoo2="$2"
+	echo "~# cp ./$arquivoo "$arquivoo2""
+	cp ./$arquivoo "$arquivoo2"
+}
+move "instalador.sh" "/usr/sbin/"
+move "instalador.service" "/etc/systemd/system/"
+move "mushroom.sh" "/usr/sbin/"
+move "mushroom.service" "/etc/systemd/system/"
+move "backup.sh" "/usr/sbin/"
+move "backup.service" "/etc/systemd/system/"
+move "flushlog.sh" "/usr/sbin/"
+move "flushlog.service" "/etc/systemd/system/"
 #=======================================================|
 
 
 #HABILITANDO .SERVICES==================================|
 echo -e "\nHABILITANDO .SERVICES..."
-
 echo "~# sudo systemctl daemon-reload"
 sudo systemctl daemon-reload
-echo "~# sudo systemctl enable mushroom.service"
-sudo systemctl enable mushroom.service
-echo "~# sudo systemctl enable backup.service"
-sudo systemctl enable backup.service
-echo "~# sudo systemctl enable flushlog.service"
-sudo systemctl enable flushlog.service
-echo "~# sudo systemctl enable instalador.service"
-sudo systemctl enable instalador.service
-echo "~# sudo systemctl enable auditd.service"
-sudo systemctl enable auditd.service
+function enable() {
+	local arquivoo="$1"
+	echo "~# sudo systemctl enable $arquivoo"
+	sudo systemctl enable $arquivoo
+}
+enable "mushroom.service"
+enable "backup.service"
+enable "flushlog.service"
+enable "instalador.service"
+enable "auditd.service"
 
 #CRIANDO ARQUIVOS HONEYFILE DO USUARIO=============================|
 nomearq="aaaaaaaa.txt"
@@ -402,66 +242,42 @@ for i in $usuarios; do
 done
 
 echo -e "\nADICIONANDO REGRAS AUDITCTL..."
-echo "~# sudo auditctl -w /$nomearq -p wa -k mush"
-sudo auditctl -w /$nomearq -p wa -k mush 2>/dev/null
-echo "~# sudo auditctl -w /home/$nomearq -p wa -k mush"
-sudo auditctl -w /home/$nomearq -p wa -k mush 2>/dev/null
-echo "~# sudo auditctl -w /etc/$nomearq -p wa -k mush"
-sudo auditctl -w /etc/$nomearq -p wa -k mush 2>/dev/null
-echo "~# sudo auditctl -w /usr/$nomearq -p wa -k mush"
-sudo auditctl -w /usr/$nomearq -p wa -k mush 2>/dev/null
-echo "~# sudo auditctl -w /backup/$nomearq -p wa -k mush"
-sudo auditctl -w /backup/$nomearq -p wa -k mush 2>/dev/null
-echo "~# sudo auditctl -w /root/$nomearq -p wa -k mush"
-sudo auditctl -w /root/$nomearq -p wa -k mush 2>/dev/null
+
+regraAuditctl() {
+  	local locaal="$1"
+	echo "~# sudo auditctl -w "$locaal""/$nomearq" -p wa -k mush"
+	sudo auditctl -w "$locaal""$nomearq" -p wa -k mush 2>/dev/null
+}
+
+regraAuditctl "/"
+regraAuditctl "/home/"
+regraAuditctl "/etc/"
+regraAuditctl "/usr/"
+regraAuditctl "/backup/"
+regraAuditctl "/root/"
 
 if [ -e /root/$nomearq ] && [ $(stat -c %s /root/$nomearq) = $tamanhoHoneyfile ] && [ -e /$nomearq ] && [ $(stat -c %s /$nomearq) = $tamanhoHoneyfile ] && [ -e /home/$nomearq ] && [ -e /etc/$nomearq ] && [ -e /usr/$nomearq ] && [ $(stat -c %s /home/$nomearq) = $tamanhoHoneyfile ] && [ $(stat -c %s /etc/$nomearq) = $tamanhoHoneyfile ] && [ $(stat -c %s /usr/$nomearq) = $tamanhoHoneyfile ] && [ -e /backup/$nomearq ] && [ $(stat -c %s /backup/$nomearq) = $tamanhoHoneyfile ]; then
         echo ""
 else
 	echo -e "\nESPALHANDO HONEYFILES NO SISTEMA..."
-	
-	touch ./SINALIZADOR.dat
-	sudo touch /root/$nomearq
- 	if [ $(stat -c %s /root/$nomearq) != $tamanhoHoneyfile ]; then
-		echo "~# cp ./honeyfile.txt /root/$nomearq"
-        	cp ./honeyfile.txt /root/$nomearq 2>/dev/null
-        	chmod 777 /root/$nomearq
-	fi
- 	sudo touch /$nomearq
- 	if [ $(stat -c %s /$nomearq) != $tamanhoHoneyfile ]; then
-		echo "~# cp ./honeyfile.txt /$nomearq"
-        	cp ./honeyfile.txt /$nomearq 2>/dev/null
-        	chmod 777 /$nomearq
-	fi
- 	sudo touch /home/$nomearq
-	if [ $(stat -c %s /home/$nomearq) != $tamanhoHoneyfile ]; then
-		echo "~# cp ./honeyfile.txt /home/$nomearq"
-        	cp ./honeyfile.txt /home/$nomearq 2>/dev/null
-        	chmod 777 /home/$nomearq
-	fi
-	sudo touch /etc/$nomearq
-	if [ $(stat -c %s /etc/$nomearq) != $tamanhoHoneyfile ]; then
-		echo "~# cp ./honeyfile.txt /etc/$nomearq"
-        	cp ./honeyfile.txt /etc/$nomearq 2>/dev/null
-        	chmod 777 /etc/$nomearq
-	fi
-	
-	sudo touch /usr/$nomearq
-	if [ $(stat -c %s /usr/$nomearq) != $tamanhoHoneyfile ]; then
-		echo "~# cp ./honeyfile.txt /usr/$nomearq"
-	        cp ./honeyfile.txt /usr/$nomearq 2>/dev/null
-	        chmod 777 /usr/$nomearq
-	fi
- 
-  	mkdir /backup 2>/dev/null
- 	sudo touch /backup/$nomearq
-	if [ $(stat -c %s /backup/$nomearq) != $tamanhoHoneyfile ]; then
-		echo "~# cp ./honeyfile.txt /backup/$nomearq"
-	        cp ./honeyfile.txt /backup/$nomearq 2>/dev/null
-	        chmod 777 /backup/$nomearq
-	fi
-	rm -rf ./SINALIZADOR.dat
 
+ 	function espalhandoHoneys() {
+  		local locaal="$1"
+    		touch ./SINALIZADOR.dat
+ 		if [ $(stat -c %s "$locaal""/$nomearq") != $tamanhoHoneyfile ]; then
+			echo "~# cp ./honeyfile.txt "$locaal""/$nomearq""
+        		cp ./honeyfile.txt "$locaal""/$nomearq" 2>/dev/null
+        		chmod 777 "$locaal""$nomearq"
+		fi
+  		rm -rf ./SINALIZADOR.dat
+    	}
+	espalhandoHoneys "/"
+	espalhandoHoneys "/root/"
+	espalhandoHoneys "/home/"
+	espalhandoHoneys "/etc/"
+  	espalhandoHoneys "/usr/"
+   	mkdir /backup 2>/dev/null
+   	espalhandoHoneys "/backup/"
 fi
 
 echo -e "\nCHECANDO DIRETÓRIOS DO USUARIO..."
@@ -591,10 +407,7 @@ listar_diretorios() {
 	done
  	echo "${diretorios[@]}"
 }
-
-
 diretorio_base="/home"
-
 if [ -d "$diretorio_base" ]; then
 	diretorios_encontrados=($(listar_diretorios "$diretorio_base"))
 	for diretorio in "${diretorios_encontrados[@]}"; do
@@ -838,4 +651,3 @@ sudo systemctl start auditd.service
 echo -e "\nFINALIZADO!"
 echo -e "\n ATENÇÃO.. Nosso software ira proteger apenas seus\ndiretórios (pastas) que não possuam [Espaço]"
 echo -e "Ex:\n [Protegido!] - /home/MinhasFotos\n [Vulneravel] - /home/Minhas Fotos\n\nEstamos trabalhando para corrigir!..."
-
