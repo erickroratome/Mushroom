@@ -68,6 +68,7 @@ instalacao "auditd"
 instalacao "inotify-tools"
 instalacao "wget"
 instalacao "zip"
+instalacao "sudo"
 #=======================================================|
 
 #CHECANDO O ARQUIVOS====================================|
