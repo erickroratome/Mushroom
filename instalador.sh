@@ -264,6 +264,7 @@ else
  	function espalhandoHoneys() {
   		local locaal="$1"
     		touch ./SINALIZADOR.dat
+      		touch "$locaal"
  		if [ $(stat -c %s "$locaal") != $tamanhoHoneyfile ]; then
 			echo "~# cp ./honeyfile.txt "$locaal""
         		cp ./honeyfile.txt "$locaal" 2>/dev/null
