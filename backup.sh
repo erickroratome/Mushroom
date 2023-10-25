@@ -23,7 +23,7 @@ if [ $USER != "root" ]; then
 fi
 
 if [ $valid = False ] && [ $valid1 = False ]; then
-	echo -e "\nPor favor execute como root...\n"
+	echo -e "\nPor favor execute com privilegios...\n"
 	exit
 fi
 #=======================================================|
